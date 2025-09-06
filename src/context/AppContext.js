@@ -17,10 +17,14 @@ export const AppProvider = ({ children }) => {
     if (loading) return; // Prevent multiple simultaneous calls
     try {
       setLoading(true);
+      setError(null); // Clear any previous errors
       const response = await apiService.getFeaturedProjects();
       setProjects(response.data.data || []);
     } catch (err) {
-      setError('Failed to load projects');
+      const errorMessage = err.response?.status === 429 
+        ? 'Too many requests. Please wait a moment and refresh.' 
+        : 'Failed to load projects';
+      setError(errorMessage);
       console.error('Error fetching projects:', err);
     } finally {
       setLoading(false);
@@ -31,10 +35,14 @@ export const AppProvider = ({ children }) => {
     if (loading) return; // Prevent multiple simultaneous calls
     try {
       setLoading(true);
+      setError(null); // Clear any previous errors
       const response = await apiService.getFeaturedTestimonials();
       setTestimonials(response.data.data || []);
     } catch (err) {
-      setError('Failed to load testimonials');
+      const errorMessage = err.response?.status === 429 
+        ? 'Too many requests. Please wait a moment and refresh.' 
+        : 'Failed to load testimonials';
+      setError(errorMessage);
       console.error('Error fetching testimonials:', err);
     } finally {
       setLoading(false);

@@ -29,6 +29,8 @@ const Admin = () => {
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   const [showProjectForm, setShowProjectForm] = useState(false);
   const [showTestimonialForm, setShowTestimonialForm] = useState(false);
+  const [isCreatingProject, setIsCreatingProject] = useState(false);
+  const [isCreatingTestimonial, setIsCreatingTestimonial] = useState(false);
 
   // Get data from context
   const { projects: contextProjects, testimonials: contextTestimonials, loading: contextLoading, createProject, createTestimonial, fetchProjects, fetchTestimonials } = useApp();
@@ -100,31 +102,45 @@ const Admin = () => {
   // Form submission handlers
   const onProjectSubmit = async (data) => {
     try {
+      setIsCreatingProject(true);
       const result = await createProject(data);
       if (result.success) {
         toast.success('Project created successfully!');
         setShowProjectForm(false);
         resetProject();
+        // Refresh projects list
+        await fetchProjects();
       } else {
-        toast.error(result.error);
+        toast.error(result.error || 'Failed to create project');
       }
     } catch (error) {
-      toast.error('Failed to create project');
+      console.error('Project creation error:', error);
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to create project';
+      toast.error(errorMessage);
+    } finally {
+      setIsCreatingProject(false);
     }
   };
 
   const onTestimonialSubmit = async (data) => {
     try {
+      setIsCreatingTestimonial(true);
       const result = await createTestimonial(data);
       if (result.success) {
         toast.success('Testimonial created successfully!');
         setShowTestimonialForm(false);
         resetTestimonial();
+        // Refresh testimonials list
+        await fetchTestimonials();
       } else {
-        toast.error(result.error);
+        toast.error(result.error || 'Failed to create testimonial');
       }
     } catch (error) {
-      toast.error('Failed to create testimonial');
+      console.error('Testimonial creation error:', error);
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to create testimonial';
+      toast.error(errorMessage);
+    } finally {
+      setIsCreatingTestimonial(false);
     }
   };
 
@@ -653,10 +669,10 @@ const Admin = () => {
                 <button 
                   type="submit" 
                   className="btn btn-primary"
-                  disabled={contextLoading}
+                  disabled={isCreatingProject}
                 >
                   <FiSave size={16} />
-                  {contextLoading ? 'Creating...' : 'Create Project'}
+                  {isCreatingProject ? 'Creating...' : 'Create Project'}
                 </button>
               </div>
             </form>
@@ -763,10 +779,10 @@ const Admin = () => {
                 <button 
                   type="submit" 
                   className="btn btn-primary"
-                  disabled={contextLoading}
+                  disabled={isCreatingTestimonial}
                 >
                   <FiSave size={16} />
-                  {contextLoading ? 'Creating...' : 'Create Testimonial'}
+                  {isCreatingTestimonial ? 'Creating...' : 'Create Testimonial'}
                 </button>
               </div>
             </form>

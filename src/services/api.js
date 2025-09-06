@@ -3,8 +3,24 @@ import axios from 'axios';
 // Simple API client - easy to understand and use
 const api = axios.create({
   baseURL: '/api', // This points to your backend on port 3003
-  timeout: 10000, // 10 seconds timeout
+  timeout: 30000, // Increased to 30 seconds timeout
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
+
+// Add request interceptor for better error handling
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.code === 'ECONNABORTED') {
+      console.error('Request timeout:', error.message);
+    } else if (error.response?.status === 429) {
+      console.error('Rate limit exceeded:', error.message);
+    }
+    return Promise.reject(error);
+  }
+);
 
 // Simple API functions - just what you need
 export const apiService = {
