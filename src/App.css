@@ -474,13 +474,23 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-8);
+  padding: var(--spacing-12) var(--spacing-6);
   color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-xl);
+  margin: var(--spacing-8) 0;
 }
 
 .loading-projects .spinner,
 .loading-testimonials .spinner {
   margin-bottom: var(--spacing-4);
+  color: var(--primary-color);
+}
+
+.loading-projects p,
+.loading-testimonials p {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
 }
 
 /* Error States */
@@ -493,10 +503,36 @@ p {
 
 .no-projects,
 .no-testimonials {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-12) var(--spacing-6);
   text-align: center;
-  padding: var(--spacing-8);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-xl);
+  border: 2px dashed var(--border-color);
+  margin: var(--spacing-8) 0;
+}
+
+.no-projects svg,
+.no-testimonials svg {
+  color: var(--text-light);
+  margin-bottom: var(--spacing-4);
+}
+
+.no-projects h3,
+.no-testimonials h3 {
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2);
+  font-size: var(--font-size-xl);
+}
+
+.no-projects p,
+.no-testimonials p {
   color: var(--text-secondary);
-  font-style: italic;
+  margin-bottom: var(--spacing-2);
+  max-width: 400px;
 }
 
 /* Form Styles */

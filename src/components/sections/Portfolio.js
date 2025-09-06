@@ -7,7 +7,8 @@ import {
   FiSmartphone, 
   FiMonitor,
   FiFilter,
-  FiLoader
+  FiLoader,
+  FiCode
 } from 'react-icons/fi';
 import { useApp } from '../../context/AppContext';
 import './Portfolio.css';
@@ -19,13 +20,17 @@ const Portfolio = () => {
   });
 
   const [filter, setFilter] = useState('all');
+  const [hasFetched, setHasFetched] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const { projects, loading, fetchProjects } = useApp();
 
   useEffect(() => {
-    if (inView && projects.length === 0) {
+    if (inView && !hasFetched && !loading && isInitialLoad) {
+      setHasFetched(true);
+      setIsInitialLoad(false);
       fetchProjects();
     }
-  }, [inView, fetchProjects, projects.length]);
+  }, [inView, hasFetched, loading, fetchProjects, isInitialLoad]);
 
   const categories = [
     { id: 'all', name: 'All Projects' },
@@ -90,7 +95,7 @@ const Portfolio = () => {
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          {loading ? (
+          {loading && isInitialLoad ? (
             <div className="loading-projects">
               <FiLoader className="spinner" size={32} />
               <p>Loading amazing projects...</p>
@@ -180,7 +185,10 @@ const Portfolio = () => {
             ))
           ) : (
             <div className="no-projects">
-              <p>No projects found for this category.</p>
+              <FiCode size={48} />
+              <h3>No projects yet</h3>
+              <p>Projects will appear here once they're added to the database.</p>
+              <p>Check back later or contact me to see my work!</p>
             </div>
           )}
         </motion.div>

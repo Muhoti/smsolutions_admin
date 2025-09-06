@@ -14,6 +14,7 @@ export const AppProvider = ({ children }) => {
 
   // Simple functions to fetch data
   const fetchProjects = async () => {
+    if (loading) return; // Prevent multiple simultaneous calls
     try {
       setLoading(true);
       const response = await apiService.getFeaturedProjects();
@@ -27,6 +28,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const fetchTestimonials = async () => {
+    if (loading) return; // Prevent multiple simultaneous calls
     try {
       setLoading(true);
       const response = await apiService.getFeaturedTestimonials();
@@ -53,6 +55,39 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  // Admin functions
+  const createProject = async (projectData) => {
+    try {
+      setLoading(true);
+      const response = await apiService.admin.createProject(projectData);
+      // Refresh projects after creating
+      await fetchProjects();
+      return { success: true, data: response.data };
+    } catch (err) {
+      const errorMessage = err.response?.data?.message || 'Failed to create project';
+      setError(errorMessage);
+      return { success: false, error: errorMessage };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const createTestimonial = async (testimonialData) => {
+    try {
+      setLoading(true);
+      const response = await apiService.admin.createTestimonial(testimonialData);
+      // Refresh testimonials after creating
+      await fetchTestimonials();
+      return { success: true, data: response.data };
+    } catch (err) {
+      const errorMessage = err.response?.data?.message || 'Failed to create testimonial';
+      setError(errorMessage);
+      return { success: false, error: errorMessage };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Clear error function
   const clearError = () => setError(null);
 
@@ -68,6 +103,8 @@ export const AppProvider = ({ children }) => {
     fetchProjects,
     fetchTestimonials,
     submitContact,
+    createProject,
+    createTestimonial,
     clearError,
   };
 

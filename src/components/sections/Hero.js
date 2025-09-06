@@ -83,19 +83,19 @@ const Hero = () => {
           >
             <div className="hero-stat">
               <span className="hero-stat-number">50+</span>
-              <span className="hero-stat-label">Apps Delivered</span>
+              <span className="hero-stat-label">Happy Clients</span>
             </div>
             <div className="hero-stat">
-              <span className="hero-stat-number">100%</span>
-              <span className="hero-stat-label">Client Satisfaction</span>
+              <span className="hero-stat-number">100+</span>
+              <span className="hero-stat-label">Projects Completed</span>
             </div>
             <div className="hero-stat">
               <span className="hero-stat-number">5+</span>
               <span className="hero-stat-label">Years Experience</span>
             </div>
             <div className="hero-stat">
-              <span className="hero-stat-number">24/7</span>
-              <span className="hero-stat-label">Support Available</span>
+              <span className="hero-stat-number">300%</span>
+              <span className="hero-stat-label">Average ROI</span>
             </div>
           </motion.div>
         </motion.div>

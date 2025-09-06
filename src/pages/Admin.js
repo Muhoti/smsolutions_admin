@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { 
   FiUsers, 
   FiFolder, 
@@ -9,8 +11,15 @@ import {
   FiEdit,
   FiTrash2,
   FiEye,
-  FiLogOut
+  FiLogOut,
+  FiSave,
+  FiX,
+  FiCode,
+  FiStar,
+  FiSmartphone,
+  FiMonitor
 } from 'react-icons/fi';
+import { useApp } from '../context/AppContext';
 import './Admin.css';
 
 const Admin = () => {
@@ -18,6 +27,15 @@ const Admin = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [loginData, setLoginData] = useState({ email: '', password: '' });
+  const [showProjectForm, setShowProjectForm] = useState(false);
+  const [showTestimonialForm, setShowTestimonialForm] = useState(false);
+
+  // Get data from context
+  const { projects: contextProjects, testimonials: contextTestimonials, loading: contextLoading, createProject, createTestimonial, fetchProjects, fetchTestimonials } = useApp();
+
+  // Forms
+  const { register: registerProject, handleSubmit: handleProjectSubmit, reset: resetProject, formState: { errors: projectErrors } } = useForm();
+  const { register: registerTestimonial, handleSubmit: handleTestimonialSubmit, reset: resetTestimonial, formState: { errors: testimonialErrors } } = useForm();
 
   // Mock data
   const [stats, setStats] = useState({
@@ -72,9 +90,43 @@ const Admin = () => {
     const token = localStorage.getItem('adminToken');
     if (token) {
       setIsAuthenticated(true);
+      // Fetch data when authenticated
+      fetchProjects();
+      fetchTestimonials();
     }
     setIsLoading(false);
-  }, []);
+  }, [fetchProjects, fetchTestimonials]);
+
+  // Form submission handlers
+  const onProjectSubmit = async (data) => {
+    try {
+      const result = await createProject(data);
+      if (result.success) {
+        toast.success('Project created successfully!');
+        setShowProjectForm(false);
+        resetProject();
+      } else {
+        toast.error(result.error);
+      }
+    } catch (error) {
+      toast.error('Failed to create project');
+    }
+  };
+
+  const onTestimonialSubmit = async (data) => {
+    try {
+      const result = await createTestimonial(data);
+      if (result.success) {
+        toast.success('Testimonial created successfully!');
+        setShowTestimonialForm(false);
+        resetTestimonial();
+      } else {
+        toast.error(result.error);
+      }
+    } catch (error) {
+      toast.error('Failed to create testimonial');
+    }
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -346,61 +398,78 @@ const Admin = () => {
                   transition={{ duration: 0.5 }}
                 >
                   <div className="content-header">
-                    <h2>Projects</h2>
-                    <button className="btn btn-primary">
+                    <h2>Projects ({contextProjects.length})</h2>
+                    <button 
+                      className="btn btn-primary"
+                      onClick={() => setShowProjectForm(true)}
+                    >
                       <FiPlus size={16} />
                       Add Project
                     </button>
                   </div>
                   
-                  <div className="table-container">
-                    <table className="data-table">
-                      <thead>
-                        <tr>
-                          <th>Title</th>
-                          <th>Category</th>
-                          <th>Status</th>
-                          <th>Featured</th>
-                          <th>Date</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {projects.map((project) => (
-                          <tr key={project.id}>
-                            <td>{project.title}</td>
-                            <td>{project.category}</td>
-                            <td>
-                              <span className={`status-badge status-${project.status}`}>
-                                {project.status}
-                              </span>
-                            </td>
-                            <td>
-                              {project.featured ? (
-                                <span className="featured-badge">Yes</span>
-                              ) : (
-                                <span className="not-featured">No</span>
-                              )}
-                            </td>
-                            <td>{project.date}</td>
-                            <td>
-                              <div className="action-buttons">
-                                <button className="action-btn">
-                                  <FiEye size={16} />
-                                </button>
-                                <button className="action-btn">
-                                  <FiEdit size={16} />
-                                </button>
-                                <button className="action-btn delete">
-                                  <FiTrash2 size={16} />
-                                </button>
-                              </div>
-                            </td>
+                  {contextProjects.length > 0 ? (
+                    <div className="table-container">
+                      <table className="data-table">
+                        <thead>
+                          <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Featured</th>
+                            <th>Actions</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                        </thead>
+                        <tbody>
+                          {contextProjects.map((project) => (
+                            <tr key={project.id}>
+                              <td>{project.title}</td>
+                              <td>
+                                <span className={`category-badge ${project.category}`}>
+                                  {project.category === 'mobile' ? <FiSmartphone size={14} /> : <FiMonitor size={14} />}
+                                  {project.category}
+                                </span>
+                              </td>
+                              <td className="description-cell">{project.description}</td>
+                              <td>
+                                {project.featured ? (
+                                  <span className="featured-badge">Yes</span>
+                                ) : (
+                                  <span className="not-featured">No</span>
+                                )}
+                              </td>
+                              <td>
+                                <div className="action-buttons">
+                                  <button className="action-btn">
+                                    <FiEye size={16} />
+                                  </button>
+                                  <button className="action-btn">
+                                    <FiEdit size={16} />
+                                  </button>
+                                  <button className="action-btn delete">
+                                    <FiTrash2 size={16} />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <div className="empty-state">
+                      <FiCode size={48} />
+                      <h3>No projects yet</h3>
+                      <p>Add your first project to showcase your work</p>
+                      <button 
+                        className="btn btn-primary"
+                        onClick={() => setShowProjectForm(true)}
+                      >
+                        <FiPlus size={16} />
+                        Add Project
+                      </button>
+                    </div>
+                  )}
                 </motion.div>
               )}
 
@@ -412,28 +481,298 @@ const Admin = () => {
                   transition={{ duration: 0.5 }}
                 >
                   <div className="content-header">
-                    <h2>Testimonials</h2>
-                    <button className="btn btn-primary">
+                    <h2>Testimonials ({contextTestimonials.length})</h2>
+                    <button 
+                      className="btn btn-primary"
+                      onClick={() => setShowTestimonialForm(true)}
+                    >
                       <FiPlus size={16} />
                       Add Testimonial
                     </button>
                   </div>
                   
-                  <div className="empty-state">
-                    <FiMessageSquare size={48} />
-                    <h3>No testimonials yet</h3>
-                    <p>Add testimonials to showcase client feedback</p>
-                    <button className="btn btn-primary">
-                      <FiPlus size={16} />
-                      Add First Testimonial
-                    </button>
-                  </div>
+                  {contextTestimonials.length > 0 ? (
+                    <div className="testimonials-list">
+                      {contextTestimonials.map((testimonial) => (
+                        <div key={testimonial.id} className="testimonial-item">
+                          <div className="testimonial-content">
+                            <p>"{testimonial.content}"</p>
+                            <div className="testimonial-author">
+                              <strong>{testimonial.clientName}</strong>
+                              <span>{testimonial.position}, {testimonial.company}</span>
+                            </div>
+                            <div className="testimonial-rating">
+                              {Array.from({ length: 5 }, (_, i) => (
+                                <FiStar key={i} size={14} className={i < (testimonial.rating || 5) ? 'filled' : ''} />
+                              ))}
+                            </div>
+                          </div>
+                          <div className="testimonial-actions">
+                            <button className="action-btn">
+                              <FiEdit size={16} />
+                            </button>
+                            <button className="action-btn delete">
+                              <FiTrash2 size={16} />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="empty-state">
+                      <FiStar size={48} />
+                      <h3>No testimonials yet</h3>
+                      <p>Add client testimonials to build trust</p>
+                      <button 
+                        className="btn btn-primary"
+                        onClick={() => setShowTestimonialForm(true)}
+                      >
+                        <FiPlus size={16} />
+                        Add Testimonial
+                      </button>
+                    </div>
+                  )}
                 </motion.div>
               )}
             </main>
           </div>
         </div>
       </div>
+
+      {/* Project Form Modal */}
+      {showProjectForm && (
+        <div className="modal-overlay">
+          <motion.div 
+            className="modal"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+          >
+            <div className="modal-header">
+              <h3>Add New Project</h3>
+              <button 
+                className="close-btn"
+                onClick={() => setShowProjectForm(false)}
+              >
+                <FiX size={20} />
+              </button>
+            </div>
+            
+            <form onSubmit={handleProjectSubmit(onProjectSubmit)} className="modal-form">
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Project Title *</label>
+                  <input
+                    {...registerProject('title', { required: 'Title is required' })}
+                    placeholder="Enter project title"
+                  />
+                  {projectErrors.title && <span className="error">{projectErrors.title.message}</span>}
+                </div>
+                <div className="form-group">
+                  <label>Category *</label>
+                  <select {...registerProject('category', { required: 'Category is required' })}>
+                    <option value="">Select category</option>
+                    <option value="web">Web Application</option>
+                    <option value="mobile">Mobile App</option>
+                    <option value="both">Cross-Platform</option>
+                  </select>
+                  {projectErrors.category && <span className="error">{projectErrors.category.message}</span>}
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Description *</label>
+                <textarea
+                  {...registerProject('description', { required: 'Description is required' })}
+                  rows={4}
+                  placeholder="Describe your project..."
+                />
+                {projectErrors.description && <span className="error">{projectErrors.description.message}</span>}
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Live Demo URL</label>
+                  <input
+                    {...registerProject('liveDemo')}
+                    placeholder="https://yourproject.com"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>GitHub URL</label>
+                  <input
+                    {...registerProject('github')}
+                    placeholder="https://github.com/username/project"
+                  />
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Play Store URL</label>
+                  <input
+                    {...registerProject('playStore')}
+                    placeholder="https://play.google.com/store/apps/details?id=..."
+                  />
+                </div>
+                <div className="form-group">
+                  <label>App Store URL</label>
+                  <input
+                    {...registerProject('appStore')}
+                    placeholder="https://apps.apple.com/app/..."
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Tech Stack (comma separated)</label>
+                <input
+                  {...registerProject('techStack')}
+                  placeholder="React, Node.js, MongoDB"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    {...registerProject('featured')}
+                  />
+                  Featured Project
+                </label>
+              </div>
+
+              <div className="modal-actions">
+                <button 
+                  type="button" 
+                  className="btn btn-outline"
+                  onClick={() => setShowProjectForm(false)}
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit" 
+                  className="btn btn-primary"
+                  disabled={contextLoading}
+                >
+                  <FiSave size={16} />
+                  {contextLoading ? 'Creating...' : 'Create Project'}
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Testimonial Form Modal */}
+      {showTestimonialForm && (
+        <div className="modal-overlay">
+          <motion.div 
+            className="modal"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+          >
+            <div className="modal-header">
+              <h3>Add New Testimonial</h3>
+              <button 
+                className="close-btn"
+                onClick={() => setShowTestimonialForm(false)}
+              >
+                <FiX size={20} />
+              </button>
+            </div>
+            
+            <form onSubmit={handleTestimonialSubmit(onTestimonialSubmit)} className="modal-form">
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Client Name *</label>
+                  <input
+                    {...registerTestimonial('clientName', { required: 'Client name is required' })}
+                    placeholder="Enter client name"
+                  />
+                  {testimonialErrors.clientName && <span className="error">{testimonialErrors.clientName.message}</span>}
+                </div>
+                <div className="form-group">
+                  <label>Position *</label>
+                  <input
+                    {...registerTestimonial('position', { required: 'Position is required' })}
+                    placeholder="CEO, Director, etc."
+                  />
+                  {testimonialErrors.position && <span className="error">{testimonialErrors.position.message}</span>}
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Company *</label>
+                <input
+                  {...registerTestimonial('company', { required: 'Company is required' })}
+                  placeholder="Enter company name"
+                />
+                {testimonialErrors.company && <span className="error">{testimonialErrors.company.message}</span>}
+              </div>
+
+              <div className="form-group">
+                <label>Testimonial Content *</label>
+                <textarea
+                  {...registerTestimonial('content', { required: 'Content is required' })}
+                  rows={4}
+                  placeholder="What did the client say about your work?"
+                />
+                {testimonialErrors.content && <span className="error">{testimonialErrors.content.message}</span>}
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Rating (1-5)</label>
+                  <select {...registerTestimonial('rating')}>
+                    <option value={5}>5 Stars</option>
+                    <option value={4}>4 Stars</option>
+                    <option value={3}>3 Stars</option>
+                    <option value={2}>2 Stars</option>
+                    <option value={1}>1 Star</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Project (optional)</label>
+                  <input
+                    {...registerTestimonial('project')}
+                    placeholder="Project name"
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    {...registerTestimonial('featured')}
+                  />
+                  Featured Testimonial
+                </label>
+              </div>
+
+              <div className="modal-actions">
+                <button 
+                  type="button" 
+                  className="btn btn-outline"
+                  onClick={() => setShowTestimonialForm(false)}
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit" 
+                  className="btn btn-primary"
+                  disabled={contextLoading}
+                >
+                  <FiSave size={16} />
+                  {contextLoading ? 'Creating...' : 'Create Testimonial'}
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };

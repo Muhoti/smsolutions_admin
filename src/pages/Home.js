@@ -17,7 +17,6 @@ import Services from '../components/sections/Services';
 import Portfolio from '../components/sections/Portfolio';
 import Testimonials from '../components/sections/Testimonials';
 import CTA from '../components/sections/CTA';
-import Stats from '../components/sections/Stats';
 import './Home.css';
 
 const Home = () => {
@@ -33,9 +32,6 @@ const Home = () => {
     <div className="home-page">
       {/* Hero Section */}
       <Hero />
-      
-      {/* Stats Section */}
-      <Stats />
       
       {/* Services Section */}
       <Services />

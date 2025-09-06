@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -16,13 +16,17 @@ const Testimonials = () => {
     threshold: 0.1
   });
 
+  const [hasFetched, setHasFetched] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const { testimonials, loading, fetchTestimonials } = useApp();
 
   useEffect(() => {
-    if (inView && testimonials.length === 0) {
+    if (inView && !hasFetched && !loading && isInitialLoad) {
+      setHasFetched(true);
+      setIsInitialLoad(false);
       fetchTestimonials();
     }
-  }, [inView, fetchTestimonials, testimonials.length]);
+  }, [inView, hasFetched, loading, fetchTestimonials, isInitialLoad]);
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, index) => (
@@ -53,7 +57,7 @@ const Testimonials = () => {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          {loading ? (
+          {loading && isInitialLoad ? (
             <div className="loading-testimonials">
               <FiLoader className="spinner" size={32} />
               <p>Loading client testimonials...</p>
@@ -107,7 +111,10 @@ const Testimonials = () => {
             </Swiper>
           ) : (
             <div className="no-testimonials">
-              <p>No testimonials available at the moment.</p>
+              <FiStar size={48} />
+              <h3>No testimonials yet</h3>
+              <p>Client testimonials will appear here once they're added.</p>
+              <p>Check back later to see what my clients say!</p>
             </div>
           )}
         </motion.div>

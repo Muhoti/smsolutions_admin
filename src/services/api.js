@@ -25,6 +25,23 @@ export const apiService = {
   
   // Health check
   checkHealth: () => api.get('/health'),
+  
+  // Admin functions
+  admin: {
+    // Projects
+    createProject: (projectData) => api.post('/admin/projects', projectData),
+    updateProject: (id, projectData) => api.put(`/admin/projects/${id}`, projectData),
+    deleteProject: (id) => api.delete(`/admin/projects/${id}`),
+    
+    // Testimonials
+    createTestimonial: (testimonialData) => api.post('/admin/testimonials', testimonialData),
+    updateTestimonial: (id, testimonialData) => api.put(`/admin/testimonials/${id}`, testimonialData),
+    deleteTestimonial: (id) => api.delete(`/admin/testimonials/${id}`),
+    
+    // Auth
+    login: (credentials) => api.post('/auth/login', credentials),
+    register: (userData) => api.post('/auth/register', userData),
+  },
 };
 
 export default api;
