@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
@@ -11,6 +11,7 @@ import {
   FiClock,
   FiCheckCircle
 } from 'react-icons/fi';
+import { useApp } from '../context/AppContext';
 import Hero from '../components/sections/Hero';
 import Services from '../components/sections/Services';
 import Portfolio from '../components/sections/Portfolio';
@@ -20,6 +21,14 @@ import Stats from '../components/sections/Stats';
 import './Home.css';
 
 const Home = () => {
+  const { fetchProjects, fetchTestimonials, loading } = useApp();
+
+  useEffect(() => {
+    // Fetch featured projects and testimonials on page load
+    fetchProjects();
+    fetchTestimonials();
+  }, [fetchProjects, fetchTestimonials]);
+
   return (
     <div className="home-page">
       {/* Hero Section */}
