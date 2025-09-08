@@ -1,7 +1,7 @@
 {
   "name": "strongmuhoti-business-website",
   "version": "1.0.0",
-  "description": "Professional business website for Strong Muhoti App Development",
+  "description": "Professional business website for SMSolutions App Development",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",

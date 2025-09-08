@@ -60,7 +60,7 @@ const Navbar = () => {
               <span className="logo-text">SM</span>
             </div>
             <div className="logo-text-container">
-              <span className="logo-name">Strong Muhoti</span>
+              <span className="logo-name">SMSolutions</span>
               <span className="logo-tagline">App Development</span>
             </div>
           </Link>

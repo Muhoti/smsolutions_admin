@@ -29,15 +29,18 @@ const Admin = () => {
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   const [showProjectForm, setShowProjectForm] = useState(false);
   const [showTestimonialForm, setShowTestimonialForm] = useState(false);
+  const [showContactForm, setShowContactForm] = useState(false);
   const [isCreatingProject, setIsCreatingProject] = useState(false);
   const [isCreatingTestimonial, setIsCreatingTestimonial] = useState(false);
+  const [isCreatingContact, setIsCreatingContact] = useState(false);
 
   // Get data from context
-  const { projects: contextProjects, testimonials: contextTestimonials, loading: contextLoading, createProject, createTestimonial, fetchProjects, fetchTestimonials } = useApp();
+  const { projects: contextProjects, testimonials: contextTestimonials, loading: contextLoading, createProject, createTestimonial, createContact, fetchProjects, fetchTestimonials } = useApp();
 
   // Forms
   const { register: registerProject, handleSubmit: handleProjectSubmit, reset: resetProject, formState: { errors: projectErrors } } = useForm();
   const { register: registerTestimonial, handleSubmit: handleTestimonialSubmit, reset: resetTestimonial, formState: { errors: testimonialErrors } } = useForm();
+  const { register: registerContact, handleSubmit: handleContactSubmit, reset: resetContact, formState: { errors: contactErrors } } = useForm();
 
   // Mock data
   const [stats, setStats] = useState({
@@ -141,6 +144,28 @@ const Admin = () => {
       toast.error(errorMessage);
     } finally {
       setIsCreatingTestimonial(false);
+    }
+  };
+
+  const onContactSubmit = async (data) => {
+    try {
+      setIsCreatingContact(true);
+      const result = await createContact(data);
+      if (result.success) {
+        toast.success('Contact created successfully!');
+        setShowContactForm(false);
+        resetContact();
+        // Add the new contact to the local state
+        setContacts(prev => [result.data, ...prev]);
+      } else {
+        toast.error(result.error || 'Failed to create contact');
+      }
+    } catch (error) {
+      console.error('Contact creation error:', error);
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to create contact';
+      toast.error(errorMessage);
+    } finally {
+      setIsCreatingContact(false);
     }
   };
 
@@ -353,7 +378,10 @@ const Admin = () => {
                 >
                   <div className="content-header">
                     <h2>Contact Inquiries</h2>
-                    <button className="btn btn-primary">
+                    <button 
+                      className="btn btn-primary"
+                      onClick={() => setShowContactForm(true)}
+                    >
                       <FiPlus size={16} />
                       Add Contact
                     </button>
@@ -783,6 +811,166 @@ const Admin = () => {
                 >
                   <FiSave size={16} />
                   {isCreatingTestimonial ? 'Creating...' : 'Create Testimonial'}
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Contact Form Modal */}
+      {showContactForm && (
+        <div className="modal-overlay">
+          <motion.div 
+            className="modal"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+          >
+            <div className="modal-header">
+              <h3>Add New Contact</h3>
+              <button 
+                className="close-btn"
+                onClick={() => setShowContactForm(false)}
+              >
+                <FiX size={20} />
+              </button>
+            </div>
+            
+            <form onSubmit={handleContactSubmit(onContactSubmit)} className="modal-form">
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Name *</label>
+                  <input
+                    {...registerContact('name', { required: 'Name is required' })}
+                    placeholder="Enter contact name"
+                  />
+                  {contactErrors.name && <span className="error">{contactErrors.name.message}</span>}
+                </div>
+                <div className="form-group">
+                  <label>Email *</label>
+                  <input
+                    {...registerContact('email', { 
+                      required: 'Email is required',
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: 'Invalid email address'
+                      }
+                    })}
+                    placeholder="Enter email address"
+                  />
+                  {contactErrors.email && <span className="error">{contactErrors.email.message}</span>}
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Phone</label>
+                  <input
+                    {...registerContact('phone')}
+                    placeholder="Enter phone number"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Company</label>
+                  <input
+                    {...registerContact('company')}
+                    placeholder="Enter company name"
+                  />
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Project Type *</label>
+                  <select {...registerContact('projectType', { required: 'Project type is required' })}>
+                    <option value="">Select project type</option>
+                    <option value="mobile">Mobile App</option>
+                    <option value="web">Web Application</option>
+                    <option value="both">Both Mobile & Web</option>
+                    <option value="consultation">Consultation</option>
+                    <option value="other">Other</option>
+                  </select>
+                  {contactErrors.projectType && <span className="error">{contactErrors.projectType.message}</span>}
+                </div>
+                <div className="form-group">
+                  <label>Budget</label>
+                  <select {...registerContact('budget')}>
+                    <option value="">Select budget range</option>
+                    <option value="under-10k">Under $10k</option>
+                    <option value="10k-50k">$10k - $50k</option>
+                    <option value="50k-100k">$50k - $100k</option>
+                    <option value="100k-plus">$100k+</option>
+                    <option value="flexible">Flexible</option>
+                    <option value="confidential">Confidential</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Timeline</label>
+                  <select {...registerContact('timeline')}>
+                    <option value="">Select timeline</option>
+                    <option value="asap">ASAP</option>
+                    <option value="1-month">1 Month</option>
+                    <option value="2-3-months">2-3 Months</option>
+                    <option value="3-6-months">3-6 Months</option>
+                    <option value="6-plus-months">6+ Months</option>
+                    <option value="flexible">Flexible</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Priority</label>
+                  <select {...registerContact('priority')}>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    <option value="urgent">Urgent</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Message *</label>
+                <textarea
+                  {...registerContact('message', { 
+                    required: 'Message is required',
+                    minLength: {
+                      value: 10,
+                      message: 'Message must be at least 10 characters long'
+                    }
+                  })}
+                  rows={4}
+                  placeholder="Enter project details or inquiry message"
+                />
+                {contactErrors.message && <span className="error">{contactErrors.message.message}</span>}
+              </div>
+
+              <div className="form-group">
+                <label>Notes</label>
+                <textarea
+                  {...registerContact('notes')}
+                  rows={2}
+                  placeholder="Additional notes (optional)"
+                />
+              </div>
+
+              <div className="modal-actions">
+                <button 
+                  type="button" 
+                  className="btn btn-outline"
+                  onClick={() => setShowContactForm(false)}
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit" 
+                  className="btn btn-primary"
+                  disabled={isCreatingContact}
+                >
+                  <FiSave size={16} />
+                  {isCreatingContact ? 'Creating...' : 'Create Contact'}
                 </button>
               </div>
             </form>

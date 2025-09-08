@@ -19,7 +19,8 @@ const Footer = () => {
     { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
     { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Contact', path: '/contact' }
+    { name: 'Contact', path: '/contact' },
+    { name: 'Admin', path: '/admin' }
   ];
 
   const services = [
@@ -46,7 +47,7 @@ const Footer = () => {
                 <span className="logo-text">SM</span>
               </div>
               <div className="logo-text-container">
-                <span className="logo-name">Strong Muhoti</span>
+                <span className="logo-name">SMSolutions</span>
                 <span className="logo-tagline">App Development</span>
               </div>
             </div>
@@ -137,7 +138,7 @@ const Footer = () => {
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <p className="copyright">
-              © {currentYear} Strong Muhoti. All rights reserved.
+              © {currentYear} SMSolutions. All rights reserved.
             </p>
             <div className="footer-bottom-links">
               <Link to="/privacy" className="footer-bottom-link">Privacy Policy</Link>

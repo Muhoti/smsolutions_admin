@@ -96,6 +96,20 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const createContact = async (contactData) => {
+    try {
+      setLoading(true);
+      const response = await apiService.admin.createContact(contactData);
+      return { success: true, data: response.data };
+    } catch (err) {
+      const errorMessage = err.response?.data?.message || 'Failed to create contact';
+      setError(errorMessage);
+      return { success: false, error: errorMessage };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Clear error function
   const clearError = () => setError(null);
 
@@ -113,6 +127,7 @@ export const AppProvider = ({ children }) => {
     submitContact,
     createProject,
     createTestimonial,
+    createContact,
     clearError,
   };
 

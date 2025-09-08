@@ -44,6 +44,11 @@ export const apiService = {
   
   // Admin functions
   admin: {
+    // Contacts
+    createContact: (contactData) => api.post('/admin/contacts', contactData),
+    updateContact: (id, contactData) => api.put(`/admin/contacts/${id}`, contactData),
+    deleteContact: (id) => api.delete(`/admin/contacts/${id}`),
+    
     // Projects
     createProject: (projectData) => api.post('/admin/projects', projectData),
     updateProject: (id, projectData) => api.put(`/admin/projects/${id}`, projectData),

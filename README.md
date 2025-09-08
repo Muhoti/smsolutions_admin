@@ -1,11 +1,11 @@
-# Strong Muhoti Business Website
+# SMSolutions Business Website
 
-A professional, modern business website for Strong Muhoti's web and mobile application development services. Built with React.js and integrated with a powerful Node.js API.
+A professional, modern business website for SMSolutions's web and mobile application development services. Built with React.js and integrated with a powerful Node.js API.
 
 ## 🚀 Features
 
 - **Modern UI/UX**: Beautiful, responsive design with smooth animations
-- **API Integration**: Seamlessly connected to the Strong Muhoti API
+- **API Integration**: Seamlessly connected to the SMSolutions API
 - **Real-time Data**: Dynamic content loading from the backend
 - **Contact Form**: Professional contact form with validation
 - **Portfolio Showcase**: Dynamic project display with filtering
@@ -36,7 +36,7 @@ A professional, modern business website for Strong Muhoti's web and mobile appli
 
    ```env
    REACT_APP_API_URL=http://localhost:3003/api
-   REACT_APP_SITE_NAME=Strong Muhoti
+   REACT_APP_SITE_NAME=SMSolutions
    REACT_APP_SITE_DESCRIPTION=Professional Web & Mobile App Development
    REACT_APP_CONTACT_EMAIL=strongmuhoti@gmail.com
    REACT_APP_CONTACT_PHONE=+254 707 809 592
@@ -56,7 +56,7 @@ A professional, modern business website for Strong Muhoti's web and mobile appli
 
 ## 🌐 API Integration
 
-The website is configured to work with the Strong Muhoti API running on port 3003. Make sure your API server is running before starting the frontend.
+The website is configured to work with the SMSolutions API running on port 3003. Make sure your API server is running before starting the frontend.
 
 ### API Endpoints Used:
 
@@ -175,4 +175,4 @@ This project is licensed under the MIT License.
 
 ---
 
-**Built with ❤️ by Strong Muhoti**
+**Built with ❤️ by SMSolutions**

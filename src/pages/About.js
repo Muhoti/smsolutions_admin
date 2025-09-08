@@ -65,7 +65,7 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="about-title">About Strong Muhoti</h1>
+            <h1 className="about-title">About SMSolutions</h1>
             <p className="about-subtitle">
               Passionate app developer transforming ideas into digital reality
             </p>
@@ -85,7 +85,7 @@ const About = () => {
             >
               <h2>My Story</h2>
               <p>
-                I'm Strong Muhoti, a passionate app developer with over 5 years of experience 
+                I'm SMSolutions, a passionate app developer with over 5 years of experience 
                 creating mobile and web applications that drive business growth. My journey 
                 began with a simple belief: technology should solve real problems and make 
                 people's lives better.
