@@ -1,6 +1,8 @@
 .portfolio-section {
   padding: var(--spacing-20) 0;
-  background: var(--bg-secondary);
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+  position: relative;
+  overflow: hidden;
 }
 
 .portfolio-header {
@@ -11,12 +13,13 @@
 .portfolio-header h2 {
   font-size: var(--font-size-3xl);
   margin-bottom: var(--spacing-4);
-  color: var(--text-primary);
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .portfolio-header p {
   font-size: var(--font-size-lg);
-  color: var(--text-secondary);
+  color: #cbd5e1;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -30,11 +33,12 @@
 .filter-buttons {
   display: flex;
   gap: var(--spacing-2);
-  background: var(--bg-card);
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
   padding: var(--spacing-2);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-light);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .filter-btn {
@@ -42,7 +46,7 @@
   border: none;
   border-radius: var(--radius-md);
   background: transparent;
-  color: var(--text-secondary);
+  color: #cbd5e1;
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-normal);

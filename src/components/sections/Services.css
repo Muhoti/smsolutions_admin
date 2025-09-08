@@ -1,6 +1,8 @@
 .services-section {
   padding: var(--spacing-20) 0;
-  background: var(--bg-primary);
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  position: relative;
+  overflow: hidden;
 }
 
 .services-header {
@@ -11,12 +13,13 @@
 .services-header h2 {
   font-size: var(--font-size-3xl);
   margin-bottom: var(--spacing-4);
-  color: var(--text-primary);
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .services-header p {
   font-size: var(--font-size-lg);
-  color: var(--text-secondary);
+  color: #cbd5e1;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -28,13 +31,14 @@
 }
 
 .service-card {
-  background: var(--bg-card);
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
   padding: var(--spacing-8);
   border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   text-align: center;
   transition: all var(--transition-normal);
-  border: 1px solid var(--border-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -100,11 +104,11 @@
   font-size: var(--font-size-xl);
   font-weight: 700;
   margin-bottom: var(--spacing-4);
-  color: var(--text-primary);
+  color: #ffffff;
 }
 
 .service-card p {
-  color: var(--text-secondary);
+  color: #cbd5e1;
   line-height: 1.6;
   margin-bottom: var(--spacing-6);
   font-size: var(--font-size-base);

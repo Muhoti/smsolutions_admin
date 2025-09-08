@@ -1,5 +1,8 @@
 .about-page {
   padding-top: 80px; /* Account for fixed navbar */
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  color: #e2e8f0;
+  min-height: 100vh;
 }
 
 /* Hero Section */
