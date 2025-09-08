@@ -13,17 +13,18 @@
   --secondary-color: #f59e0b;
   --accent-color: #10b981;
   
-  --text-primary: #ffffff;
-  --text-secondary: #cbd5e1;
-  --text-light: #94a3b8;
+  /* Light theme (default) */
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-light: #9ca3af;
   
-  --bg-primary: #0f0f23;
-  --bg-secondary: #1a1a2e;
-  --bg-dark: #16213e;
-  --bg-card: rgba(15, 23, 42, 0.8);
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-dark: #f3f4f6;
+  --bg-card: #ffffff;
   
-  --border-color: rgba(255, 255, 255, 0.1);
-  --border-light: rgba(255, 255, 255, 0.05);
+  --border-color: #e5e7eb;
+  --border-light: #f3f4f6;
   
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -71,20 +72,34 @@
   --transition-slow: 500ms ease-in-out;
 }
 
-/* Dark mode variables */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text-primary: #f9fafb;
-    --text-secondary: #d1d5db;
-    --text-light: #9ca3af;
-    
-    --bg-primary: #111827;
-    --bg-secondary: #1f2937;
-    --bg-card: #1f2937;
-    
-    --border-color: #374151;
-    --border-light: #4b5563;
-  }
+/* Light theme */
+.light-theme {
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-light: #9ca3af;
+  
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-dark: #f3f4f6;
+  --bg-card: #ffffff;
+  
+  --border-color: #e5e7eb;
+  --border-light: #f3f4f6;
+}
+
+/* Dark theme */
+.dark-theme {
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-light: #94a3b8;
+  
+  --bg-primary: #0f0f23;
+  --bg-secondary: #1a1a2e;
+  --bg-dark: #16213e;
+  --bg-card: rgba(15, 23, 42, 0.8);
+  
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-light: rgba(255, 255, 255, 0.05);
 }
 
 body {
@@ -92,10 +107,21 @@ body {
   font-size: var(--font-size-base);
   line-height: 1.6;
   color: var(--text-primary);
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  background-color: var(--bg-primary);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light theme body background (default) */
+body {
+  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 50%, #f3f4f6 100%);
+}
+
+/* Dark theme body background */
+.dark-theme body {
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
 }
 
 /* Typography */

@@ -6,6 +6,7 @@ import 'aos/dist/aos.css';
 
 // Context
 import { AppProvider } from './context/AppContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 // Components
 import Navbar from './components/Navbar';
@@ -34,9 +35,10 @@ function App() {
   }, []);
 
   return (
-    <AppProvider>
-      <Router>
-        <div className="App">
+    <ThemeProvider>
+      <AppProvider>
+        <Router>
+          <div className="App">
           <ScrollToTop />
           <Navbar />
           
@@ -77,8 +79,9 @@ function App() {
             }}
           />
         </div>
-      </Router>
-    </AppProvider>
+        </Router>
+      </AppProvider>
+    </ThemeProvider>
   );
 }
 

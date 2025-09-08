@@ -1,8 +1,19 @@
 .services-section {
   padding: var(--spacing-20) 0;
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  background: var(--bg-primary);
   position: relative;
   overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+/* Light theme specific background (default) */
+.services-section {
+  background: linear-gradient(135deg, #f9fafb 0%, #ffffff 50%, #f3f4f6 100%);
+}
+
+/* Dark theme specific background */
+.dark-theme .services-section {
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
 }
 
 .services-header {
@@ -13,15 +24,17 @@
 .services-header h2 {
   font-size: var(--font-size-3xl);
   margin-bottom: var(--spacing-4);
-  color: #ffffff;
+  color: var(--text-primary);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: color 0.3s ease;
 }
 
 .services-header p {
   font-size: var(--font-size-lg);
-  color: #cbd5e1;
+  color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
+  transition: color 0.3s ease;
 }
 
 .services-grid {
@@ -31,16 +44,30 @@
 }
 
 .service-card {
-  background: rgba(15, 23, 42, 0.8);
+  background: var(--bg-card);
   backdrop-filter: blur(10px);
   padding: var(--spacing-8);
   border-radius: var(--radius-2xl);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
   text-align: center;
   transition: all var(--transition-normal);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
   position: relative;
   overflow: hidden;
+}
+
+/* Light theme specific card styling (default) */
+.service-card {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme specific card styling */
+.dark-theme .service-card {
+  background: rgba(15, 23, 42, 0.8);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .service-card::before {
@@ -104,14 +131,16 @@
   font-size: var(--font-size-xl);
   font-weight: 700;
   margin-bottom: var(--spacing-4);
-  color: #ffffff;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
 }
 
 .service-card p {
-  color: #cbd5e1;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: var(--spacing-6);
   font-size: var(--font-size-base);
+  transition: color 0.3s ease;
 }
 
 .service-features {

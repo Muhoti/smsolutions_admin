@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
+import ThemeToggle from './ThemeToggle';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -112,11 +113,14 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="navbar-cta desktop-cta">
-            <Link to="/contact" className="btn btn-primary">
-              Start Your Project
-            </Link>
+          {/* Theme Toggle & CTA Button */}
+          <div className="navbar-actions">
+            <ThemeToggle />
+            <div className="navbar-cta desktop-cta">
+              <Link to="/contact" className="btn btn-primary">
+                Start Your Project
+              </Link>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -184,6 +188,10 @@ const Navbar = () => {
                   </div>
                 ))}
                 <div className="mobile-cta">
+                  <div className="mobile-theme-toggle">
+                    <ThemeToggle />
+                    <span>Toggle Theme</span>
+                  </div>
                   <Link to="/contact" className="btn btn-primary w-full">
                     Start Your Project
                   </Link>

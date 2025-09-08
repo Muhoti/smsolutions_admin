@@ -1,7 +1,18 @@
 .home-page {
   overflow-x: hidden;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Light theme specific background (default) */
+.home-page {
+  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 50%, #f3f4f6 100%);
+}
+
+/* Dark theme specific background */
+.dark-theme .home-page {
   background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
-  color: #e2e8f0;
 }
 
 /* Hero Section Styles */

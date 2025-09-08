@@ -1,8 +1,19 @@
 .portfolio-section {
   padding: var(--spacing-20) 0;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+  background: var(--bg-secondary);
   position: relative;
   overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+/* Dark theme specific background */
+.dark-theme .portfolio-section {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+}
+
+/* Light theme specific background */
+.light-theme .portfolio-section {
+  background: #f9fafb;
 }
 
 .portfolio-header {
@@ -13,15 +24,16 @@
 .portfolio-header h2 {
   font-size: var(--font-size-3xl);
   margin-bottom: var(--spacing-4);
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: var(--text-primary);
+  transition: color 0.3s ease;
 }
 
 .portfolio-header p {
   font-size: var(--font-size-lg);
-  color: #cbd5e1;
+  color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
+  transition: color 0.3s ease;
 }
 
 .portfolio-filters {
@@ -33,12 +45,27 @@
 .filter-buttons {
   display: flex;
   gap: var(--spacing-2);
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(10px);
+  background: var(--bg-card);
   padding: var(--spacing-2);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+  transition: all 0.3s ease;
+}
+
+/* Dark theme specific filter buttons */
+.dark-theme .filter-buttons {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Light theme specific filter buttons */
+.light-theme .filter-buttons {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
 }
 
 .filter-btn {
@@ -46,7 +73,7 @@
   border: none;
   border-radius: var(--radius-md);
   background: transparent;
-  color: #cbd5e1;
+  color: var(--text-secondary);
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-normal);
