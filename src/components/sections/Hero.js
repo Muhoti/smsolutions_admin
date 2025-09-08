@@ -8,13 +8,13 @@ const Hero = () => {
     <section className="hero">
       {/* Floating Background Elements */}
       <div className="hero-floating" style={{ top: '20%', left: '10%' }}>
-        <FiSmartphone size={60} color="white" />
+        <FiSmartphone size={60} color="#ffffff" />
       </div>
       <div className="hero-floating" style={{ top: '30%', right: '15%' }}>
-        <FiMonitor size={80} color="white" />
+        <FiMonitor size={80} color="#e0e7ff" />
       </div>
       <div className="hero-floating" style={{ bottom: '20%', left: '20%' }}>
-        <FiCode size={70} color="white" />
+        <FiCode size={70} color="#c7d2fe" />
       </div>
 
       <div className="container">
