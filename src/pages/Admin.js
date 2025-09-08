@@ -512,10 +512,10 @@ const Admin = () => {
                       {contextTestimonials.map((testimonial) => (
                         <div key={testimonial.id} className="testimonial-item">
                           <div className="testimonial-content">
-                            <p>"{testimonial.content}"</p>
+                            <p>"{testimonial.review}"</p>
                             <div className="testimonial-author">
-                              <strong>{testimonial.clientName}</strong>
-                              <span>{testimonial.position}, {testimonial.company}</span>
+                              <strong>{testimonial.name}</strong>
+                              <span>{testimonial.title}, {testimonial.company}</span>
                             </div>
                             <div className="testimonial-rating">
                               {Array.from({ length: 5 }, (_, i) => (
@@ -704,18 +704,18 @@ const Admin = () => {
                 <div className="form-group">
                   <label>Client Name *</label>
                   <input
-                    {...registerTestimonial('clientName', { required: 'Client name is required' })}
+                    {...registerTestimonial('name', { required: 'Client name is required' })}
                     placeholder="Enter client name"
                   />
-                  {testimonialErrors.clientName && <span className="error">{testimonialErrors.clientName.message}</span>}
+                  {testimonialErrors.name && <span className="error">{testimonialErrors.name.message}</span>}
                 </div>
                 <div className="form-group">
                   <label>Position *</label>
                   <input
-                    {...registerTestimonial('position', { required: 'Position is required' })}
+                    {...registerTestimonial('title', { required: 'Position is required' })}
                     placeholder="CEO, Director, etc."
                   />
-                  {testimonialErrors.position && <span className="error">{testimonialErrors.position.message}</span>}
+                  {testimonialErrors.title && <span className="error">{testimonialErrors.title.message}</span>}
                 </div>
               </div>
 
@@ -731,11 +731,11 @@ const Admin = () => {
               <div className="form-group">
                 <label>Testimonial Content *</label>
                 <textarea
-                  {...registerTestimonial('content', { required: 'Content is required' })}
+                  {...registerTestimonial('review', { required: 'Content is required' })}
                   rows={4}
                   placeholder="What did the client say about your work?"
                 />
-                {testimonialErrors.content && <span className="error">{testimonialErrors.content.message}</span>}
+                {testimonialErrors.review && <span className="error">{testimonialErrors.review.message}</span>}
               </div>
 
               <div className="form-row">
