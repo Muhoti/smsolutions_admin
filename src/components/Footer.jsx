@@ -1,17 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   FiMail,
   FiPhone,
   FiMapPin,
   FiArrowRight,
-} from 'react-icons/fi';import './Footer.css';
+} from 'react-icons/fi';
+import './Footer.css';
 import { ASSETS } from '../constants/assets';
 import { CONTACT, SOCIAL_LINKS } from '../data/company';
 import { FOOTER_QUICK_LINKS, FOOTER_SERVICES } from '../data/navigation';
 import Button from './ui/Button';
+
 const Footer = () => {
+  const { pathname } = useLocation();
   const currentYear = new Date().getFullYear();
+
+  if (pathname.startsWith('/admin')) {
+    return null;
+  }
 
   const quickLinks = FOOTER_QUICK_LINKS;
   const services = FOOTER_SERVICES;

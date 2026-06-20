@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
+import { FiChevronDown } from 'react-icons/fi';
 import ThemeToggle from './ThemeToggle';
 import { ASSETS } from '../constants/assets';
 import { NAV_ITEMS } from '../data/navigation';
 import Button from './ui/Button';
 import './Navbar.css';
+
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const location = useLocation();
@@ -23,28 +23,28 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    setIsOpen(false);
     setActiveDropdown(null);
   }, [location]);
 
   const navItems = NAV_ITEMS;
+
   const toggleDropdown = (index) => {
     setActiveDropdown(activeDropdown === index ? null : index);
   };
 
   return (
-    <motion.nav 
+    <motion.nav
       className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="container">
+      <div className="container navbar-container">
         <div className="navbar-content">
           <Link to="/" className="navbar-logo">
-            <img 
-              src={ASSETS.logoNavbar} 
-              alt="Strong's Digital Labs" 
+            <img
+              src={ASSETS.logoNavbar}
+              alt="Strong's Digital Labs"
               className="navbar-logo-img"
             />
           </Link>
@@ -54,7 +54,8 @@ const Navbar = () => {
               <div key={item.name} className="nav-item">
                 {item.dropdown ? (
                   <div className="nav-dropdown">
-                    <button 
+                    <button
+                      type="button"
                       className="nav-link dropdown-trigger"
                       onClick={() => toggleDropdown(index)}
                     >
@@ -63,7 +64,7 @@ const Navbar = () => {
                     </button>
                     <AnimatePresence>
                       {activeDropdown === index && (
-                        <motion.div 
+                        <motion.div
                           className="dropdown-menu"
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -71,7 +72,7 @@ const Navbar = () => {
                           transition={{ duration: 0.2 }}
                         >
                           {item.dropdown.map((dropdownItem) => (
-                            <Link 
+                            <Link
                               key={dropdownItem.name}
                               to={dropdownItem.path}
                               className="dropdown-item"
@@ -84,7 +85,7 @@ const Navbar = () => {
                     </AnimatePresence>
                   </div>
                 ) : (
-                  <Link 
+                  <Link
                     to={item.path}
                     className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
                   >
@@ -101,82 +102,9 @@ const Navbar = () => {
               <Button to="/contact" variant="primary">
                 Contact Us
               </Button>
-            </div>          </div>
-
-          <button 
-            className="mobile-menu-btn"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-          </button>
+            </div>
+          </div>
         </div>
-
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div 
-              className="mobile-nav"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="mobile-nav-content">
-                {navItems.map((item) => (
-                  <div key={item.name} className="mobile-nav-item">
-                    {item.dropdown ? (
-                      <div className="mobile-dropdown">
-                        <button 
-                          className="mobile-nav-link mobile-dropdown-trigger"
-                          onClick={() => toggleDropdown(navItems.indexOf(item))}
-                        >
-                          {item.name}
-                          <FiChevronDown className={`dropdown-icon ${activeDropdown === navItems.indexOf(item) ? 'rotated' : ''}`} />
-                        </button>
-                        <AnimatePresence>
-                          {activeDropdown === navItems.indexOf(item) && (
-                            <motion.div 
-                              className="mobile-dropdown-menu"
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: 'auto' }}
-                              exit={{ opacity: 0, height: 0 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              {item.dropdown.map((dropdownItem) => (
-                                <Link 
-                                  key={dropdownItem.name}
-                                  to={dropdownItem.path}
-                                  className="mobile-dropdown-item"
-                                >
-                                  {dropdownItem.name}
-                                </Link>
-                              ))}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    ) : (
-                      <Link 
-                        to={item.path}
-                        className={`mobile-nav-link ${location.pathname === item.path ? 'active' : ''}`}
-                      >
-                        {item.name}
-                      </Link>
-                    )}
-                  </div>
-                ))}
-                <div className="mobile-cta">
-                  <div className="mobile-theme-toggle">
-                    <ThemeToggle />
-                    <span>Toggle Theme</span>
-                  </div>
-                  <Button to="/contact" variant="primary" className="w-full">
-                    Contact Us
-                  </Button>                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </motion.nav>
   );

@@ -1,3 +1,11 @@
+import {
+  FiHome,
+  FiBriefcase,
+  FiFolder,
+  FiUser,
+  FiMail,
+} from 'react-icons/fi';
+
 export const NAV_ITEMS = [
   { name: 'Home', path: '/' },
   {
@@ -13,6 +21,14 @@ export const NAV_ITEMS = [
   { name: 'Portfolio', path: '/portfolio' },
   { name: 'About', path: '/about' },
   { name: 'Contact', path: '/contact' },
+];
+
+export const MOBILE_TAB_ITEMS = [
+  { name: 'Home', path: '/', icon: FiHome },
+  { name: 'Services', path: '/services', icon: FiBriefcase },
+  { name: 'Work', path: '/portfolio', icon: FiFolder },
+  { name: 'About', path: '/about', icon: FiUser },
+  { name: 'Contact', path: '/contact', icon: FiMail },
 ];
 
 export const FOOTER_QUICK_LINKS = [

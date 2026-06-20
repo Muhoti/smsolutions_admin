@@ -8,6 +8,7 @@ import { AppProvider } from './context/AppContext';
 import { ThemeProvider } from './context/ThemeContext';
 
 import Navbar from './components/Navbar';
+import BottomNav from './components/BottomNav';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -52,6 +53,7 @@ function App() {
             </main>
 
             <Footer />
+            <BottomNav />
             <Toaster
               position="top-right"
               toastOptions={{

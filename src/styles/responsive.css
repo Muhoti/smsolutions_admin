@@ -42,10 +42,46 @@ body {
   }
 }
 
-/* Mobile — app-like layout */
+/* Mobile — app shell + bottom tab navigation */
 @media (max-width: 768px) {
   :root {
     --mobile-radius: 16px;
+    --mobile-header: 52px;
+    --mobile-tab-bar: 64px;
+  }
+
+  .App {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .site-main {
+    flex: 1;
+    padding-top: calc(var(--mobile-header) + env(safe-area-inset-top, 0));
+    padding-bottom: calc(var(--mobile-tab-bar) + env(safe-area-inset-bottom, 0));
+  }
+
+  .footer {
+    display: none;
+  }
+
+  .site-main:has(.admin-dashboard),
+  .site-main:has(.admin-login),
+  .site-main:has(.admin-loading) {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  .navbar {
+    box-shadow: 0 1px 0 rgba(0, 174, 239, 0.1);
+  }
+
+  /* Native-style list rows on touch devices */
+  .contact-info-card,
+  .service-card,
+  .project-card,
+  .faq-item {
+    box-shadow: var(--shadow-sm);
   }
 
   .container {
