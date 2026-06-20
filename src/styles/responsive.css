@@ -66,10 +66,12 @@ body {
     display: none;
   }
 
-  .site-main:has(.admin-dashboard),
-  .site-main:has(.admin-login),
-  .site-main:has(.admin-loading) {
-    padding-bottom: env(safe-area-inset-bottom, 0);
+  .site-main:has(.adm-app),
+  .site-main:has(.admin-loading),
+  .site-main:has(.adm-login-page),
+  .site-main.site-main--admin {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .navbar {

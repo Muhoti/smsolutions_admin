@@ -216,6 +216,7 @@ const Admin = () => {
           stats={stats}
           recentContacts={recentContacts}
           onNavigate={setActiveTab}
+          onSelectContact={setSelectedContact}
         />
       )}
 

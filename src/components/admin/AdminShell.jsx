@@ -61,24 +61,37 @@ const AdminShell = ({
 
     <div className="adm-frame">
       <header className="adm-header">
-        <div className="adm-header-brand-mobile">
-          <Link to="/" className="adm-header-logo-mobile">
-            <img src={ASSETS.logoNavbar} alt="" />
-          </Link>
+        <div className="adm-header-desktop adm-desktop-only">
+          <div className="adm-header-title">
+            <p className="adm-header-portal">Admin Portal</p>
+            <h1 className="adm-header-section">{TAB_TITLES[activeTab]}</h1>
+          </div>
+          <div className="adm-header-actions">
+            <ThemeToggle />
+            <AdminUserMenu user={adminUser} onLogout={onLogout} />
+          </div>
         </div>
 
-        <div className="adm-header-title">
-          <p className="adm-header-portal">Admin Portal</p>
-          <h1 className="adm-header-section">{TAB_TITLES[activeTab]}</h1>
-        </div>
-
-        <div className="adm-header-actions">
-          <ThemeToggle />
-          <AdminUserMenu user={adminUser} onLogout={onLogout} compactOnMobile />
+        <div className="adm-header-mobile adm-mobile-only">
+          <div className="adm-m-appbar">
+            <Link to="/" className="adm-m-logo">
+              <img src={ASSETS.logoNavbar} alt="Strong's Digital Labs" />
+            </Link>
+            <div className="adm-m-appbar-actions">
+              <ThemeToggle />
+              <AdminUserMenu user={adminUser} onLogout={onLogout} avatarOnly />
+            </div>
+          </div>
         </div>
       </header>
 
-      <main className="adm-main">{children}</main>
+      <main className="adm-main">
+        <div className="adm-m-page-intro adm-mobile-only">
+          <p className="adm-m-portal-brand">Admin Portal</p>
+          <h1 className="adm-m-page-label">{TAB_TITLES[activeTab]}</h1>
+        </div>
+        {children}
+      </main>
     </div>
 
     <AdminMobileNav activeTab={activeTab} onTabChange={onTabChange} stats={stats} />

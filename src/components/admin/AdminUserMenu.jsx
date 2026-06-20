@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiChevronDown, FiLogOut, FiUser, FiExternalLink } from 'react-icons/fi';
+import { getInitials } from './adminConstants';
 
-const AdminUserMenu = ({ user, onLogout, compactOnMobile = false }) => {
+const AdminUserMenu = ({ user, onLogout, avatarOnly = false }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -16,35 +17,35 @@ const AdminUserMenu = ({ user, onLogout, compactOnMobile = false }) => {
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
-  const initials = (user?.name || user?.email || 'A')
-    .split(/[\s@]/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((s) => s[0]?.toUpperCase())
-    .join('');
+  const initials = getInitials(user?.name || user?.email || 'Admin');
 
   return (
-    <div className="adm-user-menu" ref={ref}>
+    <div className={`adm-user-menu${avatarOnly ? ' adm-user-menu--avatar-only' : ''}`} ref={ref}>
       <button
         type="button"
-        className={`adm-user-trigger${compactOnMobile ? ' adm-user-trigger--compact' : ''}`}
+        className={`adm-user-trigger${avatarOnly ? ' adm-user-trigger--avatar-only' : ''}`}
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-haspopup="true"
+        aria-label="Account menu"
       >
-        <span className="adm-user-avatar">{initials || 'A'}</span>
-        <span className="adm-user-info">
-          <span className="adm-user-name">{user?.name || 'Admin'}</span>
-          <span className="adm-user-email">{user?.email}</span>
-        </span>
-        <FiChevronDown size={16} className={`adm-user-chevron${open ? ' rotated' : ''}`} />
+        <span className="adm-user-avatar">{initials}</span>
+        {!avatarOnly && (
+          <>
+            <span className="adm-user-info">
+              <span className="adm-user-name">{user?.name || 'Admin'}</span>
+              <span className="adm-user-email">{user?.email}</span>
+            </span>
+            <FiChevronDown size={16} className={`adm-user-chevron${open ? ' rotated' : ''}`} />
+          </>
+        )}
       </button>
 
       {open && (
-        <div className="adm-user-dropdown">
+        <div className={`adm-user-dropdown${avatarOnly ? ' adm-user-dropdown--mobile' : ''}`}>
           <div className="adm-user-dropdown-header">
             <FiUser size={14} />
-            <span>{user?.role || 'admin'}</span>
+            <span>{user?.email || user?.role || 'admin'}</span>
           </div>
           <Link to="/" className="adm-user-dropdown-item adm-user-dropdown-link" onClick={() => setOpen(false)}>
             <FiExternalLink size={16} />
