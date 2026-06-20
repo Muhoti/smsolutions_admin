@@ -211,6 +211,11 @@
   gap: var(--spacing-4);
 }
 
+/* Keep flex layout when combined with visibility helper */
+.adm-header-desktop.adm-desktop-only {
+  display: flex;
+}
+
 .adm-header-mobile {
   display: none;
 }
@@ -260,9 +265,7 @@
   display: none;
 }
 
-.adm-desktop-only {
-  display: block;
-}
+/* .adm-desktop-only: no base display rule — avoids overriding flex/grid layouts */
 
 /* ── User menu ───────────────────────────────────────────── */
 .adm-user-menu {
