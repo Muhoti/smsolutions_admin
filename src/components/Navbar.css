@@ -11,7 +11,7 @@
 }
 
 .navbar-scrolled {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 }
 
 .navbar-content {
@@ -81,7 +81,7 @@
   top: calc(100% + 0.5rem);
   left: 0;
   min-width: 220px;
-  background: #111111;
+  background: var(--navy-elevated);
   border: 1px solid var(--nav-border);
   border-radius: var(--radius-md);
   padding: 0.5rem;
@@ -134,7 +134,7 @@
 
 .mobile-nav {
   display: none;
-  background: #111111;
+  background: var(--navy-elevated);
   border-top: 1px solid var(--nav-border);
   margin-top: 0.5rem;
 }

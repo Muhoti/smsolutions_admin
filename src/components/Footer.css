@@ -1,8 +1,15 @@
 .footer {
-  background: var(--footer-bg);
   color: var(--footer-text);
   padding: var(--spacing-16) 0 var(--spacing-8);
+}
+
+.footer:not(.ai-surface) {
+  background: var(--footer-bg);
   border-top: 1px solid var(--nav-border);
+}
+
+.footer.ai-surface {
+  border-top: 1px solid rgba(0, 174, 239, 0.12);
 }
 
 .footer-content {

@@ -3,8 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
 import ThemeToggle from './ThemeToggle';
+import { ASSETS } from '../constants/assets';
+import { NAV_ITEMS } from '../data/navigation';
+import Button from './ui/Button';
 import './Navbar.css';
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,23 +27,7 @@ const Navbar = () => {
     setActiveDropdown(null);
   }, [location]);
 
-  const navItems = [
-    { name: 'Home', path: '/' },
-    { 
-      name: 'Services', 
-      path: '/services',
-      dropdown: [
-        { name: 'Systems Consultancy', path: '/services#consultancy' },
-        { name: 'Web Development', path: '/services#web' },
-        { name: 'Mobile Apps', path: '/services#mobile' },
-        { name: 'AI-Enabled Solutions', path: '/services#ai' }
-      ]
-    },
-    { name: 'Portfolio', path: '/portfolio' },
-    { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' }
-  ];
-
+  const navItems = NAV_ITEMS;
   const toggleDropdown = (index) => {
     setActiveDropdown(activeDropdown === index ? null : index);
   };
@@ -57,7 +43,7 @@ const Navbar = () => {
         <div className="navbar-content">
           <Link to="/" className="navbar-logo">
             <img 
-              src="/logo-navbar.png" 
+              src={ASSETS.logoNavbar} 
               alt="Strong's Digital Labs" 
               className="navbar-logo-img"
             />
@@ -112,11 +98,10 @@ const Navbar = () => {
           <div className="navbar-actions">
             <ThemeToggle />
             <div className="navbar-cta desktop-cta">
-              <Link to="/contact" className="btn btn-primary">
+              <Button to="/contact" variant="primary">
                 Contact Us
-              </Link>
-            </div>
-          </div>
+              </Button>
+            </div>          </div>
 
           <button 
             className="mobile-menu-btn"
@@ -185,10 +170,9 @@ const Navbar = () => {
                     <ThemeToggle />
                     <span>Toggle Theme</span>
                   </div>
-                  <Link to="/contact" className="btn btn-primary w-full">
+                  <Button to="/contact" variant="primary" className="w-full">
                     Contact Us
-                  </Link>
-                </div>
+                  </Button>                </div>
               </div>
             </motion.div>
           )}

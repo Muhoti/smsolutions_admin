@@ -1,25 +1,56 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { 
-  FiMail, 
-  FiPhone, 
-  FiMapPin, 
+import {
+  FiMail,
+  FiPhone,
+  FiMapPin,
   FiSend,
   FiCheckCircle,
   FiClock,
-  FiMessageCircle
 } from 'react-icons/fi';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useApp } from '../context/AppContext';
+import { CONTACT } from '../data/company';
+import {
+  BUDGET_RANGES,
+  FAQ_ITEMS,
+  PROJECT_TYPES,
+  TIMELINES,
+} from '../data/contactForm';
+import PageHero from '../components/ui/PageHero';
 import './Contact.css';
 
+const CONTACT_CARDS = [
+  {
+    icon: FiMail,
+    title: 'Email',
+    value: CONTACT.email,
+    description: 'Email us anytime',
+    action: `mailto:${CONTACT.email}`,
+    actionLabel: 'Send Email',
+  },
+  {
+    icon: FiPhone,
+    title: 'Phone',
+    value: CONTACT.phone,
+    description: 'Call us for urgent matters',
+    action: `tel:${CONTACT.phoneTel}`,
+    actionLabel: 'Call Now',
+  },
+  {
+    icon: FiMapPin,
+    title: 'Location',
+    value: CONTACT.location,
+    description: 'Available for local meetings',
+    action: '#',
+    actionLabel: 'View Map',
+  },
+];
+
 const Contact = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  });
+  const [ref, inView] = useScrollReveal();
 
   const { submitContact, loading } = useApp();
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -58,74 +89,16 @@ const Contact = () => {
     }
   };
 
-  const contactInfo = [
-    {
-      icon: FiMail,
-      title: 'Email',
-      value: 'strongmuhoti@gmail.com',
-      description: 'Email us anytime',
-      action: 'mailto:strongmuhoti@gmail.com'
-    },
-    {
-      icon: FiPhone,
-      title: 'Phone',
-      value: '+254 707 809 592',
-      description: 'Call us for urgent matters',
-      action: 'tel:+254707809592'
-    },
-    {
-      icon: FiMapPin,
-      title: 'Location',
-      value: 'Nairobi, Kenya',
-      description: 'Available for local meetings',
-      action: '#'
-    }
-  ];
-
-  const projectTypes = [
-    { value: 'consultation', label: 'Systems Consultancy' },
-    { value: 'web', label: 'Web Application' },
-    { value: 'mobile', label: 'Mobile App Development' },
-    { value: 'both', label: 'Web + Mobile System' },
-    { value: 'other', label: 'Other' }
-  ];
-
-  const budgetRanges = [
-    { value: 'under-10k', label: 'Under $10,000' },
-    { value: '10k-50k', label: '$10,000 - $50,000' },
-    { value: '50k-100k', label: '$50,000 - $100,000' },
-    { value: '100k-plus', label: '$100,000+' },
-    { value: 'flexible', label: 'Flexible' },
-    { value: 'confidential', label: 'Confidential' }
-  ];
-
-  const timelines = [
-    { value: 'asap', label: 'ASAP' },
-    { value: '1-month', label: '1 Month' },
-    { value: '2-3-months', label: '2-3 Months' },
-    { value: '3-6-months', label: '3-6 Months' },
-    { value: '6-plus-months', label: '6+ Months' },
-    { value: 'flexible', label: 'Flexible' }
-  ];
-
   return (
     <div className="contact-page">
-      {/* Hero Section */}
-      <section className="contact-hero">
-        <div className="container">
-          <motion.div 
-            className="contact-hero-content"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="contact-title">Contact Us</h1>
-            <p className="contact-subtitle">
-              Ready to start your project? Tell us about your requirements and we will respond with a clear recommendation.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero
+        heroClass="contact-hero"
+        titleClass="contact-title"
+        subtitleClass="contact-subtitle"
+        contentClass="contact-hero-content"
+        title="Contact Us"
+        subtitle="Ready to start your project? Tell us about your requirements and we will respond with a clear recommendation."
+      />
 
       {/* Contact Info */}
       <section className="contact-info-section">
@@ -136,7 +109,7 @@ const Contact = () => {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {contactInfo.map((info, index) => (
+            {CONTACT_CARDS.map((info, index) => (
               <motion.div 
                 key={info.title}
                 className="contact-info-card"
@@ -151,8 +124,7 @@ const Contact = () => {
                 <p className="contact-value">{info.value}</p>
                 <p className="contact-description">{info.description}</p>
                 <a href={info.action} className="contact-action">
-                  {info.title === 'Email' ? 'Send Email' : 
-                   info.title === 'Phone' ? 'Call Now' : 'View Map'}
+                  {info.actionLabel}
                 </a>
               </motion.div>
             ))}
@@ -251,7 +223,7 @@ const Contact = () => {
                       {...register('projectType', { required: 'Project type is required' })}
                     >
                       <option value="">Select project type</option>
-                      {projectTypes.map((type) => (
+                      {PROJECT_TYPES.map((type) => (
                         <option key={type.value} value={type.value}>{type.label}</option>
                       ))}
                     </select>
@@ -264,7 +236,7 @@ const Contact = () => {
                       {...register('budget')}
                     >
                       <option value="">Select budget range</option>
-                      {budgetRanges.map((range) => (
+                      {BUDGET_RANGES.map((range) => (
                         <option key={range.value} value={range.value}>{range.label}</option>
                       ))}
                     </select>
@@ -278,7 +250,7 @@ const Contact = () => {
                     {...register('timeline')}
                   >
                     <option value="">Select timeline</option>
-                    {timelines.map((timeline) => (
+                    {TIMELINES.map((timeline) => (
                       <option key={timeline.value} value={timeline.value}>{timeline.label}</option>
                     ))}
                   </select>
@@ -329,22 +301,12 @@ const Contact = () => {
           >
             <h2>Frequently Asked Questions</h2>
             <div className="faq-grid">
-              <div className="faq-item">
-                <h3>How long does a typical project take?</h3>
-                <p>Timelines vary by scope. A business website may take 4–8 weeks, while a full web or mobile system can take 2–6 months. We provide a detailed timeline during our discovery phase.</p>
-              </div>
-              <div className="faq-item">
-                <h3>What is included in your process?</h3>
-                <p>Our process covers discovery, proposal, design, development, testing, deployment, and ongoing support. We keep you informed at every stage.</p>
-              </div>
-              <div className="faq-item">
-                <h3>Do you provide support after launch?</h3>
-                <p>Yes. We offer maintenance, bug fixes, feature enhancements, and technical advisory to keep your systems running smoothly.</p>
-              </div>
-              <div className="faq-item">
-                <h3>How do you use AI in your work?</h3>
-                <p>We apply AI practically — accelerating development, automating workflows, building intelligent dashboards, and integrating chatbots where they deliver measurable value.</p>
-              </div>
+              {FAQ_ITEMS.map((item) => (
+                <div key={item.question} className="faq-item">
+                  <h3>{item.question}</h3>
+                  <p>{item.answer}</p>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>

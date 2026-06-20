@@ -1,7 +1,26 @@
 .cta-section {
   padding: var(--spacing-20) 0;
+  border-top: 1px solid rgba(0, 174, 239, 0.12);
+}
+
+.cta-section:not(.ai-surface) {
   background: var(--bg-secondary);
-  border-top: 1px solid var(--border-color);
+  border-top-color: var(--border-color);
+}
+
+.cta-section.ai-surface .cta-content {
+  background: rgba(17, 34, 64, 0.55);
+  border-color: rgba(0, 174, 239, 0.2);
+  backdrop-filter: blur(6px);
+}
+
+.cta-section.ai-surface .cta-text h2 {
+  color: #ffffff;
+}
+
+.cta-section.ai-surface .cta-text p,
+.cta-section.ai-surface .contact-item {
+  color: #b0b8c4;
 }
 
 .cta-content {

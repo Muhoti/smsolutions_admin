@@ -234,7 +234,7 @@ const Admin = () => {
                   value={loginData.email}
                   onChange={(e) => setLoginData({...loginData, email: e.target.value})}
                   required
-                  placeholder="admin@strongmuhoti.com"
+                  placeholder="admin@strongsdigitallabs.com"
                 />
               </div>
               

@@ -1,0 +1,202 @@
+/* AI surface — navy base + subtle tech pattern + transparent overlay */
+
+:root {
+  --navy-base: #0a1628;
+  --navy-deep: #060f1e;
+  --navy-mid: #0d1b2a;
+  --navy-elevated: #112240;
+  --navy-card: #152a4a;
+
+  /* Grid at ~33% perceived visibility — subtle but readable */
+  --ai-overlay-dark: 0.55;
+  --ai-overlay-light: 0.66;
+  --ai-pattern-layer-opacity: 0.85;
+  --ai-pattern-size: 320px;
+
+  --ai-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480' viewBox='0 0 480 480'%3E%3Cdefs%3E%3Cpattern id='g' width='60' height='60' patternUnits='userSpaceOnUse'%3E%3Cpath d='M60 0H0V60' fill='none' stroke='%2300aeef' stroke-opacity='0.38' stroke-width='0.75'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='480' height='480' fill='url(%23g)'/%3E%3Ccircle cx='60' cy='60' r='2.5' fill='%2300aeef' fill-opacity='0.46'/%3E%3Ccircle cx='180' cy='120' r='2' fill='%2300aeef' fill-opacity='0.4'/%3E%3Ccircle cx='300' cy='60' r='2.5' fill='%2300aeef' fill-opacity='0.42'/%3E%3Ccircle cx='420' cy='180' r='2' fill='%2300aeef' fill-opacity='0.44'/%3E%3Ccircle cx='120' cy='240' r='2.5' fill='%2300aeef' fill-opacity='0.4'/%3E%3Ccircle cx='240' cy='300' r='2' fill='%2300aeef' fill-opacity='0.46'/%3E%3Ccircle cx='360' cy='360' r='2.5' fill='%2300aeef' fill-opacity='0.42'/%3E%3Ccircle cx='60' cy='420' r='2' fill='%2300aeef' fill-opacity='0.4'/%3E%3Cline x1='60' y1='60' x2='180' y2='120' stroke='%2300aeef' stroke-opacity='0.3' stroke-width='0.65'/%3E%3Cline x1='180' y1='120' x2='300' y2='60' stroke='%2300aeef' stroke-opacity='0.27' stroke-width='0.65'/%3E%3Cline x1='120' y1='240' x2='240' y2='300' stroke='%2300aeef' stroke-opacity='0.28' stroke-width='0.65'/%3E%3Cline x1='240' y1='300' x2='360' y2='360' stroke='%2300aeef' stroke-opacity='0.27' stroke-width='0.65'/%3E%3Cline x1='300' y1='60' x2='420' y2='180' stroke='%2300aeef' stroke-opacity='0.24' stroke-width='0.55'/%3E%3Cline x1='60' y1='60' x2='120' y2='240' stroke='%2300aeef' stroke-opacity='0.22' stroke-width='0.55'/%3E%3C/svg%3E");
+
+  --ai-glow-1: radial-gradient(ellipse 80% 60% at 15% 20%, rgba(0, 174, 239, 0.15) 0%, transparent 60%);
+  --ai-glow-2: radial-gradient(ellipse 70% 50% at 85% 75%, rgba(0, 102, 204, 0.12) 0%, transparent 55%);
+  --ai-glow-3: radial-gradient(ellipse 50% 40% at 50% 50%, rgba(0, 174, 239, 0.07) 0%, transparent 70%);
+}
+
+/* Dark navy AI surface */
+.ai-surface {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--navy-base);
+  overflow: hidden;
+}
+
+.ai-surface::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--ai-glow-1), var(--ai-glow-2), var(--ai-glow-3), var(--ai-pattern);
+  background-size: 100% 100%, 100% 100%, 100% 100%, var(--ai-pattern-size) var(--ai-pattern-size);
+  background-position: center;
+  opacity: var(--ai-pattern-layer-opacity);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ai-surface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 22, 40, var(--ai-overlay-dark));
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ai-surface > .container,
+.ai-surface > .footer-content,
+.ai-surface > .footer-bottom {
+  position: relative;
+  z-index: 2;
+}
+
+/* Light mode AI surface — white base, faint pattern */
+.light-theme .ai-surface-light {
+  position: relative;
+  isolation: isolate;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.light-theme .ai-surface-light::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--ai-glow-1), var(--ai-glow-3), var(--ai-pattern);
+  background-size: 100% 100%, 100% 100%, var(--ai-pattern-size) var(--ai-pattern-size);
+  opacity: var(--ai-pattern-layer-opacity);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.light-theme .ai-surface-light::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, var(--ai-overlay-light));
+  z-index: 1;
+  pointer-events: none;
+}
+
+.light-theme .ai-surface-light > .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Dark mode: ai-surface-light becomes full navy AI */
+.dark-theme .ai-surface-light {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--navy-base);
+  overflow: hidden;
+}
+
+.dark-theme .ai-surface-light::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--ai-glow-1), var(--ai-glow-2), var(--ai-glow-3), var(--ai-pattern);
+  background-size: 100% 100%, 100% 100%, 100% 100%, var(--ai-pattern-size) var(--ai-pattern-size);
+  opacity: var(--ai-pattern-layer-opacity);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.dark-theme .ai-surface-light::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 22, 40, var(--ai-overlay-dark));
+  z-index: 1;
+  pointer-events: none;
+}
+
+.dark-theme .ai-surface-light > .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Text on dark AI surfaces */
+.ai-surface,
+.dark-theme .ai-surface-light {
+  color: #ffffff;
+}
+
+.ai-surface .hero-title,
+.dark-theme .ai-surface-light .hero-title,
+.ai-surface .about-title,
+.dark-theme .ai-surface-light .about-title,
+.ai-surface .services-title,
+.dark-theme .ai-surface-light .services-title,
+.ai-surface .portfolio-title,
+.dark-theme .ai-surface-light .portfolio-title,
+.ai-surface .contact-title,
+.dark-theme .ai-surface-light .contact-title {
+  color: #ffffff;
+}
+
+.ai-surface .hero-subtitle,
+.dark-theme .ai-surface-light .hero-subtitle,
+.ai-surface .about-subtitle,
+.dark-theme .ai-surface-light .about-subtitle,
+.ai-surface .services-subtitle,
+.dark-theme .ai-surface-light .services-subtitle,
+.ai-surface .portfolio-subtitle,
+.dark-theme .ai-surface-light .portfolio-subtitle,
+.ai-surface .contact-subtitle,
+.dark-theme .ai-surface-light .contact-subtitle {
+  color: #c8d0dc;
+}
+
+.ai-surface .hero-highlight,
+.dark-theme .ai-surface-light .hero-highlight {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #d0d5dd;
+}
+
+.ai-surface .hero-card,
+.dark-theme .ai-surface-light .hero-card {
+  background: rgba(17, 34, 64, 0.7);
+  border-color: rgba(0, 174, 239, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.ai-surface .hero-card-text,
+.dark-theme .ai-surface-light .hero-card-text {
+  color: #b0b8c4;
+}
+
+.ai-surface .btn-secondary,
+.dark-theme .ai-surface-light .btn-secondary {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.ai-surface .btn-secondary:hover,
+.dark-theme .ai-surface-light .btn-secondary:hover {
+  border-color: var(--brand-blue-bright);
+  color: var(--brand-blue-bright);
+}
+
+/* CTA on AI surface */
+.ai-surface .cta-content {
+  background: rgba(17, 34, 64, 0.55);
+  border-color: rgba(0, 174, 239, 0.2);
+  backdrop-filter: blur(6px);
+}
+
+.ai-surface .cta-text h2 {
+  color: #ffffff;
+}
+
+.ai-surface .cta-text p,
+.ai-surface .contact-item {
+  color: #b0b8c4;
+}

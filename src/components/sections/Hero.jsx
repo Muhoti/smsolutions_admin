@@ -1,17 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { FiArrowRight, FiCode, FiCpu, FiMonitor } from 'react-icons/fi';
+import { ASSETS } from '../../constants/assets';
+import Button from '../ui/Button';
 
 const Hero = () => {
   const highlights = [
     { icon: FiCode, label: 'Systems Consultancy' },
     { icon: FiMonitor, label: 'Web & Mobile' },
-    { icon: FiCpu, label: 'AI-Enabled' }
+    { icon: FiCpu, label: 'AI-Enabled' },
   ];
 
   return (
-    <section className="hero">
+    <section className="hero ai-surface-light">
       <div className="container">
         <div className="hero-layout">
           <motion.div
@@ -33,13 +34,13 @@ const Hero = () => {
             </p>
 
             <div className="hero-cta">
-              <Link to="/contact" className="btn btn-primary btn-lg">
+              <Button to="/contact" variant="primary" size="lg">
                 Contact Us
                 <FiArrowRight size={18} />
-              </Link>
-              <Link to="/portfolio" className="btn btn-secondary btn-lg">
+              </Button>
+              <Button to="/portfolio" variant="secondary" size="lg">
                 View Our Work
-              </Link>
+              </Button>
             </div>
 
             <div className="hero-highlights">
@@ -59,7 +60,7 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.15 }}
           >
             <div className="hero-card">
-              <img src="/logo.png" alt="Strong's Digital Labs" className="hero-logo" />
+              <img src={ASSETS.logoHero} alt="Strong's Digital Labs" className="hero-logo" />
               <p className="hero-card-text">
                 Technology consultancy for organizations building modern digital systems.
               </p>

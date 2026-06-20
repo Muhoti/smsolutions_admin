@@ -1,57 +1,53 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useCallback } from 'react';
 import { apiService } from '../services/api';
 
-// Simple context for sharing data across components
 const AppContext = createContext();
 
-// Provider component - wraps your entire app
 export const AppProvider = ({ children }) => {
-  // Simple state - just what you need
   const [projects, setProjects] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingProjects, setLoadingProjects] = useState(false);
+  const [loadingTestimonials, setLoadingTestimonials] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
-  // Simple functions to fetch data
-  const fetchProjects = async () => {
-    if (loading) return; // Prevent multiple simultaneous calls
+  const fetchProjects = useCallback(async () => {
     try {
-      setLoading(true);
-      setError(null); // Clear any previous errors
+      setLoadingProjects(true);
+      setError(null);
       const response = await apiService.getFeaturedProjects();
       setProjects(response.data.data || []);
     } catch (err) {
-      const errorMessage = err.response?.status === 429 
-        ? 'Too many requests. Please wait a moment and refresh.' 
+      const errorMessage = err.response?.status === 429
+        ? 'Too many requests. Please wait a moment and refresh.'
         : 'Failed to load projects';
       setError(errorMessage);
       console.error('Error fetching projects:', err);
     } finally {
-      setLoading(false);
+      setLoadingProjects(false);
     }
-  };
+  }, []);
 
-  const fetchTestimonials = async () => {
-    if (loading) return; // Prevent multiple simultaneous calls
+  const fetchTestimonials = useCallback(async () => {
     try {
-      setLoading(true);
-      setError(null); // Clear any previous errors
+      setLoadingTestimonials(true);
+      setError(null);
       const response = await apiService.getFeaturedTestimonials();
       setTestimonials(response.data.data || []);
     } catch (err) {
-      const errorMessage = err.response?.status === 429 
-        ? 'Too many requests. Please wait a moment and refresh.' 
+      const errorMessage = err.response?.status === 429
+        ? 'Too many requests. Please wait a moment and refresh.'
         : 'Failed to load testimonials';
       setError(errorMessage);
       console.error('Error fetching testimonials:', err);
     } finally {
-      setLoading(false);
+      setLoadingTestimonials(false);
     }
-  };
+  }, []);
 
   const submitContact = async (contactData) => {
     try {
-      setLoading(true);
+      setSubmitting(true);
       const response = await apiService.submitContact(contactData);
       return { success: true, data: response.data };
     } catch (err) {
@@ -59,16 +55,14 @@ export const AppProvider = ({ children }) => {
       setError(errorMessage);
       return { success: false, error: errorMessage };
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
 
-  // Admin functions
   const createProject = async (projectData) => {
     try {
-      setLoading(true);
+      setSubmitting(true);
       const response = await apiService.admin.createProject(projectData);
-      // Refresh projects after creating
       await fetchProjects();
       return { success: true, data: response.data };
     } catch (err) {
@@ -76,15 +70,14 @@ export const AppProvider = ({ children }) => {
       setError(errorMessage);
       return { success: false, error: errorMessage };
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
 
   const createTestimonial = async (testimonialData) => {
     try {
-      setLoading(true);
+      setSubmitting(true);
       const response = await apiService.admin.createTestimonial(testimonialData);
-      // Refresh testimonials after creating
       await fetchTestimonials();
       return { success: true, data: response.data };
     } catch (err) {
@@ -92,13 +85,13 @@ export const AppProvider = ({ children }) => {
       setError(errorMessage);
       return { success: false, error: errorMessage };
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
 
   const createContact = async (contactData) => {
     try {
-      setLoading(true);
+      setSubmitting(true);
       const response = await apiService.admin.createContact(contactData);
       return { success: true, data: response.data };
     } catch (err) {
@@ -106,22 +99,19 @@ export const AppProvider = ({ children }) => {
       setError(errorMessage);
       return { success: false, error: errorMessage };
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
 
-  // Clear error function
   const clearError = () => setError(null);
 
-  // Value to share with all components
   const value = {
-    // Data
     projects,
     testimonials,
-    loading,
+    loading: submitting,
+    loadingProjects,
+    loadingTestimonials,
     error,
-    
-    // Functions
     fetchProjects,
     fetchTestimonials,
     submitContact,
@@ -138,7 +128,6 @@ export const AppProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use the context - makes it easy to use
 export const useApp = () => {
   const context = useContext(AppContext);
   if (!context) {

@@ -1,53 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  FiMail, 
-  FiPhone, 
-  FiMapPin, 
-  FiGithub, 
-  FiLinkedin, 
-  FiTwitter,
-  FiArrowRight
-} from 'react-icons/fi';
-import './Footer.css';
-
+import {
+  FiMail,
+  FiPhone,
+  FiMapPin,
+  FiArrowRight,
+} from 'react-icons/fi';import './Footer.css';
+import { ASSETS } from '../constants/assets';
+import { CONTACT, SOCIAL_LINKS } from '../data/company';
+import { FOOTER_QUICK_LINKS, FOOTER_SERVICES } from '../data/navigation';
+import Button from './ui/Button';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  const quickLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Services', path: '/services' },
-    { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Contact', path: '/contact' }
-  ];
-
-  const services = [
-    { name: 'Systems Consultancy', path: '/services#consultancy' },
-    { name: 'Web Development', path: '/services#web' },
-    { name: 'Mobile Apps', path: '/services#mobile' },
-    { name: 'AI-Enabled Solutions', path: '/services#ai' }
-  ];
-
-  const socialLinks = [
-    { name: 'GitHub', icon: FiGithub, url: 'https://github.com/strongmuhoti' },
-    { name: 'LinkedIn', icon: FiLinkedin, url: 'https://linkedin.com/in/strongmuhoti' },
-    { name: 'Twitter', icon: FiTwitter, url: 'https://twitter.com/strongmuhoti' }
-  ];
-
+  const quickLinks = FOOTER_QUICK_LINKS;
+  const services = FOOTER_SERVICES;
+  const socialLinks = SOCIAL_LINKS;
   return (
-    <footer className="footer">
+    <footer className="footer ai-surface">
       <div className="container">
         <div className="footer-content">
           <div className="footer-section">
             <div className="footer-logo">
               <img 
-                src="/logo-navbar.png" 
+                src={ASSETS.logoNavbar} 
                 alt="Strong's Digital Labs" 
                 className="footer-logo-img"
               />
             </div>
-            <p className="footer-tagline">WE CODE. WE DESIGN. WE EMPOWER.</p>
+            <p className="footer-tagline">{CONTACT.tagline}</p>
             <p className="footer-description">
               We help businesses design and build intelligent online systems — websites, 
               web apps, and mobile applications with practical AI integration.
@@ -55,16 +36,15 @@ const Footer = () => {
             <div className="footer-contact">
               <div className="contact-item">
                 <FiMail size={16} />
-                <span>strongmuhoti@gmail.com</span>
+                <span>{CONTACT.email}</span>
               </div>
               <div className="contact-item">
                 <FiPhone size={16} />
-                <span>+254 707 809 592</span>
+                <span>{CONTACT.phone}</span>
               </div>
               <div className="contact-item">
                 <FiMapPin size={16} />
-                <span>Nairobi, Kenya</span>
-              </div>
+                <span>{CONTACT.location}</span>              </div>
             </div>
           </div>
 
@@ -101,11 +81,10 @@ const Footer = () => {
             <p className="newsletter-description">
               Have a project in mind? We would love to hear about it.
             </p>
-            <Link to="/contact" className="btn btn-primary" style={{ marginTop: '1rem' }}>
+            <Button to="/contact" variant="primary" style={{ marginTop: '1rem' }}>
               Contact Us
               <FiArrowRight size={16} />
-            </Link>
-            <div className="social-links">
+            </Button>            <div className="social-links">
               {socialLinks.map((social) => (
                 <a 
                   key={social.name}
