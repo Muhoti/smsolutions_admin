@@ -1,7 +1,7 @@
 import { FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi';
 
 export const CONTACT = {
-  email: 'strongmuhoti@gmail.com',
+  email: 'info@smsolutions.co.ke',
   phone: '+254 707 809 592',
   phoneTel: '+254707809592',
   location: 'Nairobi, Kenya',
