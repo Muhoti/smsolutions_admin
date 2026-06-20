@@ -2,6 +2,33 @@
    Strong's Digital Labs — Admin Portal (SaaS layout)
    ═══════════════════════════════════════════════════════════ */
 
+/* Theme-aware admin tokens */
+.adm-app {
+  --adm-sidebar-bg: var(--navy-deep);
+  --adm-sidebar-border: rgba(0, 174, 239, 0.12);
+  --adm-sidebar-text: #9aa8bc;
+  --adm-sidebar-text-hover: #ffffff;
+  --adm-sidebar-hover-bg: rgba(255, 255, 255, 0.07);
+  --adm-sidebar-divider: rgba(255, 255, 255, 0.08);
+  --adm-sidebar-site-color: #c8d0dc;
+  --adm-sidebar-site-border: rgba(255, 255, 255, 0.18);
+  --adm-mobile-nav-bg: rgba(6, 15, 30, 0.92);
+  --adm-mobile-nav-border: rgba(0, 174, 239, 0.18);
+}
+
+.light-theme .adm-app {
+  --adm-sidebar-bg: #ffffff;
+  --adm-sidebar-border: var(--border-color);
+  --adm-sidebar-text: var(--text-secondary);
+  --adm-sidebar-text-hover: var(--text-primary);
+  --adm-sidebar-hover-bg: var(--accent-subtle);
+  --adm-sidebar-divider: var(--border-color);
+  --adm-sidebar-site-color: var(--text-secondary);
+  --adm-sidebar-site-border: var(--border-strong);
+  --adm-mobile-nav-bg: rgba(255, 255, 255, 0.94);
+  --adm-mobile-nav-border: var(--border-color);
+}
+
 /* ── App shell ───────────────────────────────────────────── */
 .adm-app {
   display: flex;
@@ -10,39 +37,41 @@
   background: var(--bg-secondary);
 }
 
-/* ── Sidebar (full height, dark) ─────────────────────────── */
+/* ── Sidebar (desktop, theme-aware) ──────────────────────── */
 .adm-sidebar {
   width: 260px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  background: var(--navy-deep);
-  border-right: 1px solid rgba(0, 174, 239, 0.1);
+  background: var(--adm-sidebar-bg);
+  border-right: 1px solid var(--adm-sidebar-border);
   position: sticky;
   top: 0;
   height: 100vh;
   height: 100dvh;
   z-index: 200;
+  transition: background var(--transition), border-color var(--transition);
 }
 
 .adm-sidebar-brand {
-  padding: var(--spacing-5) var(--spacing-5) var(--spacing-4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: var(--spacing-6) var(--spacing-5) var(--spacing-5);
+  border-bottom: 1px solid var(--adm-sidebar-divider);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adm-sidebar-logo {
+  display: block;
+  line-height: 0;
 }
 
 .adm-sidebar-logo img {
-  height: 34px;
+  height: 52px;
   width: auto;
   display: block;
-}
-
-.adm-sidebar-tagline {
-  margin: var(--spacing-2) 0 0;
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--brand-blue-bright);
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .adm-sidebar-nav {
@@ -63,7 +92,7 @@
   border: none;
   border-radius: var(--radius-md);
   background: none;
-  color: #9aa8bc;
+  color: var(--adm-sidebar-text);
   font-size: var(--font-size-sm);
   font-weight: 600;
   cursor: pointer;
@@ -72,14 +101,18 @@
 }
 
 .adm-sidebar-link:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--adm-sidebar-text-hover);
+  background: var(--adm-sidebar-hover-bg);
 }
 
 .adm-sidebar-link.active {
   color: #ffffff;
   background: var(--brand-blue);
   box-shadow: 0 2px 12px rgba(0, 136, 255, 0.35);
+}
+
+.light-theme .adm-sidebar-link.active {
+  color: #ffffff;
 }
 
 .adm-sidebar-badge {
@@ -103,20 +136,26 @@
 
 .adm-sidebar-footer {
   padding: var(--spacing-4) var(--spacing-3);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--adm-sidebar-divider);
 }
 
 .adm-sidebar-site-link {
   width: 100%;
   justify-content: center;
-  color: #c8d0dc !important;
-  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: var(--adm-sidebar-site-color) !important;
+  border-color: var(--adm-sidebar-site-border) !important;
   font-size: var(--font-size-sm) !important;
+  background: transparent !important;
 }
 
 .adm-sidebar-site-link:hover {
-  color: #fff !important;
-  border-color: var(--brand-blue-bright) !important;
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  background: var(--adm-sidebar-hover-bg) !important;
+}
+
+.light-theme .adm-sidebar-link.active {
+  box-shadow: 0 2px 12px rgba(0, 136, 255, 0.25);
 }
 
 /* ── Main frame ──────────────────────────────────────────── */
@@ -128,13 +167,13 @@
 }
 
 .adm-header {
-  height: 64px;
+  min-height: 64px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-4);
-  padding: 0 var(--spacing-6);
+  padding: var(--spacing-3) var(--spacing-6);
   background: var(--bg-elevated);
   border-bottom: 1px solid var(--border-color);
   position: sticky;
@@ -142,23 +181,53 @@
   z-index: 100;
 }
 
-.adm-header-title h1 {
+.adm-header-brand-mobile {
+  display: none;
+}
+
+.adm-header-portal {
+  margin: 0 0 2px;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.adm-header-section {
   font-size: var(--font-size-xl);
   font-weight: 800;
   margin: 0;
   line-height: 1.2;
-}
-
-.adm-header-breadcrumb {
-  margin: 0;
-  font-size: var(--font-size-xs);
-  color: var(--text-muted);
+  color: var(--text-primary);
 }
 
 .adm-header-actions {
   display: flex;
   align-items: center;
   gap: var(--spacing-3);
+  flex-shrink: 0;
+}
+
+/* Theme toggle inside admin chrome */
+.adm-header .theme-toggle,
+.adm-login-toolbar .theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-color: var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.adm-header .theme-toggle:hover,
+.adm-login-toolbar .theme-toggle:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-subtle);
+}
+
+.adm-header .theme-toggle .theme-icon,
+.adm-login-toolbar .theme-toggle .theme-icon {
+  color: var(--text-primary);
 }
 
 .adm-main {
@@ -228,8 +297,14 @@
   white-space: nowrap;
 }
 
-.adm-user-trigger svg.rotated {
+.adm-user-trigger svg.rotated,
+.adm-user-chevron.rotated {
   transform: rotate(180deg);
+}
+
+.adm-user-dropdown-link {
+  text-decoration: none;
+  color: var(--text-primary);
 }
 
 .adm-user-dropdown {
@@ -1035,6 +1110,11 @@
 .adm-login-brand p {
   font-size: var(--font-size-sm);
   margin: 0;
+}
+
+/* ── Mobile bottom tab bar (2026 app style) ──────────────── */
+.adm-mobile-nav {
+  display: none;
 }
 
 /* ── Loading ─────────────────────────────────────────────── */

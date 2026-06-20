@@ -5,6 +5,7 @@ import { ASSETS } from '../../constants/assets';
 import { ADMIN_TABS } from './adminConstants';
 import ThemeToggle from '../ThemeToggle';
 import AdminUserMenu from './AdminUserMenu';
+import AdminMobileNav from './AdminMobileNav';
 import Button from '../ui/Button';
 
 const TAB_TITLES = {
@@ -23,12 +24,11 @@ const AdminShell = ({
   children,
 }) => (
   <div className="adm-app">
-    <aside className="adm-sidebar">
+    <aside className="adm-sidebar adm-sidebar--desktop">
       <div className="adm-sidebar-brand">
         <Link to="/" className="adm-sidebar-logo">
           <img src={ASSETS.logoNavbar} alt="Strong's Digital Labs" />
         </Link>
-        <p className="adm-sidebar-tagline">Admin Portal</p>
       </div>
 
       <nav className="adm-sidebar-nav" aria-label="Admin navigation">
@@ -61,20 +61,27 @@ const AdminShell = ({
 
     <div className="adm-frame">
       <header className="adm-header">
-        <div className="adm-header-title">
-          <h1>{TAB_TITLES[activeTab]}</h1>
-          <p className="adm-header-breadcrumb">
-            Strong&apos;s Digital Labs / {TAB_TITLES[activeTab]}
-          </p>
+        <div className="adm-header-brand-mobile">
+          <Link to="/" className="adm-header-logo-mobile">
+            <img src={ASSETS.logoNavbar} alt="" />
+          </Link>
         </div>
+
+        <div className="adm-header-title">
+          <p className="adm-header-portal">Admin Portal</p>
+          <h1 className="adm-header-section">{TAB_TITLES[activeTab]}</h1>
+        </div>
+
         <div className="adm-header-actions">
           <ThemeToggle />
-          <AdminUserMenu user={adminUser} onLogout={onLogout} />
+          <AdminUserMenu user={adminUser} onLogout={onLogout} compactOnMobile />
         </div>
       </header>
 
       <main className="adm-main">{children}</main>
     </div>
+
+    <AdminMobileNav activeTab={activeTab} onTabChange={onTabChange} stats={stats} />
   </div>
 );
 
