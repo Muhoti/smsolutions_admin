@@ -159,3 +159,32 @@
 .no-projects {
   grid-column: 1 / -1;
 }
+
+@media (max-width: 768px) {
+  .portfolio-filters {
+    padding: var(--spacing-5) 0;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-4);
+  }
+
+  .portfolio-grid-section {
+    padding: var(--spacing-12) 0;
+  }
+
+  .portfolio-cta {
+    padding: var(--spacing-12) 0 var(--spacing-16);
+  }
+
+  .portfolio-cta h2 {
+    font-size: clamp(1.5rem, 6vw, 1.875rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .project-image img {
+    height: 180px;
+  }
+}

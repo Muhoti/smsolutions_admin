@@ -1,0 +1,352 @@
+/* Mobile-first responsive + app-like experience */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100dvh;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  -webkit-tap-highlight-color: rgba(0, 136, 255, 0.15);
+}
+
+/* Touch-friendly interactive elements */
+@media (hover: none) and (pointer: coarse) {
+  .btn,
+  .filter-btn,
+  .nav-link,
+  .dropdown-trigger,
+  .mobile-nav-link,
+  .mobile-dropdown-trigger,
+  .mobile-dropdown-item,
+  .service-btn,
+  .project-link,
+  .contact-action,
+  .theme-toggle,
+  .theme-toggle-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .filter-btn {
+    min-height: 40px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 var(--spacing-5);
+  }
+}
+
+/* Mobile — app-like layout */
+@media (max-width: 768px) {
+  :root {
+    --mobile-radius: 16px;
+  }
+
+  .container {
+    padding: 0 var(--spacing-4);
+    padding-left: max(var(--spacing-4), env(safe-area-inset-left));
+    padding-right: max(var(--spacing-4), env(safe-area-inset-right));
+  }
+
+  .section,
+  .services-section,
+  .portfolio-section,
+  .how-we-work-section,
+  .testimonials-section,
+  .contact-info-section,
+  .contact-form-section,
+  .contact-faq,
+  .services-grid-section,
+  .process-section,
+  .portfolio-grid-section,
+  .portfolio-filters,
+  .about-story,
+  .about-skills,
+  .about-achievements,
+  .about-values {
+    padding-top: var(--spacing-12);
+    padding-bottom: var(--spacing-12);
+  }
+
+  .cta-section {
+    padding: var(--spacing-12) 0;
+  }
+
+  /* Page heroes */
+  .about-hero,
+  .services-hero,
+  .portfolio-hero,
+  .contact-hero {
+    padding: var(--spacing-10) 0 var(--spacing-8);
+  }
+
+  .about-title,
+  .services-title,
+  .portfolio-title,
+  .contact-title {
+    font-size: clamp(1.75rem, 7vw, 2.25rem);
+    line-height: 1.15;
+  }
+
+  .about-subtitle,
+  .services-subtitle,
+  .portfolio-subtitle,
+  .contact-subtitle {
+    font-size: var(--font-size-base);
+    padding: 0 var(--spacing-2);
+  }
+
+  /* Section headers */
+  .services-header h2,
+  .portfolio-header h2,
+  .how-we-work-header h2,
+  .testimonials-header h2,
+  .process-header h2,
+  .faq-content h2,
+  .form-header h2 {
+    font-size: clamp(1.5rem, 6vw, 1.875rem);
+  }
+
+  .services-header p,
+  .portfolio-header p,
+  .how-we-work-header p,
+  .section-header p,
+  .section-subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  /* App-like cards */
+  .service-card,
+  .project-card,
+  .how-we-work-card,
+  .contact-info-card,
+  .faq-item,
+  .value-item,
+  .achievement-card,
+  .skill-card,
+  .process-step,
+  .hero-card,
+  .contact-form,
+  .cta-content {
+    border-radius: var(--mobile-radius);
+  }
+
+  /* Single column grids */
+  .services-grid,
+  .portfolio-grid,
+  .how-we-work-grid,
+  .process-timeline,
+  .faq-grid,
+  .values-grid,
+  .skills-grid,
+  .achievements-grid,
+  .contact-info-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-4);
+  }
+
+  /* Full-width CTAs on mobile */
+  .btn,
+  .btn-lg {
+    width: 100%;
+    justify-content: center;
+    padding: 0.95rem 1.25rem;
+    font-size: var(--font-size-base);
+    border-radius: 12px;
+  }
+
+  .hero-cta .btn,
+  .cta-buttons .btn,
+  .portfolio-cta .btn,
+  .services-cta .btn,
+  .navbar .btn-primary,
+  .mobile-cta .btn {
+    width: 100%;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* Horizontal scroll filter pills (app-style) */
+  .filter-buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.5rem;
+    width: 100%;
+    padding-bottom: 0.25rem;
+  }
+
+  .filter-buttons::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    flex-shrink: 0;
+    border-radius: 999px;
+    padding: 0.6rem 1rem;
+    white-space: nowrap;
+  }
+
+  /* Portfolio / search */
+  .filters-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-box {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    border-radius: 12px;
+  }
+
+  .search-input {
+    font-size: 16px;
+  }
+
+  /* Forms — prevent iOS zoom */
+  .form-group input,
+  .form-group textarea,
+  .form-group select,
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select {
+    font-size: 16px;
+    min-height: 48px;
+    border-radius: 12px;
+  }
+
+  .contact-form {
+    padding: var(--spacing-5);
+  }
+
+  /* CTA blocks */
+  .cta-content {
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--spacing-6);
+    gap: var(--spacing-6);
+  }
+
+  .cta-actions {
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .cta-text p {
+    max-width: none;
+  }
+
+  /* Hero highlights — stacked chips */
+  .hero-highlights {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-highlight {
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+  }
+
+  .hero-title {
+    font-size: clamp(1.85rem, 8vw, 2.5rem);
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-base);
+    max-width: none;
+  }
+
+  /* Project cards */
+  .project-links {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .project-link {
+    min-height: 44px;
+    padding: 0.5rem 0;
+  }
+
+  /* Testimonials swiper */
+  .testimonials-swiper {
+    padding-bottom: 2.5rem;
+  }
+
+  .testimonial-card {
+    border-radius: var(--mobile-radius);
+  }
+
+  /* Footer app spacing */
+  .footer {
+    padding-bottom: calc(var(--spacing-8) + env(safe-area-inset-bottom, 0));
+  }
+
+  .footer-content {
+    gap: var(--spacing-8);
+  }
+
+  .social-links {
+    justify-content: flex-start;
+  }
+
+  .social-link {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .container {
+    padding-left: max(var(--spacing-3), env(safe-area-inset-left));
+    padding-right: max(var(--spacing-3), env(safe-area-inset-right));
+  }
+
+  .hero-card {
+    padding: var(--spacing-5);
+  }
+
+  .hero-logo {
+    max-width: 220px;
+  }
+
+  .service-card,
+  .project-card {
+    padding: var(--spacing-5);
+  }
+
+  .about-visual-wrap {
+    border-radius: var(--mobile-radius);
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    gap: var(--spacing-3);
+    text-align: center;
+  }
+}
+
+/* Landscape phones */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero {
+    min-height: auto;
+    padding: var(--spacing-8) 0;
+  }
+}

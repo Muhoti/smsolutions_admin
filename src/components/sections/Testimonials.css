@@ -95,6 +95,17 @@
   color: var(--text-secondary);
 }
 
+@media (max-width: 768px) {
+  .testimonials-section {
+    padding: var(--spacing-12) 0;
+  }
+
+  .testimonial-card {
+    border-radius: 16px;
+    padding: var(--spacing-5);
+  }
+}
+
 @media (max-width: 640px) {
   .testimonials-stats {
     grid-template-columns: 1fr;

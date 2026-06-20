@@ -70,6 +70,10 @@
 
 @media (max-width: 768px) {
   .how-we-work-section {
-    padding: var(--spacing-16) 0;
+    padding: var(--spacing-12) 0;
+  }
+
+  .how-we-work-grid {
+    grid-template-columns: 1fr;
   }
 }

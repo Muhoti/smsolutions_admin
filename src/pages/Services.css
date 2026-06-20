@@ -178,3 +178,27 @@
   flex-wrap: wrap;
   gap: var(--spacing-4);
 }
+
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-grid-section,
+  .process-section {
+    padding: var(--spacing-12) 0;
+  }
+
+  .services-cta {
+    padding: var(--spacing-12) 0 var(--spacing-16);
+  }
+
+  .services-cta h2 {
+    font-size: clamp(1.5rem, 6vw, 1.875rem);
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

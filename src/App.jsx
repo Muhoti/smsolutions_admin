@@ -20,6 +20,7 @@ import Admin from './pages/Admin';
 
 import './App.css';
 import './styles/ai-background.css';
+import './styles/responsive.css';
 
 function App() {
   useEffect(() => {

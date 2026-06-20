@@ -125,3 +125,18 @@
 .portfolio-cta {
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .portfolio-section {
+    padding: var(--spacing-12) 0;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-4);
+  }
+
+  .portfolio-filters {
+    margin-bottom: var(--spacing-6);
+  }
+}

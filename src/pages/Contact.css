@@ -132,3 +132,19 @@
   color: var(--text-secondary);
   line-height: 1.6;
 }
+
+@media (max-width: 768px) {
+  .contact-info-grid,
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form-section,
+  .contact-faq {
+    padding: var(--spacing-12) 0;
+  }
+
+  .contact-form .btn {
+    width: 100%;
+  }
+}
