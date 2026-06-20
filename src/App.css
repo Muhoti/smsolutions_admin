@@ -133,6 +133,11 @@
   padding-top: calc(72px + env(safe-area-inset-top, 0));
 }
 
+.site-main--admin {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 body {
 
   font-family: var(--font-family);
