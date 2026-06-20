@@ -19,15 +19,14 @@ const Footer = () => {
     { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
     { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Contact', path: '/contact' },
-    { name: 'Admin', path: '/admin' }
+    { name: 'Contact', path: '/contact' }
   ];
 
   const services = [
-    { name: 'Mobile App Development', path: '/services#mobile' },
+    { name: 'Systems Consultancy', path: '/services#consultancy' },
     { name: 'Web Development', path: '/services#web' },
-    { name: 'UI/UX Design', path: '/services#design' },
-    { name: 'Consultation', path: '/services#consultation' }
+    { name: 'Mobile Apps', path: '/services#mobile' },
+    { name: 'AI-Enabled Solutions', path: '/services#ai' }
   ];
 
   const socialLinks = [
@@ -40,20 +39,18 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <div className="footer-content">
-          {/* Company Info */}
           <div className="footer-section">
             <div className="footer-logo">
-              <div className="logo-icon">
-                <span className="logo-text">SM</span>
-              </div>
-              <div className="logo-text-container">
-                <span className="logo-name">SMSolutions</span>
-                <span className="logo-tagline">App Development</span>
-              </div>
+              <img 
+                src="/logo-navbar.png" 
+                alt="Strong's Digital Labs" 
+                className="footer-logo-img"
+              />
             </div>
+            <p className="footer-tagline">WE CODE. WE DESIGN. WE EMPOWER.</p>
             <p className="footer-description">
-              Transforming businesses through innovative mobile and web applications. 
-              I deliver high-quality, scalable solutions that drive growth and success.
+              We help businesses design and build intelligent online systems — websites, 
+              web apps, and mobile applications with practical AI integration.
             </p>
             <div className="footer-contact">
               <div className="contact-item">
@@ -71,7 +68,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div className="footer-section">
             <h3 className="footer-title">Quick Links</h3>
             <ul className="footer-links">
@@ -86,7 +82,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services */}
           <div className="footer-section">
             <h3 className="footer-title">Services</h3>
             <ul className="footer-links">
@@ -101,22 +96,15 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Newsletter */}
           <div className="footer-section">
-            <h3 className="footer-title">Stay Updated</h3>
+            <h3 className="footer-title">Get In Touch</h3>
             <p className="newsletter-description">
-              Get the latest updates on new projects and development insights.
+              Have a project in mind? We would love to hear about it.
             </p>
-            <div className="newsletter-form">
-              <input 
-                type="email" 
-                placeholder="Enter your email"
-                className="newsletter-input"
-              />
-              <button className="newsletter-btn">
-                <FiArrowRight size={16} />
-              </button>
-            </div>
+            <Link to="/contact" className="btn btn-primary" style={{ marginTop: '1rem' }}>
+              Contact Us
+              <FiArrowRight size={16} />
+            </Link>
             <div className="social-links">
               {socialLinks.map((social) => (
                 <a 
@@ -134,15 +122,14 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Footer Bottom */}
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <p className="copyright">
-              © {currentYear} SMSolutions. All rights reserved.
+              © {currentYear} Strong&apos;s Digital Labs. All rights reserved.
             </p>
             <div className="footer-bottom-links">
-              <Link to="/privacy" className="footer-bottom-link">Privacy Policy</Link>
-              <Link to="/terms" className="footer-bottom-link">Terms of Service</Link>
+              <Link to="/contact" className="footer-bottom-link">Contact</Link>
+              <Link to="/about" className="footer-bottom-link">About Us</Link>
             </div>
           </div>
         </div>

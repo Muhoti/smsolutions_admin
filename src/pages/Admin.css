@@ -1,10 +1,43 @@
-/* Admin Page Styles */
-.admin-page {
+.admin-login,
+.admin-dashboard {
   min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.admin-header {
+  background: var(--brand-black);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--spacing-4) 0;
+}
+
+.admin-header h1 {
+  color: #ffffff;
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--accent-subtle);
+  color: var(--accent);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.data-table th {
+  color: var(--text-primary);
   background: var(--bg-secondary);
 }
 
-/* Dashboard Stats */
+.data-table td {
+  color: var(--text-secondary);
+  border-color: var(--border-color);
+}
+
 .dashboard-content h2 {
   font-size: var(--font-size-3xl);
   font-weight: 800;
@@ -21,7 +54,7 @@
   left: 0;
   width: 60px;
   height: 4px;
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  background: var(--accent);
   border-radius: var(--radius-full);
 }
 
@@ -52,12 +85,12 @@
 .stat-icon {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-  border-radius: var(--radius-lg);
+  background: var(--accent-subtle);
+  color: var(--accent);
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
   flex-shrink: 0;
 }
 
@@ -87,7 +120,7 @@
 }
 
 .admin-header {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+  background: linear-gradient(135deg, rgba(0, 168, 255, 0.05), rgba(0, 102, 204, 0.05));
   border-radius: var(--radius-lg);
   margin-bottom: var(--spacing-8);
   padding: var(--spacing-6) 0;
@@ -178,12 +211,12 @@
 
 .nav-item:hover {
   color: var(--primary-color);
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(0, 168, 255, 0.1);
 }
 
 .nav-item.active {
   color: white;
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  background: var(--accent);
   box-shadow: var(--shadow-sm);
 }
 
@@ -234,7 +267,7 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  background: var(--accent);
   color: white;
   box-shadow: var(--shadow-sm);
 }
@@ -325,7 +358,7 @@
 }
 
 .badge-featured {
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(0, 168, 255, 0.1);
   color: var(--primary-color);
 }
 

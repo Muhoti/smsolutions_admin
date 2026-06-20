@@ -47,8 +47,8 @@ const Testimonials = () => {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2>What My Clients Say</h2>
-          <p>Don't just take my word for it. Here's what my clients have to say about the mobile and web applications I've built for their businesses.</p>
+          <h2>What Our Clients Say</h2>
+          <p>Feedback from organizations we have partnered with on web, mobile, and systems projects.</p>
         </motion.div>
 
         <motion.div 
@@ -85,13 +85,13 @@ const Testimonials = () => {
                     <div className="testimonial-header">
                       <div className="client-avatar">
                         <img 
-                          src={testimonial.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.clientName)}&background=6366f1&color=fff&size=80`} 
-                          alt={testimonial.clientName} 
+                          src={testimonial.avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=00a8ff&color=fff&size=80`} 
+                          alt={testimonial.name} 
                         />
                       </div>
                       <div className="client-info">
-                        <h4>{testimonial.clientName}</h4>
-                        <p className="client-position">{testimonial.position}, {testimonial.company}</p>
+                        <h4>{testimonial.name}</h4>
+                        <p className="client-position">{testimonial.title}{testimonial.company ? `, ${testimonial.company}` : ''}</p>
                         {testimonial.project && (
                           <p className="client-project">{testimonial.project}</p>
                         )}
@@ -103,7 +103,7 @@ const Testimonials = () => {
                     </div>
                     
                     <blockquote className="testimonial-text">
-                      "{testimonial.content}"
+                      "{testimonial.review}"
                     </blockquote>
                   </div>
                 </SwiperSlide>
@@ -114,7 +114,7 @@ const Testimonials = () => {
               <FiStar size={48} />
               <h3>No testimonials yet</h3>
               <p>Client testimonials will appear here once they're added.</p>
-              <p>Check back later to see what my clients say!</p>
+              <p>Check back later to see client feedback.</p>
             </div>
           )}
         </motion.div>
@@ -126,16 +126,16 @@ const Testimonials = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <div className="stat-item">
-            <h3>50+</h3>
-            <p>Happy Clients</p>
+            <h3>Quality</h3>
+            <p>Engineering Focus</p>
           </div>
           <div className="stat-item">
-            <h3>4.9/5</h3>
-            <p>Average Rating</p>
+            <h3>Trusted</h3>
+            <p>Client Partnerships</p>
           </div>
           <div className="stat-item">
-            <h3>100%</h3>
-            <p>Client Satisfaction</p>
+            <h3>Results</h3>
+            <p>Outcome-Driven</p>
           </div>
         </motion.div>
       </div>

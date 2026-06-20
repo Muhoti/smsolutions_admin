@@ -5,10 +5,11 @@ import {
   FiCode, 
   FiSmartphone, 
   FiMonitor, 
-  FiAward,
+  FiCpu,
   FiUsers,
-  FiTrendingUp,
-  FiCheckCircle
+  FiGlobe,
+  FiCheckCircle,
+  FiTarget
 } from 'react-icons/fi';
 import './About.css';
 
@@ -18,45 +19,52 @@ const About = () => {
     threshold: 0.1
   });
 
-  const skills = [
-    { name: 'React Native', level: 95, icon: FiSmartphone },
-    { name: 'React.js', level: 98, icon: FiMonitor },
-    { name: 'Node.js', level: 92, icon: FiCode },
-    { name: 'UI/UX Design', level: 88, icon: FiAward },
-    { name: 'MongoDB', level: 90, icon: FiCode },
-    { name: 'Firebase', level: 85, icon: FiCode }
+  const capabilities = [
+    { name: 'React & Node.js', level: 95, icon: FiCode },
+    { name: 'Web Applications', level: 95, icon: FiMonitor },
+    { name: 'Mobile Development', level: 90, icon: FiSmartphone },
+    { name: 'PostgreSQL & APIs', level: 92, icon: FiCode },
+    { name: 'AI Integration', level: 88, icon: FiCpu },
+    { name: 'Systems Architecture', level: 90, icon: FiTarget }
   ];
 
-  const achievements = [
+  const highlights = [
     {
       icon: FiUsers,
-      number: '50+',
-      title: 'Happy Clients',
-      description: 'Satisfied customers worldwide'
+      number: 'Consultancy',
+      title: 'Client-First Approach',
+      description: 'We start with your business problem, not a technology trend'
     },
     {
-      icon: FiAward,
-      number: '100+',
-      title: 'Projects Completed',
-      description: 'Successful app deliveries'
+      icon: FiGlobe,
+      number: 'Full-Stack',
+      title: 'End-to-End Delivery',
+      description: 'From strategy and design through to deployment and support'
     },
     {
-      icon: FiTrendingUp,
-      number: '5+',
-      title: 'Years Experience',
-      description: 'In app development'
+      icon: FiCpu,
+      number: 'AI-Ready',
+      title: 'Practical Intelligence',
+      description: 'We apply AI where it saves time, reduces cost, or improves decisions'
     },
     {
       icon: FiCheckCircle,
-      number: '100%',
-      title: 'Success Rate',
-      description: 'Project completion rate'
+      number: 'Nairobi',
+      title: 'Local & Remote',
+      description: 'Based in Kenya, serving clients locally and internationally'
     }
+  ];
+
+  const process = [
+    { step: '01', title: 'Discovery', description: 'We understand your goals, users, and constraints.' },
+    { step: '02', title: 'Proposal', description: 'We define scope, timeline, and the right technical approach.' },
+    { step: '03', title: 'Build', description: 'We develop with modern engineering practices and clear communication.' },
+    { step: '04', title: 'Launch', description: 'We deploy, test, and ensure your system is production-ready.' },
+    { step: '05', title: 'Support', description: 'We remain available for improvements and ongoing guidance.' }
   ];
 
   return (
     <div className="about-page">
-      {/* Hero Section */}
       <section className="about-hero">
         <div className="container">
           <motion.div 
@@ -65,15 +73,14 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="about-title">About SMSolutions</h1>
+            <h1 className="about-title">About Strong&apos;s Digital Labs</h1>
             <p className="about-subtitle">
-              Passionate app developer transforming ideas into digital reality
+              A technology consultancy helping businesses build intelligent online systems
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Story Section */}
       <section className="about-story">
         <div className="container">
           <div className="story-content">
@@ -83,24 +90,21 @@ const About = () => {
               animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
               transition={{ duration: 0.8 }}
             >
-              <h2>My Story</h2>
+              <h2>Who We Are</h2>
               <p>
-                I'm SMSolutions, a passionate app developer with over 5 years of experience 
-                creating mobile and web applications that drive business growth. My journey 
-                began with a simple belief: technology should solve real problems and make 
-                people's lives better.
+                Strong&apos;s Digital Labs is a software development consultancy focused on helping businesses 
+                design, build, and maintain online systems — websites, web applications, and 
+                mobile apps that solve real operational challenges.
               </p>
               <p>
-                Over the years, I've had the privilege of working with startups, enterprises, 
-                and government organizations, helping them transform their ideas into powerful 
-                digital solutions. From emergency response systems to agricultural management 
-                platforms, each project has taught me something new and reinforced my commitment 
-                to excellence.
+                We work with startups, SMEs, NGOs, and public-sector organizations that need 
+                reliable technology partners. From emergency response platforms to agricultural 
+                management systems, we bring full-stack engineering expertise to every engagement.
               </p>
               <p>
-                Today, I specialize in React Native mobile development, React web applications, 
-                and full-stack solutions. My approach combines technical expertise with a deep 
-                understanding of user needs, ensuring every app I build delivers real value.
+                What sets us apart is our practical approach to AI. We do not sell buzzwords — 
+                we integrate intelligent automation, faster development workflows, and 
+                data-driven features where they genuinely improve outcomes for your business.
               </p>
             </motion.div>
             <motion.div 
@@ -109,16 +113,14 @@ const About = () => {
               animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="image-placeholder">
-                <FiCode size={80} />
-                <p>Your Photo Here</p>
+              <div className="image-placeholder about-logo-wrap">
+                <img src="/logo.png" alt="Strong's Digital Labs" className="about-logo" />
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Skills Section */}
       <section className="about-skills" ref={ref}>
         <div className="container">
           <motion.div 
@@ -127,12 +129,12 @@ const About = () => {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
           >
-            <h2>Technical Skills</h2>
-            <p>Expertise in modern technologies and frameworks</p>
+            <h2>Our Capabilities</h2>
+            <p>Modern full-stack engineering with a focus on maintainable, scalable systems</p>
           </motion.div>
 
           <div className="skills-grid">
-            {skills.map((skill, index) => (
+            {capabilities.map((skill, index) => (
               <motion.div 
                 key={skill.name}
                 className="skill-card"
@@ -157,7 +159,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Achievements Section */}
       <section className="about-achievements">
         <div className="container">
           <motion.div 
@@ -166,27 +167,26 @@ const About = () => {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8, staggerChildren: 0.2 }}
           >
-            {achievements.map((achievement, index) => (
+            {highlights.map((item, index) => (
               <motion.div 
-                key={achievement.title}
+                key={item.title}
                 className="achievement-card"
                 initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <div className="achievement-icon">
-                  <achievement.icon size={40} />
+                  <item.icon size={40} />
                 </div>
-                <div className="achievement-number">{achievement.number}</div>
-                <div className="achievement-title">{achievement.title}</div>
-                <div className="achievement-description">{achievement.description}</div>
+                <div className="achievement-number">{item.number}</div>
+                <div className="achievement-title">{item.title}</div>
+                <div className="achievement-description">{item.description}</div>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Values Section */}
       <section className="about-values">
         <div className="container">
           <motion.div 
@@ -195,23 +195,44 @@ const About = () => {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8 }}
           >
-            <h2>My Values</h2>
+            <h2>How We Work</h2>
+            <div className="values-grid">
+              {process.map((step) => (
+                <div key={step.step} className="value-item">
+                  <h3>{step.step}. {step.title}</h3>
+                  <p>{step.description}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="about-values">
+        <div className="container">
+          <motion.div 
+            className="values-content"
+            initial={{ opacity: 0, y: 50 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2>Our Values</h2>
             <div className="values-grid">
               <div className="value-item">
-                <h3>Quality First</h3>
-                <p>Every line of code is written with attention to detail and best practices.</p>
+                <h3>Quality Engineering</h3>
+                <p>We write maintainable code and build systems designed to last.</p>
               </div>
               <div className="value-item">
                 <h3>Client Success</h3>
-                <p>Your success is my success. I'm committed to delivering solutions that drive results.</p>
+                <p>Your outcomes drive our work. We measure success by the value we deliver.</p>
               </div>
               <div className="value-item">
-                <h3>Innovation</h3>
-                <p>I stay updated with the latest technologies to provide cutting-edge solutions.</p>
+                <h3>Practical Innovation</h3>
+                <p>We adopt new technology — including AI — only when it serves your business.</p>
               </div>
               <div className="value-item">
                 <h3>Transparency</h3>
-                <p>Clear communication and regular updates throughout the development process.</p>
+                <p>Clear communication, honest timelines, and no surprises along the way.</p>
               </div>
             </div>
           </motion.div>

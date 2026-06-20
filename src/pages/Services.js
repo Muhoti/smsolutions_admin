@@ -1,16 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
 import { 
   FiSmartphone, 
   FiMonitor, 
-  FiPenTool,
-  FiCode,
+  FiCpu,
+  FiBriefcase,
   FiCheckCircle,
   FiArrowRight,
+  FiSearch,
+  FiFileText,
+  FiCode,
   FiZap,
-  FiShield,
-  FiTrendingUp
+  FiHeadphones
 } from 'react-icons/fi';
 import './Services.css';
 
@@ -22,105 +25,106 @@ const Services = () => {
 
   const services = [
     {
-      id: 'mobile',
-      icon: FiSmartphone,
-      title: 'Mobile App Development',
-      subtitle: 'Native iOS & Android Apps',
-      description: 'Create powerful mobile applications that deliver exceptional user experiences across all devices.',
+      id: 'consultancy',
+      icon: FiBriefcase,
+      title: 'Systems Consultancy',
+      subtitle: 'Strategy & Architecture',
+      description: 'We help organizations plan, assess, and modernize their technology — before a single line of code is written.',
       features: [
-        'Native iOS & Android Development',
-        'React Native Cross-Platform Apps',
-        'App Store & Play Store Deployment',
-        'Push Notifications & Analytics',
-        'Offline Functionality',
-        'Performance Optimization'
+        'Requirements discovery & workshops',
+        'Technical architecture & roadmaps',
+        'Legacy system assessment',
+        'Vendor & technology selection',
+        'Digital transformation planning',
+        'Ongoing technical advisory'
       ],
-      technologies: ['React Native', 'Swift', 'Kotlin', 'Flutter', 'Firebase'],
-      color: 'blue'
+      technologies: ['Architecture', 'System Design', 'APIs', 'Cloud', 'PostgreSQL']
     },
     {
       id: 'web',
       icon: FiMonitor,
       title: 'Web Development',
-      subtitle: 'Modern Web Applications',
-      description: 'Build scalable web applications that provide seamless experiences across all browsers and devices.',
+      subtitle: 'Websites, Apps & Portals',
+      description: 'We build web applications, business websites, and admin portals that scale with your organization.',
       features: [
-        'Progressive Web Apps (PWA)',
-        'E-Commerce Platforms',
-        'Admin Dashboards & CMS',
-        'API Development & Integration',
-        'Cloud Hosting & Deployment',
-        'Performance Optimization'
+        'Corporate & business websites',
+        'Web applications & dashboards',
+        'Admin portals & CMS systems',
+        'API development & integrations',
+        'Cloud deployment',
+        'Performance optimization'
       ],
-      technologies: ['React', 'Node.js', 'MongoDB', 'PostgreSQL', 'AWS'],
-      color: 'green'
+      technologies: ['React', 'Node.js', 'PostgreSQL', 'REST APIs', 'AWS']
     },
     {
-      id: 'design',
-      icon: FiPenTool,
-      title: 'UI/UX Design',
-      subtitle: 'Beautiful & Intuitive Design',
-      description: 'Design stunning user interfaces that not only look great but provide exceptional user experiences.',
+      id: 'mobile',
+      icon: FiSmartphone,
+      title: 'Mobile App Development',
+      subtitle: 'iOS, Android & Cross-Platform',
+      description: 'We create mobile applications that connect your team and customers to your systems anywhere.',
       features: [
-        'User Research & Analysis',
-        'Wireframing & Prototyping',
-        'Modern UI/UX Design',
-        'Brand Identity & Guidelines',
-        'Usability Testing',
-        'Design System Creation'
+        'Cross-platform mobile apps',
+        'Native iOS & Android',
+        'Field & offline-first apps',
+        'Push notifications',
+        'App store deployment',
+        'Mobile-backend integration'
       ],
-      technologies: ['Figma', 'Adobe XD', 'Sketch', 'Principle', 'InVision'],
-      color: 'purple'
+      technologies: ['React Native', 'iOS', 'Android', 'Firebase', 'REST APIs']
     },
     {
-      id: 'consultation',
-      icon: FiCode,
-      title: 'Technical Consultation',
-      subtitle: 'Expert Guidance & Strategy',
-      description: 'Get expert advice on technology choices, architecture decisions, and development strategies.',
+      id: 'ai',
+      icon: FiCpu,
+      title: 'AI-Enabled Solutions',
+      subtitle: 'Practical Intelligence',
+      description: 'We integrate AI capabilities that improve efficiency, automate workflows, and unlock insights from your data.',
       features: [
-        'Technology Stack Selection',
-        'Architecture Planning',
-        'Code Review & Optimization',
-        'Performance Audits',
-        'Security Assessments',
-        'Team Training & Mentoring'
+        'AI-assisted development (faster delivery)',
+        'Intelligent dashboards & reporting',
+        'Chatbots & customer support automation',
+        'Document processing & extraction',
+        'Workflow automation',
+        'AI-ready system architecture'
       ],
-      technologies: ['Architecture', 'Best Practices', 'Code Review', 'Training'],
-      color: 'orange'
+      technologies: ['LLM APIs', 'Automation', 'NLP', 'Data Pipelines', 'Integrations']
     }
   ];
 
   const process = [
     {
       step: '01',
-      title: 'Discovery & Planning',
-      description: 'We start by understanding your business goals, target audience, and technical requirements.',
-      icon: FiZap
+      title: 'Discovery',
+      description: 'We understand your business goals, users, existing systems, and constraints.',
+      icon: FiSearch
     },
     {
       step: '02',
-      title: 'Design & Prototyping',
-      description: 'Create wireframes, mockups, and interactive prototypes to visualize your app.',
-      icon: FiPenTool
+      title: 'Proposal',
+      description: 'We deliver a clear scope, timeline, and technical approach tailored to your budget.',
+      icon: FiFileText
     },
     {
       step: '03',
-      title: 'Development & Testing',
-      description: 'Build your app using best practices, with continuous testing and quality assurance.',
+      title: 'Build',
+      description: 'We design and develop your solution with regular updates and quality assurance.',
       icon: FiCode
     },
     {
       step: '04',
-      title: 'Deployment & Launch',
-      description: 'Deploy your app to app stores or web servers, with ongoing support and maintenance.',
-      icon: FiShield
+      title: 'Launch',
+      description: 'We deploy, test, and ensure your system is ready for real-world use.',
+      icon: FiZap
+    },
+    {
+      step: '05',
+      title: 'Support',
+      description: 'We provide ongoing maintenance, improvements, and technical guidance.',
+      icon: FiHeadphones
     }
   ];
 
   return (
     <div className="services-page">
-      {/* Hero Section */}
       <section className="services-hero">
         <div className="container">
           <motion.div 
@@ -129,25 +133,25 @@ const Services = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="services-title">My Services</h1>
+            <h1 className="services-title">Our Services</h1>
             <p className="services-subtitle">
-              Comprehensive app development solutions tailored to your business needs
+              Technology consultancy and development for businesses building modern online systems
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Services Grid */}
       <section className="services-grid-section" ref={ref}>
         <div className="container">
           <div className="services-grid">
             {services.map((service, index) => (
               <motion.div 
                 key={service.id}
-                className={`service-card service-card-${service.color}`}
+                id={service.id}
+                className="service-card"
                 initial={{ opacity: 0, y: 50 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
+                transition={{ duration: 0.8, delay: index * 0.15 }}
               >
                 <div className="service-header">
                   <div className="service-icon">
@@ -160,7 +164,7 @@ const Services = () => {
                 <p className="service-description">{service.description}</p>
                 
                 <div className="service-features">
-                  <h4>What's Included:</h4>
+                  <h4>What We Deliver:</h4>
                   <ul>
                     {service.features.map((feature, featureIndex) => (
                       <li key={featureIndex}>
@@ -181,20 +185,12 @@ const Services = () => {
                     ))}
                   </div>
                 </div>
-                
-                <div className="service-cta">
-                  <button className="btn btn-outline">
-                    Learn More
-                    <FiArrowRight size={16} />
-                  </button>
-                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Process Section */}
       <section className="process-section">
         <div className="container">
           <motion.div 
@@ -203,8 +199,8 @@ const Services = () => {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
           >
-            <h2>My Development Process</h2>
-            <p>A proven methodology that ensures successful project delivery</p>
+            <h2>Our Process</h2>
+            <p>A proven consultancy methodology from first conversation to long-term support</p>
           </motion.div>
 
           <div className="process-timeline">
@@ -214,7 +210,7 @@ const Services = () => {
                 className="process-step"
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
+                transition={{ duration: 0.8, delay: index * 0.15 }}
               >
                 <div className="step-number">{step.step}</div>
                 <div className="step-content">
@@ -230,7 +226,6 @@ const Services = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="services-cta">
         <div className="container">
           <motion.div 
@@ -239,16 +234,16 @@ const Services = () => {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8 }}
           >
-            <h2>Ready to Start Your Project?</h2>
-            <p>Let's discuss how I can help bring your app idea to life</p>
+            <h2>Let's Discuss Your Project</h2>
+            <p>Tell us what you are building. We will respond with a clear recommendation.</p>
             <div className="cta-buttons">
-              <button className="btn btn-primary btn-lg">
-                Start Your Project
+              <Link to="/contact" className="btn btn-primary btn-lg">
+                Contact Us
                 <FiArrowRight size={20} />
-              </button>
-              <button className="btn btn-secondary btn-lg">
-                View Portfolio
-              </button>
+              </Link>
+              <Link to="/portfolio" className="btn btn-secondary btn-lg">
+                View Our Work
+              </Link>
             </div>
           </motion.div>
         </div>

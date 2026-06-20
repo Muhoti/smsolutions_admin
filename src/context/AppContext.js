@@ -55,7 +55,7 @@ export const AppProvider = ({ children }) => {
       const response = await apiService.submitContact(contactData);
       return { success: true, data: response.data };
     } catch (err) {
-      const errorMessage = err.response?.data?.message || 'Failed to send message';
+      const errorMessage = err.response?.data?.error || err.response?.data?.message || 'Failed to send message';
       setError(errorMessage);
       return { success: false, error: errorMessage };
     } finally {

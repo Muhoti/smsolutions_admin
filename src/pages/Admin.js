@@ -20,7 +20,25 @@ import {
   FiMonitor
 } from 'react-icons/fi';
 import { useApp } from '../context/AppContext';
+import { apiService } from '../services/api';
 import './Admin.css';
+
+const PROJECT_TYPE_LABELS = {
+  mobile: 'Mobile App',
+  web: 'Web Application',
+  both: 'Web + Mobile',
+  consultation: 'Consultancy',
+  other: 'Other'
+};
+
+const formatDate = (dateString) => {
+  if (!dateString) return '—';
+  return new Date(dateString).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+  });
+};
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -34,68 +52,54 @@ const Admin = () => {
   const [isCreatingTestimonial, setIsCreatingTestimonial] = useState(false);
   const [isCreatingContact, setIsCreatingContact] = useState(false);
 
-  // Get data from context
-  const { projects: contextProjects, testimonials: contextTestimonials, loading: contextLoading, createProject, createTestimonial, createContact, fetchProjects, fetchTestimonials } = useApp();
+  const { createProject, createTestimonial, createContact, fetchProjects, fetchTestimonials } = useApp();
 
-  // Forms
+  const [stats, setStats] = useState({
+    totalContacts: 0,
+    newInquiries: 0,
+    totalProjects: 0,
+    featuredProjects: 0
+  });
+  const [contacts, setContacts] = useState([]);
+  const [adminProjects, setAdminProjects] = useState([]);
+  const [adminTestimonials, setAdminTestimonials] = useState([]);
+  const [recentContacts, setRecentContacts] = useState([]);
+
   const { register: registerProject, handleSubmit: handleProjectSubmit, reset: resetProject, formState: { errors: projectErrors } } = useForm();
   const { register: registerTestimonial, handleSubmit: handleTestimonialSubmit, reset: resetTestimonial, formState: { errors: testimonialErrors } } = useForm();
   const { register: registerContact, handleSubmit: handleContactSubmit, reset: resetContact, formState: { errors: contactErrors } } = useForm();
 
-  // Mock data
-  const [stats, setStats] = useState({
-    totalContacts: 24,
-    newInquiries: 5,
-    totalProjects: 12,
-    featuredProjects: 8
-  });
+  const loadAdminData = async () => {
+    try {
+      const [dashboardRes, contactsRes, projectsRes, testimonialsRes] = await Promise.all([
+        apiService.admin.getDashboard(),
+        apiService.admin.getContacts({ limit: 50 }),
+        apiService.admin.getProjects({ limit: 50 }),
+        apiService.admin.getTestimonials({ limit: 50 })
+      ]);
 
-  const [contacts, setContacts] = useState([
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john@example.com',
-      company: 'Tech Corp',
-      projectType: 'Mobile App',
-      status: 'new',
-      date: '2024-01-15'
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      email: 'jane@example.com',
-      company: 'Startup Inc',
-      projectType: 'Web App',
-      status: 'in-progress',
-      date: '2024-01-14'
+      const dashboard = dashboardRes.data.data;
+      setStats({
+        totalContacts: dashboard.contacts.total,
+        newInquiries: dashboard.contacts.new,
+        totalProjects: dashboard.projects.total,
+        featuredProjects: dashboard.projects.featured
+      });
+      setRecentContacts(dashboard.recent.contacts || []);
+      setContacts(contactsRes.data.data || []);
+      setAdminProjects(projectsRes.data.data || []);
+      setAdminTestimonials(testimonialsRes.data.data || []);
+    } catch (error) {
+      console.error('Error loading admin data:', error);
+      toast.error('Failed to load admin data');
     }
-  ]);
-
-  const [projects, setProjects] = useState([
-    {
-      id: 1,
-      title: 'Ambulex Emergency App',
-      category: 'mobile',
-      status: 'completed',
-      featured: true,
-      date: '2024-01-10'
-    },
-    {
-      id: 2,
-      title: 'Meru Agricultural MIS',
-      category: 'web',
-      status: 'development',
-      featured: true,
-      date: '2024-01-08'
-    }
-  ]);
+  };
 
   useEffect(() => {
-    // Check if user is already authenticated
     const token = localStorage.getItem('adminToken');
     if (token) {
       setIsAuthenticated(true);
-      // Fetch data when authenticated
+      loadAdminData();
       fetchProjects();
       fetchTestimonials();
     }
@@ -113,6 +117,7 @@ const Admin = () => {
         resetProject();
         // Refresh projects list
         await fetchProjects();
+        await loadAdminData();
       } else {
         toast.error(result.error || 'Failed to create project');
       }
@@ -135,6 +140,7 @@ const Admin = () => {
         resetTestimonial();
         // Refresh testimonials list
         await fetchTestimonials();
+        await loadAdminData();
       } else {
         toast.error(result.error || 'Failed to create testimonial');
       }
@@ -155,8 +161,7 @@ const Admin = () => {
         toast.success('Contact created successfully!');
         setShowContactForm(false);
         resetContact();
-        // Add the new contact to the local state
-        setContacts(prev => [result.data, ...prev]);
+        await loadAdminData();
       } else {
         toast.error(result.error || 'Failed to create contact');
       }
@@ -172,19 +177,22 @@ const Admin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Mock authentication
-    if (loginData.email === 'admin@strongmuhoti.com' && loginData.password === 'admin123') {
-      localStorage.setItem('adminToken', 'mock-jwt-token');
+
+    try {
+      const response = await apiService.admin.login(loginData);
+      const { token } = response.data.data;
+      localStorage.setItem('adminToken', token);
       setIsAuthenticated(true);
-    } else {
-      alert('Invalid credentials');
+      toast.success('Welcome back!');
+      await loadAdminData();
+      await fetchProjects();
+      await fetchTestimonials();
+    } catch (error) {
+      const message = error.response?.data?.message || 'Invalid credentials';
+      toast.error(message);
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsLoading(false);
   };
 
   const handleLogout = () => {
@@ -251,10 +259,9 @@ const Admin = () => {
               </button>
             </form>
             
-            <div className="login-demo">
-              <p><strong>Demo Credentials:</strong></p>
-              <p>Email: admin@strongmuhoti.com</p>
-              <p>Password: admin123</p>
+            <div className="login-note">
+              <p>Sign in with your admin account.</p>
+              <p>Default: admin@strongsdigitallabs.com (change password after first login)</p>
             </div>
           </motion.div>
         </div>
@@ -366,6 +373,40 @@ const Admin = () => {
                       </div>
                     </div>
                   </div>
+
+                  {recentContacts.length > 0 && (
+                    <div className="recent-contacts" style={{ marginTop: '2rem' }}>
+                      <h3>Recent Inquiries</h3>
+                      <div className="table-container">
+                        <table className="data-table">
+                          <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Project Type</th>
+                              <th>Status</th>
+                              <th>Date</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {recentContacts.map((contact) => (
+                              <tr key={contact.id}>
+                                <td>{contact.name}</td>
+                                <td>{contact.email}</td>
+                                <td>{PROJECT_TYPE_LABELS[contact.projectType] || contact.projectType}</td>
+                                <td>
+                                  <span className={`status-badge status-${contact.status}`}>
+                                    {contact.status}
+                                  </span>
+                                </td>
+                                <td>{formatDate(contact.createdAt)}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
                 </motion.div>
               )}
 
@@ -388,6 +429,7 @@ const Admin = () => {
                   </div>
                   
                   <div className="table-container">
+                    {contacts.length > 0 ? (
                     <table className="data-table">
                       <thead>
                         <tr>
@@ -405,24 +447,18 @@ const Admin = () => {
                           <tr key={contact.id}>
                             <td>{contact.name}</td>
                             <td>{contact.email}</td>
-                            <td>{contact.company}</td>
-                            <td>{contact.projectType}</td>
+                            <td>{contact.company || '—'}</td>
+                            <td>{PROJECT_TYPE_LABELS[contact.projectType] || contact.projectType}</td>
                             <td>
                               <span className={`status-badge status-${contact.status}`}>
                                 {contact.status}
                               </span>
                             </td>
-                            <td>{contact.date}</td>
+                            <td>{formatDate(contact.createdAt)}</td>
                             <td>
                               <div className="action-buttons">
-                                <button className="action-btn">
+                                <button className="action-btn" title="View">
                                   <FiEye size={16} />
-                                </button>
-                                <button className="action-btn">
-                                  <FiEdit size={16} />
-                                </button>
-                                <button className="action-btn delete">
-                                  <FiTrash2 size={16} />
                                 </button>
                               </div>
                             </td>
@@ -430,6 +466,13 @@ const Admin = () => {
                         ))}
                       </tbody>
                     </table>
+                    ) : (
+                      <div className="empty-state">
+                        <FiUsers size={48} />
+                        <h3>No inquiries yet</h3>
+                        <p>Contact form submissions will appear here</p>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               )}
@@ -442,7 +485,7 @@ const Admin = () => {
                   transition={{ duration: 0.5 }}
                 >
                   <div className="content-header">
-                    <h2>Projects ({contextProjects.length})</h2>
+                    <h2>Projects ({adminProjects.length})</h2>
                     <button 
                       className="btn btn-primary"
                       onClick={() => setShowProjectForm(true)}
@@ -452,7 +495,7 @@ const Admin = () => {
                     </button>
                   </div>
                   
-                  {contextProjects.length > 0 ? (
+                  {adminProjects.length > 0 ? (
                     <div className="table-container">
                       <table className="data-table">
                         <thead>
@@ -465,7 +508,7 @@ const Admin = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {contextProjects.map((project) => (
+                          {adminProjects.map((project) => (
                             <tr key={project.id}>
                               <td>{project.title}</td>
                               <td>
@@ -525,7 +568,7 @@ const Admin = () => {
                   transition={{ duration: 0.5 }}
                 >
                   <div className="content-header">
-                    <h2>Testimonials ({contextTestimonials.length})</h2>
+                    <h2>Testimonials ({adminTestimonials.length})</h2>
                     <button 
                       className="btn btn-primary"
                       onClick={() => setShowTestimonialForm(true)}
@@ -535,9 +578,9 @@ const Admin = () => {
                     </button>
                   </div>
                   
-                  {contextTestimonials.length > 0 ? (
+                  {adminTestimonials.length > 0 ? (
                     <div className="testimonials-list">
-                      {contextTestimonials.map((testimonial) => (
+                      {adminTestimonials.map((testimonial) => (
                         <div key={testimonial.id} className="testimonial-item">
                           <div className="testimonial-content">
                             <p>"{testimonial.review}"</p>
@@ -888,7 +931,7 @@ const Admin = () => {
                     <option value="mobile">Mobile App</option>
                     <option value="web">Web Application</option>
                     <option value="both">Both Mobile & Web</option>
-                    <option value="consultation">Consultation</option>
+                    <option value="consultation">Systems Consultancy</option>
                     <option value="other">Other</option>
                   </select>
                   {contactErrors.projectType && <span className="error">{contactErrors.projectType.message}</span>}

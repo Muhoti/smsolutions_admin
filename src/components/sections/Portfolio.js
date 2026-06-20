@@ -10,6 +10,7 @@ import {
   FiLoader,
   FiCode
 } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import './Portfolio.css';
 
@@ -54,7 +55,7 @@ const Portfolio = () => {
     if (project.images && project.images.length > 0) {
       return project.images[0];
     }
-    return `https://via.placeholder.com/400x300/6366f1/ffffff?text=${encodeURIComponent(project.title)}`;
+    return `https://via.placeholder.com/400x300/00a8ff/ffffff?text=${encodeURIComponent(project.title)}`;
   };
 
   return (
@@ -66,8 +67,8 @@ const Portfolio = () => {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2>Featured Projects</h2>
-          <p>Explore some of my recent work and see how I've helped businesses transform their ideas into reality</p>
+          <h2>Our Work</h2>
+          <p>Selected projects showcasing the systems we design and build for our clients</p>
         </motion.div>
 
         <motion.div 
@@ -188,7 +189,7 @@ const Portfolio = () => {
               <FiCode size={48} />
               <h3>No projects yet</h3>
               <p>Projects will appear here once they're added to the database.</p>
-              <p>Check back later or contact me to see my work!</p>
+              <p>Check back later or contact us to discuss your project.</p>
             </div>
           )}
         </motion.div>
@@ -199,10 +200,10 @@ const Portfolio = () => {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <button className="btn btn-outline">
+          <Link to="/portfolio" className="btn btn-outline">
             View All Projects
             <FiExternalLink size={16} />
-          </button>
+          </Link>
         </motion.div>
       </div>
     </section>

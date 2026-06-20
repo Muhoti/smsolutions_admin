@@ -1,11 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
 import { 
   FiSmartphone, 
   FiMonitor, 
-  FiPenTool,
-  FiCode,
+  FiCpu,
+  FiBriefcase,
   FiCheckCircle,
   FiArrowRight
 } from 'react-icons/fi';
@@ -19,40 +20,48 @@ const Services = () => {
 
   const services = [
     {
-      icon: FiSmartphone,
-      title: 'Mobile App Development',
-      description: 'Create powerful mobile applications for iOS and Android that deliver exceptional user experiences.',
+      icon: FiBriefcase,
+      title: 'Systems Consultancy',
+      description: 'We help you plan, architect, and modernize online systems that align with your business goals.',
       features: [
-        'Native iOS & Android Development',
-        'React Native Cross-Platform Apps',
-        'App Store & Play Store Deployment',
-        'Push Notifications & Analytics'
+        'Requirements & discovery workshops',
+        'Technical architecture planning',
+        'Legacy system assessment',
+        'Digital transformation roadmaps'
       ],
-      color: 'blue'
     },
     {
       icon: FiMonitor,
       title: 'Web Development',
-      description: 'Build scalable web applications that provide seamless experiences across all browsers and devices.',
+      description: 'We build scalable web applications, portals, and dashboards tailored to how your business operates.',
       features: [
-        'Progressive Web Apps (PWA)',
-        'E-Commerce Platforms',
-        'Admin Dashboards & CMS',
-        'API Development & Integration'
+        'Business websites & landing pages',
+        'Web applications & admin portals',
+        'API development & integrations',
+        'Cloud deployment & hosting'
       ],
-      color: 'green'
     },
     {
-      icon: FiPenTool,
-      title: 'UI/UX Design',
-      description: 'Design stunning user interfaces that not only look great but provide exceptional user experiences.',
+      icon: FiSmartphone,
+      title: 'Mobile App Development',
+      description: 'We create mobile applications that extend your systems to customers and teams on the go.',
       features: [
-        'User Research & Analysis',
-        'Wireframing & Prototyping',
-        'Modern UI/UX Design',
-        'Usability Testing'
+        'Cross-platform mobile apps',
+        'iOS & Android development',
+        'Offline-first field applications',
+        'App store deployment'
       ],
-      color: 'purple'
+    },
+    {
+      icon: FiCpu,
+      title: 'AI-Enabled Solutions',
+      description: 'We integrate practical AI capabilities — automation, intelligence, and faster delivery where it matters.',
+      features: [
+        'AI-assisted development workflows',
+        'Intelligent dashboards & reporting',
+        'Process automation & chatbots',
+        'Document processing & insights'
+      ]
     }
   ];
 
@@ -65,18 +74,18 @@ const Services = () => {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2>My Services</h2>
-          <p>Comprehensive app development solutions tailored to your business needs</p>
+          <h2>Our Services</h2>
+          <p>End-to-end technology consultancy for businesses building modern online systems</p>
         </motion.div>
 
         <div className="services-grid">
           {services.map((service, index) => (
             <motion.div 
               key={service.title}
-              className={`service-card service-card-${service.color}`}
+              className="service-card"
               initial={{ opacity: 0, y: 50 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
+              transition={{ duration: 0.8, delay: index * 0.15 }}
             >
               <div className="service-icon">
                 <service.icon size={40} />
@@ -91,10 +100,10 @@ const Services = () => {
                   </li>
                 ))}
               </ul>
-              <button className="service-btn">
+              <Link to="/services" className="service-btn">
                 Learn More
                 <FiArrowRight size={16} />
-              </button>
+              </Link>
             </motion.div>
           ))}
         </div>

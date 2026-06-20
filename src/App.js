@@ -42,7 +42,7 @@ function App() {
           <ScrollToTop />
           <Navbar />
           
-          <main>
+          <main className="site-main">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />

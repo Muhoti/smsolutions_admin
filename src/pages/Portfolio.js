@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
 import { 
   FiExternalLink, 
   FiGithub, 
   FiSmartphone, 
   FiMonitor,
-  FiFilter,
-  FiSearch
+  FiSearch,
+  FiLoader,
+  FiCode,
+  FiArrowRight
 } from 'react-icons/fi';
+import { apiService } from '../services/api';
 import './Portfolio.css';
 
 const Portfolio = () => {
@@ -19,99 +23,42 @@ const Portfolio = () => {
 
   const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const projects = [
-    {
-      id: 1,
-      title: 'Ambulex Emergency Response System',
-      category: 'web',
-      type: 'Web Application',
-      description: 'Real-time emergency response platform with GPS tracking and instant notifications for emergency services.',
-      image: '/api/placeholder/400/300',
-      tech: ['React', 'Node.js', 'MongoDB', 'Socket.io'],
-      links: {
-        demo: 'https://dashboard.ambulexsolutions.org/',
-        github: 'https://github.com/strongmuhoti'
-      },
-      featured: true
-    },
-    {
-      id: 2,
-      title: 'Vihiga Farmer Mapping App',
-      category: 'mobile',
-      type: 'Mobile App',
-      description: 'GPS-enabled mobile application for agricultural data collection and farmer mapping in Vihiga County.',
-      image: '/api/placeholder/400/300',
-      tech: ['React Native', 'Firebase', 'Maps API'],
-      links: {
-        playStore: 'https://play.google.com/store/apps/details?id=com.vihiga.farmer',
-        github: 'https://github.com/strongmuhoti'
-      },
-      featured: true
-    },
-    {
-      id: 3,
-      title: 'Meru County Agricultural MIS',
-      category: 'web',
-      type: 'Web Platform',
-      description: 'Comprehensive agricultural management information system for Meru County government operations.',
-      image: '/api/placeholder/400/300',
-      tech: ['React', 'Express', 'PostgreSQL'],
-      links: {
-        demo: 'https://meru.dat.co.ke/',
-        github: 'https://github.com/strongmuhoti'
-      },
-      featured: false
-    },
-    {
-      id: 4,
-      title: 'UETCL Asset Tracking App',
-      category: 'mobile',
-      type: 'Mobile App',
-      description: 'Enterprise asset tracking and management mobile application for Uganda Electricity Transmission Company.',
-      image: '/api/placeholder/400/300',
-      tech: ['React Native', 'Node.js', 'MongoDB'],
-      links: {
-        playStore: 'https://play.google.com/store/apps/details?id=com.uetcl.assets',
-        github: 'https://github.com/strongmuhoti'
-      },
-      featured: true
-    },
-    {
-      id: 5,
-      title: 'KiriAMIS Agricultural System',
-      category: 'web',
-      type: 'Web Application',
-      description: 'Agricultural information management system for Kirinyaga County with farmer registration and crop monitoring.',
-      image: '/api/placeholder/400/300',
-      tech: ['React', 'Node.js', 'MySQL'],
-      links: {
-        demo: 'https://admin-kirinyaga.dat.co.ke/',
-        github: 'https://github.com/strongmuhoti'
-      },
-      featured: false
-    },
-    {
-      id: 6,
-      title: 'Box Champy Fitness App',
-      category: 'mobile',
-      type: 'Mobile App',
-      description: 'Fitness training and boxing club management mobile application with workout tracking and scheduling.',
-      image: '/api/placeholder/400/300',
-      tech: ['React Native', 'Firebase', 'Stripe'],
-      links: {
-        playStore: 'https://play.google.com/store/apps/details?id=com.boxchampy.fitness',
-        github: 'https://github.com/strongmuhoti'
-      },
-      featured: true
-    }
-  ];
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        setLoading(true);
+        const response = await apiService.getProjects({ limit: 50 });
+        setProjects(response.data.data || []);
+      } catch (error) {
+        console.error('Error loading projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadProjects();
+  }, []);
 
   const categories = [
     { id: 'all', name: 'All Projects' },
     { id: 'web', name: 'Web Applications' },
-    { id: 'mobile', name: 'Mobile Apps' }
+    { id: 'mobile', name: 'Mobile Apps' },
+    { id: 'both', name: 'Cross-Platform' }
   ];
+
+  const getProjectType = (category) => {
+    if (category === 'mobile') return 'Mobile App';
+    if (category === 'web') return 'Web Application';
+    if (category === 'both') return 'Cross-Platform';
+    return 'Application';
+  };
+
+  const getProjectImage = (project) => {
+    if (project.images && project.images.length > 0) return project.images[0];
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(project.title)}&background=00a8ff&color=fff&size=400`;
+  };
 
   const filteredProjects = projects.filter(project => {
     const matchesCategory = filter === 'all' || project.category === filter;
@@ -122,7 +69,6 @@ const Portfolio = () => {
 
   return (
     <div className="portfolio-page">
-      {/* Hero Section */}
       <section className="portfolio-hero">
         <div className="container">
           <motion.div 
@@ -131,15 +77,14 @@ const Portfolio = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="portfolio-title">My Portfolio</h1>
+            <h1 className="portfolio-title">Our Portfolio</h1>
             <p className="portfolio-subtitle">
-              Explore my latest projects and see how I've helped businesses transform their ideas into reality
+              Explore the online systems, web applications, and mobile apps we have built for our clients
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Filters and Search */}
       <section className="portfolio-filters">
         <div className="container">
           <motion.div 
@@ -174,9 +119,14 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Projects Grid */}
       <section className="portfolio-grid-section" ref={ref}>
         <div className="container">
+          {loading ? (
+            <div className="loading-projects" style={{ textAlign: 'center', padding: '3rem' }}>
+              <FiLoader className="spinner" size={32} />
+              <p>Loading projects...</p>
+            </div>
+          ) : (
           <motion.div 
             className="portfolio-grid"
             initial={{ opacity: 0 }}
@@ -192,11 +142,11 @@ const Portfolio = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <div className="project-image">
-                  <img src={project.image} alt={project.title} />
+                  <img src={getProjectImage(project)} alt={project.title} />
                   <div className="project-overlay">
                     <div className="project-type">
                       {project.category === 'mobile' ? <FiSmartphone size={20} /> : <FiMonitor size={20} />}
-                      {project.type}
+                      {getProjectType(project.category)}
                     </div>
                     {project.featured && (
                       <div className="featured-badge">Featured</div>
@@ -209,7 +159,7 @@ const Portfolio = () => {
                   <p className="project-description">{project.description}</p>
                   
                   <div className="project-tech">
-                    {project.tech.map((tech, techIndex) => (
+                    {project.techStack && project.techStack.map((tech, techIndex) => (
                       <span key={techIndex} className="tech-tag">
                         {tech}
                       </span>
@@ -217,35 +167,20 @@ const Portfolio = () => {
                   </div>
                   
                   <div className="project-links">
-                    {project.links.demo && (
-                      <a 
-                        href={project.links.demo} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="project-link"
-                      >
+                    {project.liveDemo && (
+                      <a href={project.liveDemo} target="_blank" rel="noopener noreferrer" className="project-link">
                         <FiExternalLink size={16} />
                         Live Demo
                       </a>
                     )}
-                    {project.links.playStore && (
-                      <a 
-                        href={project.links.playStore} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="project-link"
-                      >
+                    {project.playStore && (
+                      <a href={project.playStore} target="_blank" rel="noopener noreferrer" className="project-link">
                         <FiSmartphone size={16} />
                         Play Store
                       </a>
                     )}
-                    {project.links.github && (
-                      <a 
-                        href={project.links.github} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="project-link"
-                      >
+                    {project.github && (
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-link">
                         <FiGithub size={16} />
                         Code
                       </a>
@@ -255,21 +190,24 @@ const Portfolio = () => {
               </motion.div>
             ))}
           </motion.div>
+          )}
           
-          {filteredProjects.length === 0 && (
+          {!loading && filteredProjects.length === 0 && (
             <motion.div 
               className="no-projects"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
+              style={{ textAlign: 'center', padding: '3rem' }}
             >
-              <p>No projects found matching your criteria.</p>
+              <FiCode size={48} />
+              <h3>No projects yet</h3>
+              <p>Projects will appear here once added via the admin panel.</p>
             </motion.div>
           )}
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="portfolio-cta">
         <div className="container">
           <motion.div 
@@ -278,11 +216,12 @@ const Portfolio = () => {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8 }}
           >
-            <h2>Ready to Start Your Project?</h2>
-            <p>Let's work together to bring your app idea to life</p>
-            <button className="btn btn-primary btn-lg">
-              Start Your Project
-            </button>
+            <h2>Ready to Build Your System?</h2>
+            <p>Tell us about your project and we will respond with a clear recommendation.</p>
+            <Link to="/contact" className="btn btn-primary btn-lg">
+              Contact Us
+              <FiArrowRight size={20} />
+            </Link>
           </motion.div>
         </div>
       </section>

@@ -42,7 +42,7 @@ const Contact = () => {
       const result = await submitContact(data);
       
       if (result.success) {
-        toast.success('Message sent successfully! I\'ll get back to you within 24 hours.');
+        toast.success('Message sent successfully! We will get back to you within 24 hours.');
         setIsSubmitted(true);
         reset();
         
@@ -63,14 +63,14 @@ const Contact = () => {
       icon: FiMail,
       title: 'Email',
       value: 'strongmuhoti@gmail.com',
-      description: 'Send me an email anytime',
+      description: 'Email us anytime',
       action: 'mailto:strongmuhoti@gmail.com'
     },
     {
       icon: FiPhone,
       title: 'Phone',
       value: '+254 707 809 592',
-      description: 'Call me for urgent matters',
+      description: 'Call us for urgent matters',
       action: 'tel:+254707809592'
     },
     {
@@ -83,30 +83,29 @@ const Contact = () => {
   ];
 
   const projectTypes = [
-    'Mobile App Development',
-    'Web Application',
-    'Mobile + Web App',
-    'UI/UX Design',
-    'Consultation',
-    'Other'
+    { value: 'consultation', label: 'Systems Consultancy' },
+    { value: 'web', label: 'Web Application' },
+    { value: 'mobile', label: 'Mobile App Development' },
+    { value: 'both', label: 'Web + Mobile System' },
+    { value: 'other', label: 'Other' }
   ];
 
   const budgetRanges = [
-    'Under $10,000',
-    '$10,000 - $50,000',
-    '$50,000 - $100,000',
-    '$100,000+',
-    'Flexible',
-    'Confidential'
+    { value: 'under-10k', label: 'Under $10,000' },
+    { value: '10k-50k', label: '$10,000 - $50,000' },
+    { value: '50k-100k', label: '$50,000 - $100,000' },
+    { value: '100k-plus', label: '$100,000+' },
+    { value: 'flexible', label: 'Flexible' },
+    { value: 'confidential', label: 'Confidential' }
   ];
 
   const timelines = [
-    'ASAP',
-    '1 Month',
-    '2-3 Months',
-    '3-6 Months',
-    '6+ Months',
-    'Flexible'
+    { value: 'asap', label: 'ASAP' },
+    { value: '1-month', label: '1 Month' },
+    { value: '2-3-months', label: '2-3 Months' },
+    { value: '3-6-months', label: '3-6 Months' },
+    { value: '6-plus-months', label: '6+ Months' },
+    { value: 'flexible', label: 'Flexible' }
   ];
 
   return (
@@ -120,9 +119,9 @@ const Contact = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="contact-title">Get In Touch</h1>
+            <h1 className="contact-title">Contact Us</h1>
             <p className="contact-subtitle">
-              Ready to start your project? Let's discuss how I can help bring your app idea to life.
+              Ready to start your project? Tell us about your requirements and we will respond with a clear recommendation.
             </p>
           </motion.div>
         </div>
@@ -171,8 +170,8 @@ const Contact = () => {
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8 }}
             >
-              <h2>Start Your Project</h2>
-              <p>Fill out the form below and I'll get back to you within 24 hours</p>
+              <h2>Tell Us About Your Project</h2>
+              <p>Fill out the form below and we will get back to you within 24 hours</p>
             </motion.div>
 
             {isSubmitted ? (
@@ -184,7 +183,7 @@ const Contact = () => {
               >
                 <FiCheckCircle size={48} />
                 <h3>Thank You!</h3>
-                <p>Your message has been sent successfully. I'll get back to you within 24 hours.</p>
+                <p>Your message has been sent successfully. We will get back to you within 24 hours.</p>
               </motion.div>
             ) : (
               <motion.form 
@@ -253,7 +252,7 @@ const Contact = () => {
                     >
                       <option value="">Select project type</option>
                       {projectTypes.map((type) => (
-                        <option key={type} value={type}>{type}</option>
+                        <option key={type.value} value={type.value}>{type.label}</option>
                       ))}
                     </select>
                     {errors.projectType && <span className="error-message">{errors.projectType.message}</span>}
@@ -266,7 +265,7 @@ const Contact = () => {
                     >
                       <option value="">Select budget range</option>
                       {budgetRanges.map((range) => (
-                        <option key={range} value={range}>{range}</option>
+                        <option key={range.value} value={range.value}>{range.label}</option>
                       ))}
                     </select>
                   </div>
@@ -280,7 +279,7 @@ const Contact = () => {
                   >
                     <option value="">Select timeline</option>
                     {timelines.map((timeline) => (
-                      <option key={timeline} value={timeline}>{timeline}</option>
+                      <option key={timeline.value} value={timeline.value}>{timeline.label}</option>
                     ))}
                   </select>
                 </div>
@@ -291,7 +290,7 @@ const Contact = () => {
                     id="message"
                     {...register('message', { required: 'Project details are required' })}
                     rows={6}
-                    placeholder="Tell me about your project, goals, and any specific requirements..."
+                    placeholder="Tell us about your project, goals, and any specific requirements..."
                   />
                   {errors.message && <span className="error-message">{errors.message.message}</span>}
                 </div>
@@ -332,19 +331,19 @@ const Contact = () => {
             <div className="faq-grid">
               <div className="faq-item">
                 <h3>How long does a typical project take?</h3>
-                <p>Project timelines vary based on complexity. A simple mobile app takes 2-3 months, while complex web applications can take 4-6 months. I'll provide a detailed timeline during our initial consultation.</p>
+                <p>Timelines vary by scope. A business website may take 4–8 weeks, while a full web or mobile system can take 2–6 months. We provide a detailed timeline during our discovery phase.</p>
               </div>
               <div className="faq-item">
-                <h3>What's included in your development process?</h3>
-                <p>My process includes discovery & planning, design & prototyping, development & testing, and deployment & launch. I also provide ongoing support and maintenance.</p>
+                <h3>What is included in your process?</h3>
+                <p>Our process covers discovery, proposal, design, development, testing, deployment, and ongoing support. We keep you informed at every stage.</p>
               </div>
               <div className="faq-item">
-                <h3>Do you provide ongoing support after launch?</h3>
-                <p>Yes! I offer comprehensive support packages including bug fixes, updates, feature additions, and performance monitoring to ensure your app continues to perform optimally.</p>
+                <h3>Do you provide support after launch?</h3>
+                <p>Yes. We offer maintenance, bug fixes, feature enhancements, and technical advisory to keep your systems running smoothly.</p>
               </div>
               <div className="faq-item">
-                <h3>What technologies do you work with?</h3>
-                <p>I specialize in React Native for mobile apps, React.js for web applications, Node.js for backends, and various databases. I stay updated with the latest technologies and best practices.</p>
+                <h3>How do you use AI in your work?</h3>
+                <p>We apply AI practically — accelerating development, automating workflows, building intelligent dashboards, and integrating chatbots where they deliver measurable value.</p>
               </div>
             </div>
           </motion.div>

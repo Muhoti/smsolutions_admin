@@ -31,10 +31,10 @@ const Navbar = () => {
       name: 'Services', 
       path: '/services',
       dropdown: [
-        { name: 'Mobile App Development', path: '/services#mobile' },
+        { name: 'Systems Consultancy', path: '/services#consultancy' },
         { name: 'Web Development', path: '/services#web' },
-        { name: 'UI/UX Design', path: '/services#design' },
-        { name: 'Consultation', path: '/services#consultation' }
+        { name: 'Mobile Apps', path: '/services#mobile' },
+        { name: 'AI-Enabled Solutions', path: '/services#ai' }
       ]
     },
     { name: 'Portfolio', path: '/portfolio' },
@@ -55,18 +55,14 @@ const Navbar = () => {
     >
       <div className="container">
         <div className="navbar-content">
-          {/* Logo */}
           <Link to="/" className="navbar-logo">
-            <div className="logo-icon">
-              <span className="logo-text">SM</span>
-            </div>
-            <div className="logo-text-container">
-              <span className="logo-name">SMSolutions</span>
-              <span className="logo-tagline">App Development</span>
-            </div>
+            <img 
+              src="/logo-navbar.png" 
+              alt="Strong's Digital Labs" 
+              className="navbar-logo-img"
+            />
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="navbar-nav desktop-nav">
             {navItems.map((item, index) => (
               <div key={item.name} className="nav-item">
@@ -113,17 +109,15 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Theme Toggle & CTA Button */}
           <div className="navbar-actions">
             <ThemeToggle />
             <div className="navbar-cta desktop-cta">
               <Link to="/contact" className="btn btn-primary">
-                Start Your Project
+                Contact Us
               </Link>
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
           <button 
             className="mobile-menu-btn"
             onClick={() => setIsOpen(!isOpen)}
@@ -133,7 +127,6 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
         <AnimatePresence>
           {isOpen && (
             <motion.div 
@@ -193,7 +186,7 @@ const Navbar = () => {
                     <span>Toggle Theme</span>
                   </div>
                   <Link to="/contact" className="btn btn-primary w-full">
-                    Start Your Project
+                    Contact Us
                   </Link>
                 </div>
               </div>
