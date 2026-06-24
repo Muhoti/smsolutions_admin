@@ -1,14 +1,14 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { FiArrowRight, FiCode, FiCpu, FiMonitor } from 'react-icons/fi';
-import { ASSETS } from '../../constants/assets';
-import Button from '../ui/Button';
+import React from "react";
+import { motion } from "framer-motion";
+import { FiArrowRight, FiCode, FiCpu, FiMonitor } from "react-icons/fi";
+import { ASSETS } from "../../constants/assets";
+import Button from "../ui/Button";
 
 const Hero = () => {
   const highlights = [
-    { icon: FiCode, label: 'Systems Consultancy' },
-    { icon: FiMonitor, label: 'Web & Mobile' },
-    { icon: FiCpu, label: 'AI-Enabled' },
+    { icon: FiCode, label: "Systems Consultancy" },
+    { icon: FiMonitor, label: "Web & Mobile" },
+    { icon: FiCpu, label: "AI-Enabled" },
   ];
 
   return (
@@ -21,7 +21,9 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="hero-eyebrow">WE CODE. WE DESIGN. WE EMPOWER.</span>
+            <span className="hero-eyebrow">
+              WE CODE. WE DESIGN. WE EMPOWER.
+            </span>
 
             <h1 className="hero-title">
               We build intelligent
@@ -29,8 +31,10 @@ const Hero = () => {
             </h1>
 
             <p className="hero-subtitle">
-              Strong&apos;s Digital Labs helps businesses design and deliver websites,
-              web applications, and mobile apps — with practical AI where it adds real value.
+              Strong&apos;s Digital Labs helps growing businesses stand out
+              online with professional websites, custom apps, and smart AI
+              integrations that deliver real results. Reach out to us today for
+              your better online presence.
             </p>
 
             <div className="hero-cta">
@@ -60,9 +64,14 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.15 }}
           >
             <div className="hero-card">
-              <img src={ASSETS.logoHero} alt="Strong's Digital Labs" className="hero-logo" />
+              <img
+                src={ASSETS.logoHero}
+                alt="Strong's Digital Labs"
+                className="hero-logo"
+              />
               <p className="hero-card-text">
-                Technology consultancy for organizations building modern digital systems.
+                Technology consultancy for organizations building modern digital
+                systems.
               </p>
             </div>
           </motion.div>
