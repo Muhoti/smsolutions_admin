@@ -97,7 +97,19 @@ const Admin = () => {
   const onProjectSubmit = async (data) => {
     try {
       setIsCreatingProject(true);
-      const result = await createProject(data);
+      const payload = {
+        title: data.title,
+        description: data.description,
+        category: data.category,
+        techStack: data.techStack,
+        liveDemo: data.liveDemo,
+        playStore: data.playStore,
+        appStore: data.appStore,
+        featured: data.featured,
+        clientName: data.clientName,
+        coverImageUrl: data.coverImageUrl,
+      };
+      const result = await createProject(payload);
       if (result.success) {
         toast.success('Project created');
         setShowProjectForm(false);

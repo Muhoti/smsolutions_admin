@@ -15,7 +15,7 @@ export const AppProvider = ({ children }) => {
     try {
       setLoadingProjects(true);
       setError(null);
-      const response = await apiService.getFeaturedProjects();
+      const response = await apiService.getProjects({ limit: 50 });
       setProjects(response.data.data || []);
     } catch (err) {
       const errorMessage = err.response?.status === 429

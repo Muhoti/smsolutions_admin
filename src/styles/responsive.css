@@ -81,7 +81,6 @@ body {
   /* Native-style list rows on touch devices */
   .contact-info-card,
   .service-card,
-  .project-card,
   .faq-item {
     box-shadow: var(--shadow-sm);
   }
@@ -361,8 +360,7 @@ body {
     max-width: 220px;
   }
 
-  .service-card,
-  .project-card {
+  .service-card {
     padding: var(--spacing-5);
   }
 
@@ -370,7 +368,8 @@ body {
     border-radius: var(--mobile-radius);
   }
 
-  .portfolio-grid {
+  .portfolio-grid,
+  .portfolio-grid--showcase {
     grid-template-columns: 1fr;
   }
 

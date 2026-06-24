@@ -72,72 +72,13 @@
   gap: var(--spacing-6);
 }
 
-.project-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: border-color var(--transition), box-shadow var(--transition);
+.portfolio-grid--showcase {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-6);
 }
 
-.project-card:hover {
-  border-color: var(--accent-border);
-  box-shadow: var(--shadow-md);
-}
-
-.project-image img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.project-content {
-  padding: var(--spacing-6);
-}
-
-.project-title {
-  font-size: var(--font-size-lg);
-  color: var(--text-primary);
-  margin-bottom: var(--spacing-2);
-}
-
-.project-description {
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  margin-bottom: var(--spacing-4);
-  line-height: 1.6;
-}
-
-.project-tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: var(--spacing-4);
-}
-
-.tech-tag {
-  font-size: var(--font-size-xs);
-  padding: 0.25rem 0.6rem;
-  background: var(--bg-secondary);
-  color: var(--text-muted);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-}
-
-.project-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-4);
-}
-
-.project-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  color: var(--accent);
-  text-decoration: none;
+.no-projects {
+  grid-column: 1 / -1;
 }
 
 .portfolio-cta {
@@ -156,16 +97,13 @@
   margin-bottom: var(--spacing-6);
 }
 
-.no-projects {
-  grid-column: 1 / -1;
-}
-
 @media (max-width: 768px) {
   .portfolio-filters {
     padding: var(--spacing-5) 0;
   }
 
-  .portfolio-grid {
+  .portfolio-grid,
+  .portfolio-grid--showcase {
     grid-template-columns: 1fr;
     gap: var(--spacing-4);
   }
@@ -180,11 +118,5 @@
 
   .portfolio-cta h2 {
     font-size: clamp(1.5rem, 6vw, 1.875rem);
-  }
-}
-
-@media (max-width: 480px) {
-  .project-image img {
-    height: 180px;
   }
 }

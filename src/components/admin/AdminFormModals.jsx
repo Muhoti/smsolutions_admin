@@ -54,20 +54,24 @@ const AdminFormModals = ({
                 {projectErrors.category && <span className="error">{projectErrors.category.message}</span>}
               </div>
             </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label>Client name</label>
+                <input {...registerProject('clientName')} placeholder="e.g. Meru County Government" />
+              </div>
+              <div className="form-group">
+                <label>Cover image URL</label>
+                <input {...registerProject('coverImageUrl')} placeholder="https://…/screenshot.png" />
+              </div>
+            </div>
             <div className="form-group">
               <label>Description *</label>
               <textarea {...registerProject('description', { required: 'Description is required' })} rows={4} />
               {projectErrors.description && <span className="error">{projectErrors.description.message}</span>}
             </div>
-            <div className="form-row">
-              <div className="form-group">
-                <label>Live demo URL</label>
-                <input {...registerProject('liveDemo')} placeholder="https://…" />
-              </div>
-              <div className="form-group">
-                <label>GitHub URL</label>
-                <input {...registerProject('github')} placeholder="https://github.com/…" />
-              </div>
+            <div className="form-group">
+              <label>Live demo URL</label>
+              <input {...registerProject('liveDemo')} placeholder="https://…" />
             </div>
             <div className="form-row">
               <div className="form-group">

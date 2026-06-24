@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiCode, FiExternalLink, FiLoader } from 'react-icons/fi';
+import { FiCode, FiChevronDown, FiChevronUp, FiLoader } from 'react-icons/fi';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { useApp } from '../../context/AppContext';
 import { PROJECT_CATEGORIES } from '../../data/company';
@@ -10,9 +10,12 @@ import ProjectCard from '../ui/ProjectCard';
 import Button from '../ui/Button';
 import './Portfolio.css';
 
+const HOME_PREVIEW_COUNT = 3;
+
 const PortfolioSection = () => {
   const [ref, inView] = useScrollReveal();
   const [filter, setFilter] = useState('all');
+  const [showAll, setShowAll] = useState(false);
   const [hasFetched, setHasFetched] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const { projects, loadingProjects, fetchProjects } = useApp();
@@ -28,9 +31,20 @@ const PortfolioSection = () => {
   }, [inView, hasFetched, loadingProjects, fetchProjects, isInitialLoad, projects.length]);
 
   const filteredProjects = filterProjects(projects, { category: filter });
+  const hasMore = filteredProjects.length > HOME_PREVIEW_COUNT;
+  const visibleProjects = showAll
+    ? filteredProjects
+    : filteredProjects.slice(0, HOME_PREVIEW_COUNT);
+
+  const handleToggleAll = () => {
+    setShowAll((prev) => {
+      if (prev) setFilter('all');
+      return !prev;
+    });
+  };
 
   return (
-    <section className="portfolio-section" ref={ref}>
+    <section className="portfolio-section" id="portfolio" ref={ref}>
       <div className="container">
         <SectionHeader
           title="Our Work"
@@ -39,40 +53,47 @@ const PortfolioSection = () => {
           inView={inView}
         />
 
-        <motion.div
-          className="portfolio-filters"
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <div className="filter-buttons">
-            {PROJECT_CATEGORIES.map((category) => (
-              <button
-                key={category.id}
-                type="button"
-                className={`filter-btn ${filter === category.id ? 'active' : ''}`}
-                onClick={() => setFilter(category.id)}
-              >
-                {category.name}
-              </button>
-            ))}
-          </div>
-        </motion.div>
+        {showAll && (
+          <motion.div
+            className="portfolio-filters"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className="filter-buttons">
+              {PROJECT_CATEGORIES.map((category) => (
+                <button
+                  key={category.id}
+                  type="button"
+                  className={`filter-btn ${filter === category.id ? 'active' : ''}`}
+                  onClick={() => setFilter(category.id)}
+                >
+                  {category.name}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
 
         <motion.div
           className="portfolio-grid"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
           {loadingProjects && isInitialLoad ? (
             <div className="loading-projects">
               <FiLoader className="spinner" size={32} />
               <p>Loading amazing projects...</p>
             </div>
-          ) : filteredProjects.length > 0 ? (
-            filteredProjects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} inView={inView} index={index} />
+          ) : visibleProjects.length > 0 ? (
+            visibleProjects.map((project, index) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                inView={inView}
+                index={index}
+              />
             ))
           ) : (
             <div className="no-projects">
@@ -84,17 +105,28 @@ const PortfolioSection = () => {
           )}
         </motion.div>
 
-        <motion.div
-          className="portfolio-cta"
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <Button to="/portfolio" variant="outline">
-            View All Projects
-            <FiExternalLink size={16} />
-          </Button>
-        </motion.div>
+        {hasMore && (
+          <motion.div
+            className="portfolio-cta"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <Button variant="outline" onClick={handleToggleAll}>
+              {showAll ? (
+                <>
+                  Show Less
+                  <FiChevronUp size={16} />
+                </>
+              ) : (
+                <>
+                  View All Projects
+                  <FiChevronDown size={16} />
+                </>
+              )}
+            </Button>
+          </motion.div>
+        )}
       </div>
     </section>
   );

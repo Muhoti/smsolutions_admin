@@ -90,13 +90,19 @@ const Portfolio = () => {
             </div>
           ) : (
             <motion.div
-              className="portfolio-grid"
+              className="portfolio-grid portfolio-grid--showcase"
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.8 }}
             >
               {filteredProjects.map((project, index) => (
-                <ProjectCard key={project.id} project={project} inView={inView} index={index} />
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  inView={inView}
+                  index={index}
+                  featuredLayout
+                />
               ))}
             </motion.div>
           )}
