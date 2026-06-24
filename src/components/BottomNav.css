@@ -1,67 +1,91 @@
-/* Mobile bottom tab bar — native app style */
+/* Floating dock tab bar — native app navigation */
 
-.bottom-nav {
+.app-dock {
   display: none;
 }
 
 @media (max-width: 768px) {
-  .bottom-nav {
-    display: flex;
+  .app-dock {
+    display: block;
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    left: max(12px, env(safe-area-inset-left));
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(10px, env(safe-area-inset-bottom));
     z-index: 1100;
-    align-items: stretch;
-    justify-content: space-around;
-    min-height: calc(64px + env(safe-area-inset-bottom, 0));
-    padding-bottom: env(safe-area-inset-bottom, 0);
-    background: var(--navy-deep);
-    border-top: 1px solid rgba(0, 174, 239, 0.15);
-    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    pointer-events: none;
   }
 
-  .bottom-nav-item {
+  .app-dock-inner {
+    pointer-events: auto;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    gap: 0.15rem;
+    min-height: 62px;
+    padding: 0.35rem 0.45rem;
+    border-radius: 22px;
+    background: color-mix(in srgb, var(--app-dock-bg) 86%, transparent);
+    border: 1px solid var(--app-border);
+    backdrop-filter: blur(22px) saturate(1.5);
+    -webkit-backdrop-filter: blur(22px) saturate(1.5);
+    box-shadow:
+      0 16px 40px rgba(0, 0, 0, 0.22),
+      0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  }
+
+  .app-dock-tab {
+    position: relative;
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.2rem;
-    padding: 0.45rem 0.25rem 0.55rem;
+    gap: 0.15rem;
+    min-width: 0;
+    padding: 0.4rem 0.2rem;
+    border-radius: 16px;
     text-decoration: none;
-    color: var(--nav-text-muted);
-    transition: color var(--transition);
+    color: var(--app-text-muted);
+    transition: color 0.2s ease, background 0.2s ease;
     -webkit-tap-highlight-color: transparent;
   }
 
-  .bottom-nav-item.active {
-    color: var(--brand-blue-bright);
+  .app-dock-tab.active {
+    color: var(--brand-blue);
+    background: var(--app-dock-active-bg);
   }
 
-  .bottom-nav-icon {
+  .app-dock-tab-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
   }
 
-  .bottom-nav-item.active .bottom-nav-icon {
-    transform: translateY(-1px);
-  }
-
-  .bottom-nav-label {
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    line-height: 1.1;
-    text-align: center;
-  }
-
-  .bottom-nav-item.active .bottom-nav-label {
+  .app-dock-tab-label {
+    font-size: 0.62rem;
     font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
   }
+
+  .app-dock-tab-glow {
+    position: absolute;
+    inset: auto 20% -2px;
+    height: 3px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--brand-blue), #00aeef);
+    box-shadow: 0 0 12px rgba(0, 136, 255, 0.65);
+  }
+}
+
+/* Legacy class alias */
+.bottom-nav {
+  display: none;
 }

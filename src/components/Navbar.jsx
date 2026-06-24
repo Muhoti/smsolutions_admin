@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiChevronDown } from 'react-icons/fi';
+import { FiChevronDown, FiMenu, FiX } from 'react-icons/fi';
 import ThemeToggle from './ThemeToggle';
 import { ASSETS } from '../constants/assets';
 import { NAV_ITEMS } from '../data/navigation';
@@ -11,6 +11,7 @@ import './Navbar.css';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -24,7 +25,15 @@ const Navbar = () => {
 
   useEffect(() => {
     setActiveDropdown(null);
+    setMobileMenuOpen(false);
   }, [location]);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   const navItems = NAV_ITEMS;
 
@@ -41,6 +50,16 @@ const Navbar = () => {
     >
       <div className="container navbar-container">
         <div className="navbar-content">
+          <button
+            type="button"
+            className="mobile-menu-btn"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            aria-expanded={mobileMenuOpen}
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+          >
+            {mobileMenuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
+          </button>
+
           <Link to="/" className="navbar-logo">
             <img
               src={ASSETS.logoNavbar}
@@ -106,6 +125,69 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            <motion.button
+              type="button"
+              className="mobile-nav-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileMenuOpen(false)}
+              aria-label="Close menu"
+            />
+            <motion.div
+              className="mobile-nav"
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'tween', duration: 0.25 }}
+            >
+              <div className="mobile-nav-header">
+                <span className="mobile-nav-title">Menu</span>
+                <button
+                  type="button"
+                  className="mobile-nav-close"
+                  onClick={() => setMobileMenuOpen(false)}
+                  aria-label="Close menu"
+                >
+                  <FiX size={22} />
+                </button>
+              </div>
+
+              <nav className="mobile-nav-links" aria-label="Mobile navigation">
+                {navItems.map((item) => (
+                  <div key={item.name} className="mobile-nav-group">
+                    <Link
+                      to={item.path}
+                      className={`mobile-nav-link ${location.pathname === item.path ? 'active' : ''}`}
+                    >
+                      {item.name}
+                    </Link>
+                    {item.dropdown && (
+                      <div className="mobile-nav-sublinks">
+                        {item.dropdown.map((sub) => (
+                          <Link key={sub.name} to={sub.path} className="mobile-nav-sublink">
+                            {sub.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </nav>
+
+              <div className="mobile-cta">
+                <Button to="/contact" variant="primary" onClick={() => setMobileMenuOpen(false)}>
+                  Contact Us
+                </Button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };

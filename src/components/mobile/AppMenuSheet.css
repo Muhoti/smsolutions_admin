@@ -1,0 +1,114 @@
+.app-sheet-backdrop,
+.app-sheet {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .app-sheet-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    border: none;
+    background: rgba(4, 10, 22, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .app-sheet {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1201;
+    max-height: min(78dvh, 640px);
+    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0));
+    border-radius: 28px 28px 0 0;
+    background: var(--m3-surface-container);
+    border: 1px solid var(--m3-outline-variant);
+    box-shadow: var(--m3-elevation-2);
+  }
+
+  .app-sheet-handle {
+    width: 40px;
+    height: 4px;
+    margin: 0.65rem auto 0;
+    border-radius: 99px;
+    background: var(--app-border-strong);
+  }
+
+  .app-sheet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-4) var(--spacing-5) var(--spacing-3);
+  }
+
+  .app-sheet-head h2 {
+    font-size: var(--font-size-lg);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--app-text);
+  }
+
+  .app-sheet-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    background: var(--app-control-bg);
+    color: var(--app-text);
+    cursor: pointer;
+  }
+
+  .app-sheet-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 var(--spacing-3) var(--spacing-3);
+  }
+
+  .app-sheet-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.95rem var(--spacing-4);
+    margin-bottom: 0.25rem;
+    border-radius: 16px;
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--app-text);
+    text-decoration: none;
+    background: var(--app-control-bg);
+  }
+
+  .app-sheet-sublinks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0 0 var(--spacing-3) var(--spacing-4);
+  }
+
+  .app-sheet-sublink {
+    padding: 0.55rem var(--spacing-4);
+    border-radius: 12px;
+    font-size: var(--font-size-sm);
+    color: var(--app-text-muted);
+    text-decoration: none;
+  }
+
+  .app-sheet-cta {
+    padding: var(--spacing-4) var(--spacing-5);
+    border-top: 1px solid var(--app-border);
+  }
+
+  .app-sheet-cta .btn {
+    width: 100%;
+    border-radius: 14px;
+    min-height: 52px;
+  }
+}

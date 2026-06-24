@@ -9,7 +9,7 @@ const PageHero = ({
   subtitleClass,
   contentClass = 'page-hero-content',
 }) => (
-  <section className={`${heroClass} ai-surface-light`}>
+  <section className={`page-hero ${heroClass} ai-surface-light`}>
     <div className="container">
       <motion.div
         className={contentClass}

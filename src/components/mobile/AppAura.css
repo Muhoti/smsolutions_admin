@@ -1,0 +1,81 @@
+.app-aura {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .app-aura {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .app-aura-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+    animation: app-aura-drift 18s ease-in-out infinite alternate;
+  }
+
+  .app-aura-orb--a {
+    width: 55vw;
+    height: 55vw;
+    top: -12vw;
+    left: -18vw;
+    background: radial-gradient(circle, rgba(0, 136, 255, 0.45) 0%, transparent 70%);
+  }
+
+  .app-aura-orb--b {
+    width: 48vw;
+    height: 48vw;
+    top: 28vh;
+    right: -22vw;
+    background: radial-gradient(circle, rgba(0, 174, 239, 0.35) 0%, transparent 70%);
+    animation-delay: -6s;
+  }
+
+  .app-aura-orb--c {
+    width: 42vw;
+    height: 42vw;
+    bottom: 18vh;
+    left: 8vw;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.28) 0%, transparent 70%);
+    animation-delay: -12s;
+  }
+
+  .app-aura-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: linear-gradient(to bottom, black 0%, transparent 85%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 85%);
+    opacity: 0.35;
+  }
+
+  .light-theme .app-aura-orb {
+    opacity: 0.35;
+    filter: blur(72px);
+  }
+
+  .light-theme .app-aura-grid {
+    background-image:
+      linear-gradient(rgba(0, 40, 80, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 40, 80, 0.04) 1px, transparent 1px);
+    opacity: 0.5;
+  }
+
+  @keyframes app-aura-drift {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      transform: translate(4vw, 3vh) scale(1.08);
+    }
+  }
+}

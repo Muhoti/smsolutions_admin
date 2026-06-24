@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-const useMediaQuery = (query) => {
+export const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(() => {
     if (typeof window === 'undefined') return false;
     return window.matchMedia(query).matches;
@@ -8,13 +8,15 @@ const useMediaQuery = (query) => {
 
   useEffect(() => {
     const media = window.matchMedia(query);
-    const handler = (e) => setMatches(e.matches);
-    media.addEventListener('change', handler);
+    const onChange = (event) => setMatches(event.matches);
     setMatches(media.matches);
-    return () => media.removeEventListener('change', handler);
+    media.addEventListener('change', onChange);
+    return () => media.removeEventListener('change', onChange);
   }, [query]);
 
   return matches;
 };
+
+export const useIsMobileApp = () => useMediaQuery('(max-width: 768px)');
 
 export default useMediaQuery;

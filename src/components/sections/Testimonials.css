@@ -95,9 +95,25 @@
   color: var(--text-secondary);
 }
 
+.testimonials-spotlight {
+  display: none;
+}
+
+.testimonials-desktop {
+  display: block;
+}
+
 @media (max-width: 768px) {
   .testimonials-section {
     padding: var(--spacing-12) 0;
+  }
+
+  .testimonials-spotlight {
+    display: block;
+  }
+
+  .testimonials-desktop {
+    display: none;
   }
 
   .testimonial-card {

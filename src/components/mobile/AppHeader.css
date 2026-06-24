@@ -1,0 +1,120 @@
+/* Mobile app header */
+
+.app-header {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding-top: env(safe-area-inset-top, 0);
+    pointer-events: none;
+  }
+
+  .app-header-bar {
+    display: grid;
+    grid-template-columns: 44px 1fr 44px;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 52px;
+    padding: 0.35rem max(var(--spacing-4), env(safe-area-inset-left))
+      0.35rem max(var(--spacing-4), env(safe-area-inset-right));
+    pointer-events: auto;
+  }
+
+  .app-header--overlay .app-header-bar {
+    background: transparent;
+    border: none;
+  }
+
+  .app-header--overlay.app-header--scrolled .app-header-bar {
+    background: color-mix(in srgb, var(--m3-surface-container) 88%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--m3-elevation-1);
+    border-radius: 0 0 16px 16px;
+  }
+
+  .app-header--overlay .app-header-menu,
+  .app-header--overlay .theme-toggle {
+    background: rgba(6, 15, 30, 0.45);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+  }
+
+  .app-header--overlay .theme-icon {
+    color: #ffffff;
+  }
+
+  .app-header--overlay.app-header--scrolled .app-header-menu,
+  .app-header--overlay.app-header--scrolled .theme-toggle {
+    background: var(--m3-surface-container-high);
+    border-color: var(--m3-outline-variant);
+    color: var(--m3-on-surface);
+  }
+
+  .app-header--overlay.app-header--scrolled .theme-icon {
+    color: var(--m3-on-surface);
+  }
+
+  .app-header--screen {
+    position: sticky;
+    pointer-events: auto;
+  }
+
+  .app-header--screen .app-header-bar {
+    background: var(--m3-surface);
+    box-shadow: var(--m3-elevation-1);
+  }
+
+  .app-header--screen .theme-toggle {
+    background: var(--m3-surface-container);
+    border-color: var(--m3-outline-variant);
+    color: var(--m3-on-surface);
+  }
+
+  .app-header--screen .theme-icon {
+    color: var(--m3-on-surface);
+  }
+
+  .app-header-spacer {
+    display: block;
+  }
+
+  .app-header-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--m3-outline-variant);
+    border-radius: 14px;
+    background: var(--m3-surface-container);
+    color: var(--m3-on-surface);
+    cursor: pointer;
+  }
+
+  .app-header-title {
+    justify-self: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--m3-on-surface);
+    text-align: center;
+  }
+
+  .app-header .theme-toggle {
+    justify-self: end;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+  }
+
+  .app-header-hero {
+    display: none;
+  }
+}

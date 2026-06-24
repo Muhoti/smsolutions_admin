@@ -47,7 +47,7 @@ body {
   :root {
     --mobile-radius: 16px;
     --mobile-header: 52px;
-    --mobile-tab-bar: 64px;
+    --mobile-tab-bar: 72px;
   }
 
   .App {
@@ -58,13 +58,9 @@ body {
 
   .site-main {
     flex: 1;
-    padding-top: calc(var(--mobile-header) + env(safe-area-inset-top, 0));
-    padding-bottom: calc(var(--mobile-tab-bar) + env(safe-area-inset-bottom, 0));
   }
 
-  .footer {
-    display: none;
-  }
+  /* Compact mobile footer styled in mobile-ui.css */
 
   .site-main:has(.adm-app),
   .site-main:has(.admin-loading),
@@ -175,8 +171,7 @@ body {
     border-radius: var(--mobile-radius);
   }
 
-  /* Single column grids */
-  .services-grid,
+  /* Single column grids (services 2×2 on home — see mobile-ui.css) */
   .portfolio-grid,
   .how-we-work-grid,
   .process-timeline,

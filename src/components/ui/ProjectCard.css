@@ -168,6 +168,16 @@
   gap: var(--spacing-2);
 }
 
+.project-card__category {
+  display: none;
+  margin: 0;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+}
+
 .project-card__title {
   margin: 0;
   font-size: var(--font-size-lg);

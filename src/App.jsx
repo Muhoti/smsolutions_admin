@@ -8,7 +8,9 @@ import { AppProvider } from './context/AppContext';
 import { ThemeProvider } from './context/ThemeContext';
 
 import Navbar from './components/Navbar';
+import AppHeader from './components/mobile/AppHeader';
 import BottomNav from './components/BottomNav';
+import MobilePageLayout from './components/mobile/MobilePageLayout';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -22,6 +24,12 @@ import Admin from './pages/Admin';
 import './App.css';
 import './styles/ai-background.css';
 import './styles/responsive.css';
+import './styles/mobile-flutter-shell.css';
+import './styles/mobile-app.css';
+import './components/mobile/flutter/MobileCinematicHero.css';
+import './components/mobile/flutter/MobileUIKit.css';
+/* After MobileUIKit — contact form contrast overrides must win the cascade */
+import './components/mobile/screens/MobileContactScreen.css';
 
 function AppShell() {
   const location = useLocation();
@@ -40,14 +48,17 @@ function AppShell() {
     <div className="App">
       <ScrollToTop />
       {!isAdminRoute && <Navbar />}
+      {!isAdminRoute && <AppHeader />}
 
       <main className={`site-main${isAdminRoute ? ' site-main--admin' : ''}`}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route element={<MobilePageLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/contact" element={<Contact />} />
+          </Route>
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
@@ -55,12 +66,14 @@ function AppShell() {
       {!isAdminRoute && <Footer />}
       {!isAdminRoute && <BottomNav />}
       <Toaster
-        position="top-right"
+        position="top-center"
         toastOptions={{
           duration: 4000,
           style: {
-            background: '#363636',
+            background: '#0d1628',
             color: '#fff',
+            borderRadius: '14px',
+            fontSize: '0.9rem',
           },
           success: {
             duration: 3000,

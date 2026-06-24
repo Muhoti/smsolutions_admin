@@ -1,0 +1,11 @@
+/* Legacy mobile-app hooks — content lives in M3 screen components */
+
+@media (max-width: 768px) {
+  .page-hero,
+  .about-hero,
+  .services-hero,
+  .portfolio-hero,
+  .contact-hero {
+    display: none;
+  }
+}

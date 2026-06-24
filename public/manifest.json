@@ -1,0 +1,27 @@
+{
+  "name": "Strong's Digital Labs",
+  "short_name": "SDL",
+  "description": "Technology consultancy — intelligent online systems, web, mobile & AI.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#070d18",
+  "theme_color": "#070d18",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "logo-hero.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo-hero.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "prefer_related_applications": false
+}

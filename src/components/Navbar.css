@@ -124,34 +124,14 @@
   border-color: var(--brand-blue-bright);
 }
 
-.mobile-menu-btn {
-  display: none;
-}
-
+.mobile-menu-btn,
+.mobile-nav-backdrop,
 .mobile-nav {
   display: none;
 }
 
 @media (max-width: 768px) {
-  .desktop-nav,
-  .navbar-actions .desktop-cta {
-    display: none;
-  }
-
-  .navbar-content {
-    padding: 0.55rem 0;
-  }
-
-  .navbar-logo-img {
-    height: 32px;
-  }
-
-  .navbar-actions {
-    gap: var(--spacing-2);
-  }
-
-  .navbar-container.container {
-    padding-left: max(var(--spacing-4), env(safe-area-inset-left));
-    padding-right: max(var(--spacing-4), env(safe-area-inset-right));
+  .navbar {
+    display: none !important;
   }
 }

@@ -100,6 +100,9 @@ const ProjectCard = ({ project, inView = true, index = 0 }) => {
       </div>
 
       <div className="project-card__body">
+        <p className="project-card__category">
+          {getProjectType(project.category, project.type)}
+        </p>
         <h3 className="project-card__title">{project.title}</h3>
         {project.clientName && (
           <p className="project-card__client">{project.clientName}</p>

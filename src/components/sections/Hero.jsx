@@ -1,10 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FiArrowRight, FiCode, FiCpu, FiMonitor } from 'react-icons/fi';
+import { FiCode, FiCpu, FiMonitor } from 'react-icons/fi';
+import { HOME_CONTENT } from '../../data/pageContent';
 import Button from '../ui/Button';
 import HeroPortal from './HeroPortal';
 
 const Hero = () => {
+  const { hero } = HOME_CONTENT;
   const highlights = [
     { icon: FiCode, label: 'Systems Consultancy' },
     { icon: FiMonitor, label: 'Web & Mobile' },
@@ -21,27 +23,19 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="hero-eyebrow">WE CODE. WE DESIGN. WE EMPOWER.</span>
-
             <h1 className="hero-title">
-              We build intelligent
-              <span className="hero-title-accent"> online systems</span>
+              {hero.title}
+              <span className="hero-title-accent"> {hero.titleAccent}</span>
             </h1>
 
-            <p className="hero-subtitle">
-              At Strong&apos;s Digital Labs, we help businesses like yours design and launch
-              high-performance websites, web apps, and mobile solutions — integrating
-              practical AI that drives measurable results. Let&apos;s start building your online
-              presence today.
-            </p>
+            <p className="hero-subtitle">{hero.subtitle}</p>
 
             <div className="hero-cta">
-              <Button to="/contact" variant="primary" size="lg">
-                Contact Us
-                <FiArrowRight size={18} />
+              <Button to={hero.ctaPrimary.to} variant="primary" size="lg">
+                {hero.ctaPrimary.label}
               </Button>
-              <Button to="/portfolio" variant="secondary" size="lg">
-                View Our Work
+              <Button to={hero.ctaSecondary.to} variant="secondary" size="lg">
+                {hero.ctaSecondary.label}
               </Button>
             </div>
 

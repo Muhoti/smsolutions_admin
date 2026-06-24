@@ -119,6 +119,24 @@ const Footer = () => {
             </div>
           </div>
         </div>
+
+        <div className="footer-mobile">
+          <div className="footer-logo">
+            <img
+              src={ASSETS.logoNavbar}
+              alt="Strong's Digital Labs"
+              className="footer-logo-img"
+            />
+          </div>
+          <div className="footer-mobile-links">
+            <Link to="/contact">Contact</Link>
+            <Link to="/about">About Us</Link>
+            <Link to="/services">Services</Link>
+          </div>
+          <p className="copyright">
+            © {currentYear} Strong&apos;s Digital Labs. All rights reserved.
+          </p>
+        </div>
       </div>
     </footer>
   );

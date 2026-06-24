@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiCode, FiChevronDown, FiLoader } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+import { FiCode, FiLoader } from 'react-icons/fi';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { useApp } from '../../context/AppContext';
+import { HOME_CONTENT } from '../../data/pageContent';
 import { filterProjects } from '../../utils/portfolio';
-import SectionHeader from '../ui/SectionHeader';
 import ProjectCard from '../ui/ProjectCard';
-import Button from '../ui/Button';
 import './Portfolio.css';
 
 const HOME_PREVIEW_COUNT = 3;
@@ -16,6 +16,7 @@ const PortfolioSection = () => {
   const [hasFetched, setHasFetched] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const { projects, loadingProjects, fetchProjects } = useApp();
+  const { portfolio } = HOME_CONTENT;
 
   useEffect(() => {
     if (inView && !hasFetched && !loadingProjects && isInitialLoad && projects.length === 0) {
@@ -34,12 +35,27 @@ const PortfolioSection = () => {
   return (
     <section className="portfolio-section" id="portfolio" ref={ref}>
       <div className="container">
-        <SectionHeader
-          title="Our Work"
-          subtitle="Selected projects showcasing the systems we design and build for our clients"
-          className="portfolio-header"
-          inView={inView}
-        />
+        <motion.div
+          className="portfolio-header-row"
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="portfolio-header-copy">
+            <h2>{portfolio.title}</h2>
+            <p>{portfolio.subtitle}</p>
+          </div>
+          {hasMore && (
+            <Link to="/portfolio" className="portfolio-all-link">
+              {portfolio.linkLabel} &rarr;
+            </Link>
+          )}
+        </motion.div>
+
+        <div className="portfolio-header portfolio-header--desktop">
+          <h2>Our Work</h2>
+          <p>{portfolio.subtitle}</p>
+        </div>
 
         <motion.div
           className="portfolio-grid"
@@ -50,7 +66,7 @@ const PortfolioSection = () => {
           {loadingProjects && isInitialLoad ? (
             <div className="loading-projects">
               <FiLoader className="spinner" size={32} />
-              <p>Loading amazing projects...</p>
+              <p>{portfolio.loadingMessage}</p>
             </div>
           ) : visibleProjects.length > 0 ? (
             visibleProjects.map((project, index) => (
@@ -64,9 +80,9 @@ const PortfolioSection = () => {
           ) : (
             <div className="no-projects">
               <FiCode size={48} />
-              <h3>No projects yet</h3>
-              <p>Projects will appear here once they&apos;re added to the database.</p>
-              <p>Check back later or contact us to discuss your project.</p>
+              <h3>{portfolio.emptyTitle}</h3>
+              <p>{portfolio.emptyMessage}</p>
+              <p>{portfolio.emptyHint}</p>
             </div>
           )}
         </motion.div>
@@ -78,10 +94,9 @@ const PortfolioSection = () => {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <Button variant="outline" to="/portfolio">
-              View All Projects
-              <FiChevronDown size={16} />
-            </Button>
+            <Link to="/portfolio" className="portfolio-all-link portfolio-all-link--desktop">
+              View All Projects &rarr;
+            </Link>
           </motion.div>
         )}
       </div>

@@ -18,25 +18,28 @@ const BottomNav = () => {
   }
 
   return (
-    <nav className="bottom-nav" aria-label="Main navigation">
-      {MOBILE_TAB_ITEMS.map((item) => {
-        const Icon = item.icon;
-        const active = isTabActive(pathname, item.path);
+    <nav className="app-dock" aria-label="Main navigation">
+      <div className="app-dock-inner">
+        {MOBILE_TAB_ITEMS.map((item) => {
+          const Icon = item.icon;
+          const active = isTabActive(pathname, item.path);
 
-        return (
-          <NavLink
-            key={item.path}
-            to={item.path}
-            className={`bottom-nav-item ${active ? 'active' : ''}`}
-            aria-current={active ? 'page' : undefined}
-          >
-            <span className="bottom-nav-icon">
-              <Icon size={22} strokeWidth={active ? 2.25 : 1.85} />
-            </span>
-            <span className="bottom-nav-label">{item.name}</span>
-          </NavLink>
-        );
-      })}
+          return (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              className={`app-dock-tab ${active ? 'active' : ''}`}
+              aria-current={active ? 'page' : undefined}
+            >
+              <span className="app-dock-tab-icon">
+                <Icon size={21} strokeWidth={active ? 2.35 : 1.9} />
+              </span>
+              <span className="app-dock-tab-label">{item.name}</span>
+              {active && <span className="app-dock-tab-glow" aria-hidden="true" />}
+            </NavLink>
+          );
+        })}
+      </div>
     </nav>
   );
 };

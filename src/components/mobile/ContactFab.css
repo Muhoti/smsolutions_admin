@@ -1,0 +1,30 @@
+.app-fab {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .app-fab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    position: fixed;
+    right: max(var(--spacing-4), env(safe-area-inset-right));
+    bottom: calc(var(--app-dock-offset) + env(safe-area-inset-bottom, 0));
+    z-index: 1050;
+    padding: 0.85rem 1.1rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--brand-blue) 0%, #00aeef 100%);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow:
+      0 12px 32px rgba(0, 136, 255, 0.45),
+      0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .app-fab:active {
+    transform: scale(0.96);
+  }
+}

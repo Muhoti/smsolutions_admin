@@ -1,0 +1,112 @@
+/* Flutter / Material 3 app shell — scaffold, AppBar, NavigationBar */
+
+@media (max-width: 768px) {
+  .light-theme {
+    --m3-primary: #0088ff;
+    --m3-on-primary: #ffffff;
+    --m3-primary-container: #d4e9ff;
+    --m3-on-primary-container: #001d36;
+    --m3-secondary-container: #e0e7f1;
+    --m3-on-secondary-container: #1a2332;
+    --m3-tertiary-container: #e8def8;
+    --m3-on-tertiary-container: #1d192b;
+    --m3-surface: #f8f9fc;
+    --m3-surface-container: #ffffff;
+    --m3-surface-container-high: #f0f2f6;
+    --m3-surface-container-highest: #e6e9ef;
+    --m3-on-surface: #1a1c1e;
+    --m3-on-surface-variant: #5c6675;
+    --m3-outline: #c5ced8;
+    --m3-outline-variant: #e2e6ed;
+    --m3-inverse-surface: #1a2332;
+    --m3-inverse-on-surface: #f0f4fa;
+    --m3-elevation-0: none;
+    --m3-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.08);
+    --m3-elevation-2: 0 4px 8px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  }
+
+  .dark-theme {
+    --m3-primary: #6cb6ff;
+    --m3-on-primary: #003258;
+    --m3-primary-container: #004a77;
+    --m3-on-primary-container: #d1e4ff;
+    --m3-secondary-container: #2a3548;
+    --m3-on-secondary-container: #dce3ef;
+    --m3-tertiary-container: #3d3356;
+    --m3-on-tertiary-container: #e8def8;
+    --m3-surface: #0a0f18;
+    --m3-surface-container: #121a28;
+    --m3-surface-container-high: #1a2436;
+    --m3-surface-container-highest: #222e44;
+    --m3-on-surface: #e8ecf2;
+    --m3-on-surface-variant: #9aa8bc;
+    --m3-outline: #3d4a5e;
+    --m3-outline-variant: #2a3548;
+    --m3-inverse-surface: #e8ecf2;
+    --m3-inverse-on-surface: #1a2332;
+    --m3-elevation-0: none;
+    --m3-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.35);
+    --m3-elevation-2: 0 4px 12px rgba(0, 0, 0, 0.45);
+  }
+
+  html,
+  body,
+  #root,
+  .App {
+    background: var(--m3-surface);
+  }
+
+  .site-main {
+    padding-top: 0 !important;
+    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0));
+    background: var(--m3-surface);
+  }
+
+  .app-screen {
+    min-height: auto;
+  }
+
+  .footer {
+    display: none !important;
+  }
+
+  /* App chrome — see AppHeader.css */
+
+  /* M3 NavigationBar */
+  .app-dock-inner {
+    background: var(--m3-surface-container);
+    border-color: var(--m3-outline-variant);
+    border-radius: 28px;
+    min-height: 64px;
+    box-shadow: var(--m3-elevation-2);
+  }
+
+  .app-dock-tab {
+    color: var(--m3-on-surface-variant);
+    border-radius: 20px;
+  }
+
+  .app-dock-tab.active {
+    color: var(--m3-primary);
+    background: var(--m3-secondary-container);
+  }
+
+  .app-dock-tab-glow {
+    display: none;
+  }
+
+  .app-fab {
+    display: none;
+  }
+
+  .m3-chip-row--sticky {
+    position: sticky;
+    top: calc(52px + env(safe-area-inset-top, 0));
+    z-index: 40;
+    background: color-mix(in srgb, var(--m3-surface) 94%, transparent);
+    backdrop-filter: blur(8px);
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+}
