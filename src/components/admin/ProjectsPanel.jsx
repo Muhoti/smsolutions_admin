@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { FiPlus, FiSearch, FiCode } from 'react-icons/fi';
+import { FiPlus, FiSearch, FiCode, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import Button from '../ui/Button';
 import AdminToolbar from './AdminToolbar';
 import AdminPagination from './AdminPagination';
@@ -21,7 +21,7 @@ const CATEGORY_CHIPS = [
   { value: 'both', label: 'Both' },
 ];
 
-const ProjectsPanel = ({ projects, onAdd }) => {
+const ProjectsPanel = ({ projects, onAdd, onEdit, onDelete }) => {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
   const [page, setPage] = useState(1);
@@ -74,7 +74,12 @@ const ProjectsPanel = ({ projects, onAdd }) => {
           <>
             <div className="adm-m-project-list">
               {items.map((project) => (
-                <ProjectListCard key={project.id} project={project} />
+                <ProjectListCard
+                  key={project.id}
+                  project={project}
+                  onEdit={onEdit}
+                  onDelete={onDelete}
+                />
               ))}
             </div>
             <AdminPagination page={safePage} totalPages={totalPages} total={total} onPageChange={setPage} />
@@ -120,6 +125,7 @@ const ProjectsPanel = ({ projects, onAdd }) => {
                     <th>Client</th>
                     <th>Featured</th>
                     <th>Status</th>
+                    <th className="adm-th-actions">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -135,6 +141,26 @@ const ProjectsPanel = ({ projects, onAdd }) => {
                       </td>
                       <td>
                         <span className="adm-badge adm-badge--neutral">{project.status || 'completed'}</span>
+                      </td>
+                      <td>
+                        <div className="adm-row-actions">
+                          <button
+                            type="button"
+                            className="adm-action-btn"
+                            onClick={() => onEdit(project)}
+                            aria-label={`Edit ${project.title}`}
+                          >
+                            <FiEdit2 size={16} />
+                          </button>
+                          <button
+                            type="button"
+                            className="adm-action-btn adm-action-btn--danger"
+                            onClick={() => onDelete(project)}
+                            aria-label={`Delete ${project.title}`}
+                          >
+                            <FiTrash2 size={16} />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}

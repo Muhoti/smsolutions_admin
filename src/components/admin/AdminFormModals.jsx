@@ -2,15 +2,20 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FiX, FiSave } from 'react-icons/fi';
 import Button from '../ui/Button';
+import ProjectCoverInput from './ProjectCoverInput';
 
 const AdminFormModals = ({
   showProjectForm,
   setShowProjectForm,
+  onCloseProjectForm,
+  editingProject,
   showTestimonialForm,
   setShowTestimonialForm,
   showContactForm,
   setShowContactForm,
   registerProject,
+  setProjectValue,
+  watchProject,
   handleProjectSubmit,
   onProjectSubmit,
   projectErrors,
@@ -31,8 +36,8 @@ const AdminFormModals = ({
       <div className="adm-modal-overlay">
         <motion.div className="adm-modal" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <div className="adm-modal-header">
-            <h3>Add project</h3>
-            <button type="button" className="adm-modal-close" onClick={() => setShowProjectForm(false)}>
+            <h3>{editingProject ? 'Edit project' : 'Add project'}</h3>
+            <button type="button" className="adm-modal-close" onClick={onCloseProjectForm}>
               <FiX size={20} />
             </button>
           </div>
@@ -59,11 +64,12 @@ const AdminFormModals = ({
                 <label>Client name</label>
                 <input {...registerProject('clientName')} placeholder="e.g. Meru County Government" />
               </div>
-              <div className="form-group">
-                <label>Cover image URL</label>
-                <input {...registerProject('coverImageUrl')} placeholder="https://…/screenshot.png" />
-              </div>
             </div>
+            <ProjectCoverInput
+              register={registerProject}
+              setValue={setProjectValue}
+              watch={watchProject}
+            />
             <div className="form-group">
               <label>Description *</label>
               <textarea {...registerProject('description', { required: 'Description is required' })} rows={4} />
@@ -94,10 +100,12 @@ const AdminFormModals = ({
               </label>
             </div>
             <div className="adm-modal-actions">
-              <Button type="button" variant="outline" onClick={() => setShowProjectForm(false)}>Cancel</Button>
+              <Button type="button" variant="outline" onClick={onCloseProjectForm}>Cancel</Button>
               <Button type="submit" variant="primary" disabled={isCreatingProject}>
                 <FiSave size={16} />
-                {isCreatingProject ? 'Creating…' : 'Create project'}
+                {isCreatingProject
+                  ? (editingProject ? 'Saving…' : 'Creating…')
+                  : (editingProject ? 'Save changes' : 'Create project')}
               </Button>
             </div>
           </form>

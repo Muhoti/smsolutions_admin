@@ -368,8 +368,7 @@ body {
     border-radius: var(--mobile-radius);
   }
 
-  .portfolio-grid,
-  .portfolio-grid--showcase {
+  .portfolio-grid {
     grid-template-columns: 1fr;
   }
 

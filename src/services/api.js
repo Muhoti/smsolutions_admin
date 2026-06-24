@@ -45,6 +45,13 @@ export const apiService = {
     updateContact: (id, contactData) => api.put(`/admin/contacts/${id}`, contactData),
     deleteContact: (id) => api.delete(`/admin/contacts/${id}`),
     createProject: (projectData) => api.post('/admin/projects', projectData),
+    uploadProjectImage: (file) => {
+      const formData = new FormData();
+      formData.append('image', file);
+      return api.post('/admin/upload/project-image', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+    },
     updateProject: (id, projectData) => api.put(`/admin/projects/${id}`, projectData),
     deleteProject: (id) => api.delete(`/admin/projects/${id}`),
     createTestimonial: (testimonialData) => api.post('/admin/testimonials', testimonialData),

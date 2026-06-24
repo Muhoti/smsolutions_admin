@@ -2,88 +2,21 @@
   background: var(--bg-primary);
 }
 
-.portfolio-filters {
-  padding: var(--spacing-8) 0;
-  background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-color);
+.portfolio-page-work {
+  border-top: none;
+  padding-top: var(--spacing-12);
 }
 
-.filters-content {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-4);
-}
-
-.search-box {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 0.65rem 1rem;
-  min-width: 260px;
-  color: var(--text-muted);
-}
-
-.search-input {
-  border: none;
-  background: transparent;
-  outline: none;
-  width: 100%;
-  color: var(--text-primary);
-  font-size: var(--font-size-sm);
-}
-
-.filter-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.filter-btn {
-  padding: 0.5rem 1rem;
-  font-size: var(--font-size-sm);
-  font-weight: 500;
+.portfolio-page-work .loading-projects {
+  text-align: center;
+  padding: var(--spacing-10) 0;
   color: var(--text-secondary);
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all var(--transition);
-}
-
-.filter-btn:hover,
-.filter-btn.active {
-  color: var(--accent);
-  border-color: var(--accent-border);
-  background: var(--accent-subtle);
-}
-
-.portfolio-grid-section {
-  padding: var(--spacing-16) 0;
-}
-
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: var(--spacing-6);
-}
-
-.portfolio-grid--showcase {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--spacing-6);
-}
-
-.no-projects {
-  grid-column: 1 / -1;
 }
 
 .portfolio-cta {
   padding: var(--spacing-16) 0 var(--spacing-20);
   text-align: center;
+  border-top: 1px solid var(--border-color);
 }
 
 .portfolio-cta h2 {
@@ -98,18 +31,8 @@
 }
 
 @media (max-width: 768px) {
-  .portfolio-filters {
-    padding: var(--spacing-5) 0;
-  }
-
-  .portfolio-grid,
-  .portfolio-grid--showcase {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-4);
-  }
-
-  .portfolio-grid-section {
-    padding: var(--spacing-12) 0;
+  .portfolio-page-work {
+    padding-top: var(--spacing-8);
   }
 
   .portfolio-cta {

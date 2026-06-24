@@ -119,3 +119,16 @@ export const getInitials = (name = '') =>
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase())
     .join('') || '?';
+
+export const projectToFormValues = (project) => ({
+  title: project.title || '',
+  category: project.category || '',
+  description: project.description || '',
+  clientName: project.clientName || '',
+  coverImageUrl: project.images?.[0] || '',
+  liveDemo: project.liveDemo || '',
+  playStore: project.playStore || '',
+  appStore: project.appStore || '',
+  techStack: Array.isArray(project.techStack) ? project.techStack.join(', ') : '',
+  featured: !!project.featured,
+});

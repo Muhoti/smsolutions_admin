@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiFolder, FiSmartphone, FiMonitor, FiStar } from 'react-icons/fi';
+import { FiFolder, FiSmartphone, FiMonitor, FiStar, FiEdit2, FiTrash2 } from 'react-icons/fi';
 
 const categoryIcon = (category) => {
   if (category === 'mobile') return FiSmartphone;
@@ -7,7 +7,7 @@ const categoryIcon = (category) => {
   return FiFolder;
 };
 
-const ProjectListCard = ({ project }) => {
+const ProjectListCard = ({ project, onEdit, onDelete }) => {
   const Icon = categoryIcon(project.category);
 
   return (
@@ -28,6 +28,24 @@ const ProjectListCard = ({ project }) => {
         <span className="adm-m-list-meta">
           {project.category} · {project.clientName || 'No client'} · {project.status || 'completed'}
         </span>
+      </div>
+      <div className="adm-m-project-actions">
+        <button
+          type="button"
+          className="adm-action-btn"
+          onClick={() => onEdit(project)}
+          aria-label={`Edit ${project.title}`}
+        >
+          <FiEdit2 size={16} />
+        </button>
+        <button
+          type="button"
+          className="adm-action-btn adm-action-btn--danger"
+          onClick={() => onDelete(project)}
+          aria-label={`Delete ${project.title}`}
+        >
+          <FiTrash2 size={16} />
+        </button>
       </div>
     </article>
   );

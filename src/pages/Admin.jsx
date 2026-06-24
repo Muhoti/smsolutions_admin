@@ -12,7 +12,7 @@ import ProjectsPanel from '../components/admin/ProjectsPanel';
 import TestimonialsPanel from '../components/admin/TestimonialsPanel';
 import ContactDrawer from '../components/admin/ContactDrawer';
 import AdminFormModals from '../components/admin/AdminFormModals';
-import { getAdminUser, setAdminUser } from '../components/admin/adminConstants';
+import { getAdminUser, setAdminUser, projectToFormValues } from '../components/admin/adminConstants';
 import './Admin.css';
 
 const Admin = () => {
@@ -26,6 +26,7 @@ const Admin = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const [selectedContact, setSelectedContact] = useState(null);
   const [isCreatingProject, setIsCreatingProject] = useState(false);
+  const [editingProject, setEditingProject] = useState(null);
   const [isCreatingTestimonial, setIsCreatingTestimonial] = useState(false);
   const [isCreatingContact, setIsCreatingContact] = useState(false);
 
@@ -43,7 +44,7 @@ const Admin = () => {
   const [adminTestimonials, setAdminTestimonials] = useState([]);
   const [recentContacts, setRecentContacts] = useState([]);
 
-  const { register: registerProject, handleSubmit: handleProjectSubmit, reset: resetProject, formState: { errors: projectErrors } } = useForm();
+  const { register: registerProject, handleSubmit: handleProjectSubmit, reset: resetProject, setValue: setProjectValue, watch: watchProject, formState: { errors: projectErrors } } = useForm();
   const { register: registerTestimonial, handleSubmit: handleTestimonialSubmit, reset: resetTestimonial, formState: { errors: testimonialErrors } } = useForm();
   const { register: registerContact, handleSubmit: handleContactSubmit, reset: resetContact, formState: { errors: contactErrors } } = useForm();
 
@@ -109,20 +110,60 @@ const Admin = () => {
         clientName: data.clientName,
         coverImageUrl: data.coverImageUrl,
       };
+
+      if (editingProject) {
+        await apiService.admin.updateProject(editingProject.id, payload);
+        toast.success('Project updated');
+        handleCloseProjectForm();
+        await fetchProjects();
+        await loadAdminData();
+        return;
+      }
+
       const result = await createProject(payload);
       if (result.success) {
         toast.success('Project created');
-        setShowProjectForm(false);
-        resetProject();
+        handleCloseProjectForm();
         await fetchProjects();
         await loadAdminData();
       } else {
         toast.error(result.error || 'Failed to create project');
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to create project');
+      toast.error(error.response?.data?.message || 'Failed to save project');
     } finally {
       setIsCreatingProject(false);
+    }
+  };
+
+  const handleOpenAddProject = () => {
+    setEditingProject(null);
+    resetProject();
+    setShowProjectForm(true);
+  };
+
+  const handleEditProject = (project) => {
+    setEditingProject(project);
+    resetProject(projectToFormValues(project));
+    setShowProjectForm(true);
+  };
+
+  const handleCloseProjectForm = () => {
+    setShowProjectForm(false);
+    setEditingProject(null);
+    resetProject();
+  };
+
+  const handleDeleteProject = async (project) => {
+    if (!window.confirm(`Delete "${project.title}"? This cannot be undone.`)) return;
+
+    try {
+      await apiService.admin.deleteProject(project.id);
+      toast.success('Project deleted');
+      await loadAdminData();
+      await fetchProjects();
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Failed to delete project');
     }
   };
 
@@ -243,7 +284,9 @@ const Admin = () => {
       {activeTab === 'projects' && (
         <ProjectsPanel
           projects={adminProjects}
-          onAdd={() => setShowProjectForm(true)}
+          onAdd={handleOpenAddProject}
+          onEdit={handleEditProject}
+          onDelete={handleDeleteProject}
         />
       )}
 
@@ -265,11 +308,15 @@ const Admin = () => {
       <AdminFormModals
         showProjectForm={showProjectForm}
         setShowProjectForm={setShowProjectForm}
+        onCloseProjectForm={handleCloseProjectForm}
+        editingProject={editingProject}
         showTestimonialForm={showTestimonialForm}
         setShowTestimonialForm={setShowTestimonialForm}
         showContactForm={showContactForm}
         setShowContactForm={setShowContactForm}
         registerProject={registerProject}
+        setProjectValue={setProjectValue}
+        watchProject={watchProject}
         handleProjectSubmit={handleProjectSubmit}
         onProjectSubmit={onProjectSubmit}
         projectErrors={projectErrors}

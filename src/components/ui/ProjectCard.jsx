@@ -23,7 +23,7 @@ const categoryIcon = (category) => {
   return FiMonitor;
 };
 
-const ProjectCard = ({ project, inView = true, index = 0, featuredLayout = false }) => {
+const ProjectCard = ({ project, inView = true, index = 0 }) => {
   const coverUrl = getProjectCover(project);
   const theme = getCategoryTheme(project.category);
   const TypeIcon = categoryIcon(project.category);
@@ -42,7 +42,6 @@ const ProjectCard = ({ project, inView = true, index = 0, featuredLayout = false
       className={[
         'project-card',
         project.featured ? 'project-card--highlight' : '',
-        featuredLayout && project.featured ? 'project-card--featured' : '',
       ]
         .filter(Boolean)
         .join(' ')}
