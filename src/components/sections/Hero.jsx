@@ -1,14 +1,14 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { FiArrowRight, FiCode, FiCpu, FiMonitor } from "react-icons/fi";
-import { ASSETS } from "../../constants/assets";
-import Button from "../ui/Button";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FiArrowRight, FiCode, FiCpu, FiMonitor } from 'react-icons/fi';
+import { ASSETS } from '../../constants/assets';
+import Button from '../ui/Button';
 
 const Hero = () => {
   const highlights = [
-    { icon: FiCode, label: "Systems Consultancy" },
-    { icon: FiMonitor, label: "Web & Mobile" },
-    { icon: FiCpu, label: "AI-Enabled" },
+    { icon: FiCode, label: 'Systems Consultancy' },
+    { icon: FiMonitor, label: 'Web & Mobile' },
+    { icon: FiCpu, label: 'AI-Enabled' },
   ];
 
   return (
@@ -31,10 +31,10 @@ const Hero = () => {
             </h1>
 
             <p className="hero-subtitle">
-              Strong&apos;s Digital Labs helps growing businesses stand out
-              online with professional websites, custom apps, and smart AI
-              integrations that deliver real results. Reach out to us today for
-              your better online presence.
+              At Strong&apos;s Digital Labs, we help businesses like yours
+              design and launch high-performance websites, web apps, and mobile
+              solutions — integrating practical AI that drives measurable
+              results. Let's start building your online presence today.
             </p>
 
             <div className="hero-cta">
