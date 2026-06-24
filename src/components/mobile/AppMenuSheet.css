@@ -10,9 +10,16 @@
     inset: 0;
     z-index: 1200;
     border: none;
-    background: rgba(4, 10, 22, 0.55);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    background: rgba(4, 10, 22, 0.52);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  }
+
+  .light-theme .app-sheet-backdrop {
+    background: rgba(12, 20, 36, 0.28);
   }
 
   .app-sheet {
@@ -21,36 +28,99 @@
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: calc(64px + env(safe-area-inset-bottom, 0));
     z-index: 1201;
-    max-height: min(78dvh, 640px);
-    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0));
+    max-height: min(72dvh, 640px);
+    margin: 0;
+    padding-bottom: 0;
     border-radius: 28px 28px 0 0;
     background: var(--m3-surface-container);
     border: 1px solid var(--m3-outline-variant);
-    box-shadow: var(--m3-elevation-2);
+    border-bottom: none;
+    box-shadow:
+      0 -8px 40px rgba(0, 0, 0, 0.28),
+      0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+    overflow: hidden;
+    touch-action: none;
+  }
+
+  .light-theme .app-sheet {
+    box-shadow:
+      0 -12px 48px rgba(0, 30, 60, 0.14),
+      0 0 0 1px rgba(0, 0, 0, 0.04) inset;
+  }
+
+  .app-sheet::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--m3-primary) 35%,
+      #00aeef 65%,
+      transparent 100%
+    );
+    opacity: 0.85;
+    pointer-events: none;
   }
 
   .app-sheet-handle {
-    width: 40px;
+    flex-shrink: 0;
+    width: 36px;
     height: 4px;
-    margin: 0.65rem auto 0;
+    margin: 10px auto 0;
     border-radius: 99px;
-    background: var(--app-border-strong);
+    background: var(--m3-outline);
+    opacity: 0.65;
   }
 
-  .app-sheet-head {
+  .app-sheet-brand {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: var(--spacing-4) var(--spacing-5) var(--spacing-3);
+    gap: 12px;
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid var(--m3-outline-variant);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--m3-primary) 8%, var(--m3-surface-container)) 0%,
+      var(--m3-surface-container) 100%
+    );
   }
 
-  .app-sheet-head h2 {
-    font-size: var(--font-size-lg);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    color: var(--app-text);
+  .app-sheet-logo {
+    width: 40px;
+    height: auto;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+  }
+
+  .app-sheet-brand-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .app-sheet-brand-name {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--m3-on-surface);
+    line-height: 1.2;
+  }
+
+  .app-sheet-brand-tag {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--m3-primary);
+    line-height: 1.3;
   }
 
   .app-sheet-close {
@@ -59,56 +129,162 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    border: none;
+    flex-shrink: 0;
+    border: 1px solid var(--m3-outline-variant);
     border-radius: 12px;
-    background: var(--app-control-bg);
-    color: var(--app-text);
+    background: var(--m3-surface-container-high);
+    color: var(--m3-on-surface);
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s ease, transform 0.12s ease;
+  }
+
+  .app-sheet-close:active {
+    transform: scale(0.94);
+    background: var(--m3-surface-container-highest);
   }
 
   .app-sheet-nav {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
-    padding: 0 var(--spacing-3) var(--spacing-3);
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 12px 12px;
   }
 
-  .app-sheet-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.95rem var(--spacing-4);
-    margin-bottom: 0.25rem;
-    border-radius: 16px;
-    font-size: var(--font-size-base);
-    font-weight: 600;
-    color: var(--app-text);
-    text-decoration: none;
-    background: var(--app-control-bg);
-  }
-
-  .app-sheet-sublinks {
+  .app-sheet-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
-    padding: 0 0 var(--spacing-3) var(--spacing-4);
+    gap: 6px;
+  }
+
+  .app-sheet-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 56px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    text-decoration: none;
+    text-align: left;
+    background: transparent;
+    color: var(--m3-on-surface);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background 0.15s ease,
+      border-color 0.15s ease,
+      transform 0.12s ease;
+  }
+
+  .app-sheet-row:active {
+    transform: scale(0.985);
+  }
+
+  .app-sheet-row--active {
+    background: var(--m3-secondary-container);
+    border-color: color-mix(in srgb, var(--m3-primary) 22%, transparent);
+  }
+
+  .app-sheet-row--active .app-sheet-row-icon {
+    background: color-mix(in srgb, var(--m3-primary) 18%, var(--m3-surface-container));
+    color: var(--m3-primary);
+  }
+
+  .app-sheet-row-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: var(--m3-surface-container-high);
+    color: var(--m3-on-surface-variant);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .app-sheet-row-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .app-sheet-row-label {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--m3-on-surface);
+    line-height: 1.25;
+  }
+
+  .app-sheet-row-hint {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--m3-on-surface-variant);
+    line-height: 1.3;
+  }
+
+  .app-sheet-row-chevron,
+  .app-sheet-row-expand {
+    flex-shrink: 0;
+    color: var(--m3-on-surface-variant);
+    opacity: 0.7;
+    transition: transform 0.22s ease, opacity 0.15s ease;
+  }
+
+  .app-sheet-row--open .app-sheet-row-expand {
+    transform: rotate(180deg);
+    opacity: 1;
+  }
+
+  .app-sheet-row--expandable {
+    font-family: inherit;
+  }
+
+  .app-sheet-services {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .app-sheet-sublist {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0 4px 4px 52px;
   }
 
   .app-sheet-sublink {
-    padding: 0.55rem var(--spacing-4);
+    display: block;
+    padding: 10px 12px;
     border-radius: 12px;
-    font-size: var(--font-size-sm);
-    color: var(--app-text-muted);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--m3-on-surface-variant);
     text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
   }
 
-  .app-sheet-cta {
-    padding: var(--spacing-4) var(--spacing-5);
-    border-top: 1px solid var(--app-border);
+  .app-sheet-sublink:active {
+    background: var(--m3-surface-container-high);
+    color: var(--m3-on-surface);
   }
 
-  .app-sheet-cta .btn {
-    width: 100%;
-    border-radius: 14px;
-    min-height: 52px;
+  @media (prefers-reduced-motion: reduce) {
+    .app-sheet-row,
+    .app-sheet-close,
+    .app-sheet-row-expand {
+      transition: none;
+    }
   }
 }
