@@ -56,11 +56,13 @@ const AppMenuSheet = ({ open, onClose }) => {
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
+    document.body.classList.toggle('app-menu-open', open);
     if (open) {
       document.addEventListener('keydown', handleKeyDown);
     }
     return () => {
       document.body.style.overflow = '';
+      document.body.classList.remove('app-menu-open');
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [open, handleKeyDown]);

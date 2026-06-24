@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { MOBILE_TAB_ITEMS } from '../data/navigation';
 import './BottomNav.css';
+
+const syncDockHeight = (element) => {
+  if (!element) return;
+  document.documentElement.style.setProperty(
+    '--app-dock-height',
+    `${element.getBoundingClientRect().height}px`,
+  );
+};
 
 const isTabActive = (pathname, path) => {
   if (path === '/') {
@@ -12,13 +20,26 @@ const isTabActive = (pathname, path) => {
 
 const BottomNav = () => {
   const { pathname } = useLocation();
+  const dockRef = useRef(null);
+
+  useEffect(() => {
+    const dock = dockRef.current;
+    if (!dock) return undefined;
+
+    syncDockHeight(dock);
+
+    const observer = new ResizeObserver(() => syncDockHeight(dock));
+    observer.observe(dock);
+
+    return () => observer.disconnect();
+  }, []);
 
   if (pathname.startsWith('/admin')) {
     return null;
   }
 
   return (
-    <nav className="app-dock" aria-label="Main navigation">
+    <nav ref={dockRef} className="app-dock" aria-label="Main navigation">
       <div className="app-dock-inner">
         {MOBILE_TAB_ITEMS.map((item) => {
           const Icon = item.icon;

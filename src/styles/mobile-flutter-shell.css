@@ -1,6 +1,10 @@
 /* Flutter / Material 3 app shell — scaffold, AppBar, NavigationBar */
 
 @media (max-width: 768px) {
+  :root {
+    --app-dock-height: calc(64px + env(safe-area-inset-bottom, 0));
+  }
+
   .light-theme {
     --m3-primary: #0088ff;
     --m3-on-primary: #ffffff;
@@ -58,7 +62,7 @@
 
   .site-main {
     padding-top: 0 !important;
-    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0));
+    padding-bottom: var(--app-dock-height);
     background: var(--m3-surface);
   }
 

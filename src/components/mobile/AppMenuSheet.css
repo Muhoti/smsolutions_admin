@@ -25,14 +25,17 @@
   .app-sheet {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     position: fixed;
     left: 0;
     right: 0;
-    bottom: calc(64px + env(safe-area-inset-bottom, 0));
+    bottom: 0;
     z-index: 1201;
-    max-height: min(72dvh, 640px);
+    width: 100%;
+    height: fit-content;
+    max-height: calc(100dvh - 48px);
     margin: 0;
-    padding-bottom: 0;
+    padding: 0;
     border-radius: 28px 28px 0 0;
     background: var(--m3-surface-container);
     border: 1px solid var(--m3-outline-variant);
@@ -82,13 +85,10 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-shrink: 0;
     padding: 14px 16px 12px;
     border-bottom: 1px solid var(--m3-outline-variant);
-    background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--m3-primary) 8%, var(--m3-surface-container)) 0%,
-      var(--m3-surface-container) 100%
-    );
+    background: transparent;
   }
 
   .app-sheet-logo {
@@ -145,12 +145,12 @@
   }
 
   .app-sheet-nav {
-    flex: 1;
-    min-height: 0;
+    flex: 0 0 auto;
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    padding: 10px 12px 12px;
+    padding: 10px 12px max(12px, env(safe-area-inset-bottom, 0px));
+    background: transparent;
   }
 
   .app-sheet-list {
