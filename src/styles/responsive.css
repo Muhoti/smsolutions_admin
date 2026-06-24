@@ -169,6 +169,7 @@ body {
   .skill-card,
   .process-step,
   .hero-card,
+  .hero-portal-card,
   .contact-form,
   .cta-content {
     border-radius: var(--mobile-radius);
@@ -352,11 +353,14 @@ body {
     padding-right: max(var(--spacing-3), env(safe-area-inset-right));
   }
 
-  .hero-card {
+  .hero-card,
+  .hero-portal-card,
+  .hero-portal-card {
     padding: var(--spacing-5);
   }
 
-  .hero-logo {
+  .hero-logo,
+  .hero-logo--portal {
     max-width: 220px;
   }
 

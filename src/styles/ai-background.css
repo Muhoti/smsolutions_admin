@@ -162,14 +162,18 @@
 }
 
 .ai-surface .hero-card,
-.dark-theme .ai-surface-light .hero-card {
+.dark-theme .ai-surface-light .hero-card,
+.ai-surface .hero-portal-card,
+.dark-theme .ai-surface-light .hero-portal-card {
   background: rgba(17, 34, 64, 0.7);
   border-color: rgba(0, 174, 239, 0.2);
   backdrop-filter: blur(8px);
 }
 
 .ai-surface .hero-card-text,
-.dark-theme .ai-surface-light .hero-card-text {
+.dark-theme .ai-surface-light .hero-card-text,
+.ai-surface .hero-portal-text,
+.dark-theme .ai-surface-light .hero-portal-text {
   color: #b0b8c4;
 }
 

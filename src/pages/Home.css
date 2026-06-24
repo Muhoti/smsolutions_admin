@@ -87,33 +87,6 @@
   color: var(--accent);
 }
 
-.hero-card {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-8) var(--spacing-10);
-  box-shadow: var(--shadow-md);
-  text-align: center;
-}
-
-.dark-theme .hero-card {
-  background: rgba(17, 34, 64, 0.7);
-  border-color: rgba(0, 174, 239, 0.2);
-}
-
-.hero-logo {
-  max-width: 330px;
-  width: 100%;
-  margin: 0 auto var(--spacing-4);
-  border-radius: var(--radius-md);
-}
-
-.hero-card-text {
-  font-size: var(--font-size-base);
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
 @media (max-width: 900px) {
   .hero-layout {
     grid-template-columns: 1fr;
@@ -122,14 +95,6 @@
 
   .hero-visual {
     order: -1;
-  }
-
-  .hero-card {
-    padding: var(--spacing-6);
-  }
-
-  .hero-logo {
-    max-width: 260px;
   }
 }
 

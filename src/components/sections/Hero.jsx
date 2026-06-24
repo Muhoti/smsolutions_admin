@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FiArrowRight, FiCode, FiCpu, FiMonitor } from 'react-icons/fi';
-import { ASSETS } from '../../constants/assets';
 import Button from '../ui/Button';
+import HeroPortal from './HeroPortal';
 
 const Hero = () => {
   const highlights = [
@@ -21,9 +21,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="hero-eyebrow">
-              WE CODE. WE DESIGN. WE EMPOWER.
-            </span>
+            <span className="hero-eyebrow">WE CODE. WE DESIGN. WE EMPOWER.</span>
 
             <h1 className="hero-title">
               We build intelligent
@@ -31,10 +29,10 @@ const Hero = () => {
             </h1>
 
             <p className="hero-subtitle">
-              At Strong&apos;s Digital Labs, we help businesses like yours
-              design and launch high-performance websites, web apps, and mobile
-              solutions — integrating practical AI that drives measurable
-              results. Let's start building your online presence today.
+              At Strong&apos;s Digital Labs, we help businesses like yours design and launch
+              high-performance websites, web apps, and mobile solutions — integrating
+              practical AI that drives measurable results. Let&apos;s start building your online
+              presence today.
             </p>
 
             <div className="hero-cta">
@@ -63,17 +61,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
-            <div className="hero-card">
-              <img
-                src={ASSETS.logoHero}
-                alt="Strong's Digital Labs"
-                className="hero-logo"
-              />
-              <p className="hero-card-text">
-                Technology consultancy for organizations building modern digital
-                systems.
-              </p>
-            </div>
+            <HeroPortal />
           </motion.div>
         </div>
       </div>
