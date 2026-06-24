@@ -1,4 +1,4 @@
-/* Hero visual — cinematic veil lifts to reveal full-card AI showcase */
+/* Hero visual — glass frost clears to full-card AI showcase */
 .hero-portal-card {
   position: relative;
   background: var(--bg-elevated);
@@ -9,15 +9,17 @@
   text-align: center;
   overflow: hidden;
   transition:
-    border-color 0.65s ease,
-    box-shadow 0.65s ease,
-    padding 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    border-color 0.7s ease,
+    box-shadow 0.7s ease,
+    padding 0.75s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero-portal-card--open {
   padding: 0;
-  border-color: rgba(0, 174, 239, 0.32);
-  box-shadow: 0 18px 44px rgba(0, 32, 64, 0.16);
+  border-color: rgba(0, 174, 239, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(0, 174, 239, 0.08),
+    0 20px 48px rgba(0, 32, 64, 0.18);
 }
 
 .dark-theme .hero-portal-card {
@@ -67,111 +69,13 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    180deg,
-    rgba(0, 20, 40, 0.2) 0%,
-    transparent 38%,
-    transparent 62%,
-    rgba(0, 16, 32, 0.3) 100%
+    165deg,
+    rgba(0, 24, 48, 0.12) 0%,
+    transparent 42%,
+    transparent 58%,
+    rgba(0, 16, 32, 0.28) 100%
   );
   pointer-events: none;
-}
-
-/* Silk veil overlay */
-.hero-veil {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.hero-veil-silk {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(248, 250, 252, 0.97) 0%,
-    rgba(240, 245, 250, 0.94) 45%,
-    rgba(235, 242, 248, 0.96) 100%
-  );
-}
-
-.dark-theme .hero-veil-silk {
-  background: linear-gradient(
-    135deg,
-    rgba(14, 28, 52, 0.96) 0%,
-    rgba(18, 36, 64, 0.94) 50%,
-    rgba(12, 24, 48, 0.97) 100%
-  );
-}
-
-.hero-veil-edge {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 3px;
-  height: 100%;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(0, 174, 239, 0.35) 50%,
-    transparent 100%
-  );
-  filter: blur(1px);
-}
-
-/* Cinematic light sweep */
-.hero-veil-shine {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  width: 42%;
-  background: linear-gradient(
-    100deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.04) 35%,
-    rgba(255, 255, 255, 0.22) 48%,
-    rgba(0, 174, 239, 0.14) 52%,
-    rgba(255, 255, 255, 0.08) 58%,
-    transparent 100%
-  );
-  transform: skewX(-10deg);
-  pointer-events: none;
-  mix-blend-mode: screen;
-}
-
-.dark-theme .hero-veil-shine {
-  background: linear-gradient(
-    100deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.03) 35%,
-    rgba(200, 230, 255, 0.18) 50%,
-    rgba(0, 174, 239, 0.12) 55%,
-    transparent 100%
-  );
-}
-
-/* Logo on top of veil */
-.hero-veil-logo {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-4);
-  pointer-events: none;
-}
-
-.hero-veil-logo--static {
-  z-index: 5;
-}
-
-.hero-logo--portal {
-  max-width: 400px;
-  width: 88%;
-  display: block;
-  border-radius: var(--radius-md);
-  filter: drop-shadow(0 8px 28px rgba(0, 40, 80, 0.14));
 }
 
 .hero-portal-watermark {
@@ -180,9 +84,58 @@
   bottom: var(--spacing-4);
   width: 54px;
   height: auto;
-  z-index: 5;
+  z-index: 4;
   filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
   pointer-events: none;
+}
+
+/* Frosted glass layer */
+.hero-glass-pane {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-glass-frost {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.dark-theme .hero-glass-frost {
+  background: rgba(12, 28, 52, 0.62);
+  border-color: rgba(0, 174, 239, 0.15);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.hero-glass-logo {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--spacing-4);
+}
+
+.hero-glass-logo--static {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.hero-logo--portal {
+  max-width: 400px;
+  width: 88%;
+  display: block;
+  border-radius: var(--radius-md);
+  filter: drop-shadow(0 6px 20px rgba(0, 40, 80, 0.1));
 }
 
 .hero-portal-text {
@@ -228,8 +181,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-veil,
-  .hero-veil-shine {
+  .hero-glass-pane {
     display: none;
   }
 }

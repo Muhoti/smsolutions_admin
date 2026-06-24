@@ -8,17 +8,16 @@ import './HeroPortal.css';
 const EASE = [0.22, 1, 0.36, 1];
 
 const TIMING = {
-  logoInitial: 3200,
-  logoReturn: 4200,
-  showcaseHold: 6000,
-  revealDuration: 1.35,
-  closeDuration: 1.05,
+  logoInitial: 3000,
+  logoReturn: 4000,
+  showcaseHold: 5800,
+  openDuration: 1.2,
+  closeDuration: 1,
 };
 
 const HeroPortal = () => {
   const [revealed, setRevealed] = useState(false);
   const [paused, setPaused] = useState(false);
-  const [sweepKey, setSweepKey] = useState(0);
   const timerRef = useRef(null);
   const cycleRef = useRef(0);
 
@@ -48,7 +47,6 @@ const HeroPortal = () => {
       const delay = cycleRef.current === 0 ? TIMING.logoInitial : TIMING.logoReturn;
       schedule(delay, () => {
         cycleRef.current += 1;
-        setSweepKey((k) => k + 1);
         setRevealed(true);
       });
     } else {
@@ -63,14 +61,12 @@ const HeroPortal = () => {
   const handleToggle = () => {
     if (!isMobile || reducedMotion) return;
     clearTimer();
-    if (!revealed) {
-      cycleRef.current += 1;
-      setSweepKey((k) => k + 1);
-    }
+    if (!revealed) cycleRef.current += 1;
     setRevealed((open) => !open);
   };
 
   const isOpen = !reducedMotion && revealed;
+  const frostDuration = isOpen ? TIMING.openDuration : TIMING.closeDuration;
 
   return (
     <div
@@ -95,111 +91,92 @@ const HeroPortal = () => {
       aria-label={isMobile ? 'Tap to reveal showcase' : undefined}
     >
       <div className="hero-portal-viewport">
-        {/* AI image — always full bleed behind */}
+        {/* AI image — full card when revealed */}
         <motion.div
           className="hero-portal-backdrop"
           initial={false}
-          animate={{
-            opacity: isOpen ? 1 : 0.55,
-            scale: isOpen ? 1 : 1.06,
-          }}
-          transition={{
-            duration: isOpen ? TIMING.revealDuration : TIMING.closeDuration,
-            ease: EASE,
-          }}
+          animate={{ opacity: isOpen ? 1 : 0.35 }}
+          transition={{ duration: frostDuration, ease: EASE }}
         >
           <motion.img
             src={ASSETS.aboutIllustration}
             alt={isOpen ? 'AI-enabled digital solutions' : ''}
             aria-hidden={!isOpen}
             className="hero-portal-backdrop-img"
-            animate={{ scale: isOpen ? 1.06 : 1 }}
+            animate={{ scale: isOpen ? 1.05 : 1.12 }}
             transition={{
-              duration: isOpen ? TIMING.showcaseHold / 1000 + 1.2 : TIMING.closeDuration,
+              duration: isOpen ? TIMING.showcaseHold / 1000 + 0.8 : frostDuration,
               ease: 'linear',
             }}
           />
           <div className="hero-portal-backdrop-vignette" aria-hidden />
         </motion.div>
 
-        {/* Silk veil — lifts away left to right */}
-        {!reducedMotion && (
-          <motion.div
-            className="hero-veil"
-            initial={false}
-            animate={{
-              clipPath: isOpen
-                ? 'inset(0 0 0 100%)'
-                : 'inset(0 0 0 0)',
-            }}
-            transition={{
-              duration: isOpen ? TIMING.revealDuration : TIMING.closeDuration,
-              ease: EASE,
-            }}
-            aria-hidden
-          >
-            <div className="hero-veil-silk" />
-            <div className="hero-veil-edge" />
-          </motion.div>
-        )}
-
-        {/* Light band — once per reveal */}
-        {isOpen && (
-          <motion.div
-            key={sweepKey}
-            className="hero-veil-shine"
-            initial={{ x: '-110%' }}
-            animate={{ x: '210%' }}
-            transition={{ duration: 1.5, ease: EASE }}
-            aria-hidden
-          />
-        )}
-
-        {/* Large logo — dissolves as veil lifts */}
-        {!reducedMotion && (
-          <motion.div
-            className="hero-veil-logo"
-            animate={{
-              opacity: isOpen ? 0 : 1,
-              scale: isOpen ? 0.94 : 1,
-              filter: isOpen ? 'blur(8px)' : 'blur(0px)',
-            }}
-            transition={{
-              duration: isOpen ? 0.7 : TIMING.closeDuration,
-              ease: EASE,
-              delay: isOpen ? 0.15 : 0,
-            }}
-          >
-            <motion.img
-              src={ASSETS.logoHero}
-              alt={isOpen ? '' : "Strong's Digital Labs"}
-              aria-hidden={isOpen}
-              className="hero-logo hero-logo--portal"
-              animate={isOpen ? { y: 0 } : { y: [0, -6, 0] }}
-              transition={
-                isOpen
-                  ? { duration: 0.3 }
-                  : { duration: 4.5, repeat: Infinity, ease: 'easeInOut' }
-              }
-            />
-          </motion.div>
-        )}
-
-        {/* Watermark when revealed */}
+        {/* Corner watermark when revealed */}
         <motion.img
           src={ASSETS.logoHero}
           alt=""
           className="hero-portal-watermark"
           animate={{
-            opacity: isOpen ? 0.88 : 0,
-            scale: isOpen ? 1 : 0.8,
+            opacity: isOpen ? 0.9 : 0,
+            scale: isOpen ? 1 : 0.75,
+            y: isOpen ? 0 : 8,
           }}
-          transition={{ duration: 0.6, ease: EASE, delay: isOpen ? 0.55 : 0 }}
+          transition={{ duration: 0.65, ease: EASE, delay: isOpen ? 0.45 : 0 }}
           aria-hidden
         />
 
+        {/* Frosted glass — clears from center outward */}
+        {!reducedMotion && (
+          <motion.div
+            className="hero-glass-pane"
+            initial={false}
+            animate={{
+              clipPath: isOpen
+                ? 'circle(0% at 50% 50%)'
+                : 'circle(150% at 50% 50%)',
+            }}
+            transition={{ duration: frostDuration, ease: EASE }}
+          >
+            <motion.div
+              className="hero-glass-frost"
+              animate={{
+                opacity: isOpen ? 0 : 1,
+                backdropFilter: isOpen ? 'blur(0px)' : 'blur(22px)',
+                WebkitBackdropFilter: isOpen ? 'blur(0px)' : 'blur(22px)',
+              }}
+              transition={{ duration: frostDuration, ease: EASE }}
+              aria-hidden
+            />
+            <motion.div
+              className="hero-glass-logo"
+              animate={{
+                opacity: isOpen ? 0 : 1,
+                scale: isOpen ? 0.88 : 1,
+                filter: isOpen ? 'blur(6px)' : 'blur(0px)',
+              }}
+              transition={{
+                duration: isOpen ? 0.55 : frostDuration,
+                ease: EASE,
+              }}
+            >
+              <motion.img
+                src={ASSETS.logoHero}
+                alt="Strong's Digital Labs"
+                className="hero-logo hero-logo--portal"
+                animate={isOpen ? { y: 0 } : { y: [0, -7, 0] }}
+                transition={
+                  isOpen
+                    ? { duration: 0.3 }
+                    : { duration: 4.2, repeat: Infinity, ease: 'easeInOut' }
+                }
+              />
+            </motion.div>
+          </motion.div>
+        )}
+
         {reducedMotion && (
-          <div className="hero-veil-logo hero-veil-logo--static">
+          <div className="hero-glass-logo hero-glass-logo--static">
             <img
               src={ASSETS.logoHero}
               alt="Strong's Digital Labs"
