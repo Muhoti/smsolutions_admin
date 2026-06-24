@@ -49,7 +49,7 @@ const AdminUserMenu = ({ user, onLogout, avatarOnly = false }) => {
           </div>
           <Link to="/" className="adm-user-dropdown-item adm-user-dropdown-link" onClick={() => setOpen(false)}>
             <FiExternalLink size={16} />
-            View public site
+            Website
           </Link>
           <button type="button" className="adm-user-dropdown-item danger" onClick={onLogout}>
             <FiLogOut size={16} />

@@ -78,6 +78,9 @@ const AdminShell = ({
               <img src={ASSETS.logoNavbar} alt="Strong's Digital Labs" />
             </Link>
             <div className="adm-m-appbar-actions">
+              <Link to="/" className="adm-m-website-link">
+                Website
+              </Link>
               <ThemeToggle />
               <AdminUserMenu user={adminUser} onLogout={onLogout} avatarOnly />
             </div>

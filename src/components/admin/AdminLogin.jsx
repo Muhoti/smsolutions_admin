@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FiArrowLeft, FiLoader } from 'react-icons/fi';
+import { FiArrowLeft, FiEye, FiEyeOff, FiLoader } from 'react-icons/fi';
 import { ASSETS } from '../../constants/assets';
 import Button from '../ui/Button';
 import ThemeToggle from '../ThemeToggle';
 
-const AdminLogin = ({ loginData, setLoginData, onSubmit, isLoading }) => (
+const AdminLogin = ({ loginData, setLoginData, onSubmit, isLoading }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  return (
   <div className="adm-login-page ai-surface-light">
     <div className="adm-login-toolbar">
       <Link to="/" className="adm-login-back">
         <FiArrowLeft size={16} />
-        Back to website
+        Website
       </Link>
       <ThemeToggle />
     </div>
@@ -46,15 +49,26 @@ const AdminLogin = ({ loginData, setLoginData, onSubmit, isLoading }) => (
 
           <div className="form-group">
             <label htmlFor="admin-password">Password</label>
-            <input
-              type="password"
-              id="admin-password"
-              value={loginData.password}
-              onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-              required
-              autoComplete="current-password"
-              placeholder="Enter your password"
-            />
+            <div className="adm-password-field">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="admin-password"
+                value={loginData.password}
+                onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                required
+                autoComplete="current-password"
+                placeholder="Enter your password"
+              />
+              <button
+                type="button"
+                className="adm-password-toggle"
+                onClick={() => setShowPassword((visible) => !visible)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-pressed={showPassword}
+              >
+                {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+              </button>
+            </div>
           </div>
 
           <Button type="submit" variant="primary" size="lg" className="w-full" disabled={isLoading}>
@@ -71,6 +85,7 @@ const AdminLogin = ({ loginData, setLoginData, onSubmit, isLoading }) => (
       </motion.div>
     </div>
   </div>
-);
+  );
+};
 
 export default AdminLogin;
