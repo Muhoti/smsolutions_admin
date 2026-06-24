@@ -173,7 +173,7 @@ const ProjectsPanel = ({ projects, onAdd, onEdit, onDelete }) => {
           <div className="adm-empty">
             <FiCode size={40} />
             <h3>No projects yet</h3>
-            <p>Add portfolio projects to display on the public site.</p>
+            <p>Add projects here, then check Featured project to publish them on the website.</p>
             <Button variant="primary" onClick={onAdd}>
               <FiPlus size={16} />
               Add project

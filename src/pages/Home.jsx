@@ -22,12 +22,12 @@ const HomeDesktop = () => (
 );
 
 const Home = () => {
-  const { fetchProjects, fetchTestimonials } = useApp();
+  const { fetchFeaturedProjects, fetchTestimonials } = useApp();
 
   useEffect(() => {
-    fetchProjects();
+    fetchFeaturedProjects();
     fetchTestimonials();
-  }, [fetchProjects, fetchTestimonials]);
+  }, [fetchFeaturedProjects, fetchTestimonials]);
 
   return (
     <div className="home-page">

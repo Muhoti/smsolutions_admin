@@ -111,11 +111,11 @@ const PortfolioDesktop = ({ inView, sectionRef, filter, setFilter, projects, loa
 const Portfolio = () => {
   const [ref, inView] = useScrollReveal();
   const [filter, setFilter] = useState('all');
-  const { projects, loadingProjects, fetchProjects } = useApp();
+  const { featuredProjects, loadingFeaturedProjects, fetchFeaturedProjects } = useApp();
 
   useEffect(() => {
-    fetchProjects();
-  }, [fetchProjects]);
+    fetchFeaturedProjects();
+  }, [fetchFeaturedProjects]);
 
   return (
     <div className="portfolio-page">
@@ -127,8 +127,8 @@ const Portfolio = () => {
             sectionRef={ref}
             filter={filter}
             setFilter={setFilter}
-            projects={projects}
-            loading={loadingProjects}
+            projects={featuredProjects}
+            loading={loadingFeaturedProjects}
           />
         }
       />

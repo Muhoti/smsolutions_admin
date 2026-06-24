@@ -9,7 +9,7 @@ import { useApp } from '../../../context/AppContext';
 import { HOME_CONTENT } from '../../../data/pageContent';
 import { SERVICES } from '../../../data/services';
 import { PROCESS_STEPS } from '../../../data/processSteps';
-import { filterProjects, getProjectCover, getProjectType } from '../../../utils/portfolio';
+import { getProjectCover, getProjectType } from '../../../utils/portfolio';
 import MobileCinematicHero from '../flutter/MobileCinematicHero';
 import { M3Screen, M3Button, M3Loading } from '../flutter/MobileUIKit';
 import './MobileHomeScreen.css';
@@ -28,14 +28,16 @@ const getInitials = (name = '') =>
     .toUpperCase();
 
 const MobileHomeScreen = () => {
-  const { projects, testimonials, loadingProjects, loadingTestimonials } = useApp();
+  const {
+    featuredProjects,
+    testimonials,
+    loadingFeaturedProjects,
+    loadingTestimonials,
+  } = useApp();
   const { hero, services, howWeWork, portfolio, testimonials: testimonialsCopy, cta } =
     HOME_CONTENT;
 
-  const featured = filterProjects(projects, { category: 'all' }).slice(
-    0,
-    portfolio.previewCount,
-  );
+  const featured = featuredProjects.slice(0, portfolio.previewCount);
 
   return (
     <M3Screen className="m3-home">
@@ -132,7 +134,7 @@ const MobileHomeScreen = () => {
               <p className="m3-home-panel-sub">{portfolio.subtitle}</p>
             </div>
           </header>
-          {loadingProjects ? (
+          {loadingFeaturedProjects ? (
             <M3Loading message={portfolio.loadingMessage} />
           ) : featured.length > 0 ? (
             <>

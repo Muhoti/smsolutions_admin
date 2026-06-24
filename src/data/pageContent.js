@@ -27,8 +27,8 @@ export const HOME_CONTENT = {
     linkLabel: 'View All Projects',
     previewCount: 3,
     loadingMessage: 'Loading amazing projects...',
-    emptyTitle: 'No projects yet',
-    emptyMessage: "Projects will appear here once they're added to the database.",
+    emptyTitle: 'No featured projects yet',
+    emptyMessage: 'Mark projects as featured in the admin portal to showcase them here.',
     emptyHint: 'Check back later or contact us to discuss your project.',
   },
   testimonials: {
@@ -101,10 +101,10 @@ export const PORTFOLIO_CONTENT = {
     button: 'Contact Us',
   },
   empty: {
-    title: 'No projects yet',
-    message: 'Projects will appear here once added via the admin panel.',
+    title: 'No featured projects yet',
+    message: 'Only projects marked as featured in the admin portal appear on the public site.',
   },
-  loadingMessage: 'Loading projects...',
+  loadingMessage: 'Loading featured projects...',
 };
 
 export const CONTACT_CONTENT = {

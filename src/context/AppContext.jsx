@@ -5,28 +5,37 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
+  const [featuredProjects, setFeaturedProjects] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
   const [loadingProjects, setLoadingProjects] = useState(false);
+  const [loadingFeaturedProjects, setLoadingFeaturedProjects] = useState(false);
   const [loadingTestimonials, setLoadingTestimonials] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchProjects = useCallback(async () => {
+  const loadPublicProjects = useCallback(async () => {
     try {
       setLoadingProjects(true);
+      setLoadingFeaturedProjects(true);
       setError(null);
-      const response = await apiService.getProjects({ limit: 50 });
-      setProjects(response.data.data || []);
+      const response = await apiService.getFeaturedProjects();
+      const data = response.data.data || [];
+      setProjects(data);
+      setFeaturedProjects(data);
     } catch (err) {
       const errorMessage = err.response?.status === 429
         ? 'Too many requests. Please wait a moment and refresh.'
         : 'Failed to load projects';
       setError(errorMessage);
-      console.error('Error fetching projects:', err);
+      console.error('Error fetching public projects:', err);
     } finally {
       setLoadingProjects(false);
+      setLoadingFeaturedProjects(false);
     }
   }, []);
+
+  const fetchProjects = loadPublicProjects;
+  const fetchFeaturedProjects = loadPublicProjects;
 
   const fetchTestimonials = useCallback(async () => {
     try {
@@ -63,7 +72,7 @@ export const AppProvider = ({ children }) => {
     try {
       setSubmitting(true);
       const response = await apiService.admin.createProject(projectData);
-      await fetchProjects();
+      await loadPublicProjects();
       return { success: true, data: response.data };
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Failed to create project';
@@ -107,12 +116,15 @@ export const AppProvider = ({ children }) => {
 
   const value = {
     projects,
+    featuredProjects,
     testimonials,
     loading: submitting,
     loadingProjects,
+    loadingFeaturedProjects,
     loadingTestimonials,
     error,
     fetchProjects,
+    fetchFeaturedProjects,
     fetchTestimonials,
     submitContact,
     createProject,

@@ -5,32 +5,42 @@ import { FiCode, FiLoader } from 'react-icons/fi';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { useApp } from '../../context/AppContext';
 import { HOME_CONTENT } from '../../data/pageContent';
-import { filterProjects } from '../../utils/portfolio';
 import ProjectCard from '../ui/ProjectCard';
 import './Portfolio.css';
-
-const HOME_PREVIEW_COUNT = 3;
 
 const PortfolioSection = () => {
   const [ref, inView] = useScrollReveal();
   const [hasFetched, setHasFetched] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const { projects, loadingProjects, fetchProjects } = useApp();
+  const { featuredProjects, loadingFeaturedProjects, fetchFeaturedProjects } = useApp();
   const { portfolio } = HOME_CONTENT;
+  const previewCount = portfolio.previewCount;
 
   useEffect(() => {
-    if (inView && !hasFetched && !loadingProjects && isInitialLoad && projects.length === 0) {
+    if (
+      inView &&
+      !hasFetched &&
+      !loadingFeaturedProjects &&
+      isInitialLoad &&
+      featuredProjects.length === 0
+    ) {
       setHasFetched(true);
       setIsInitialLoad(false);
-      fetchProjects();
-    } else if (projects.length > 0) {
+      fetchFeaturedProjects();
+    } else if (featuredProjects.length > 0) {
       setIsInitialLoad(false);
     }
-  }, [inView, hasFetched, loadingProjects, fetchProjects, isInitialLoad, projects.length]);
+  }, [
+    inView,
+    hasFetched,
+    loadingFeaturedProjects,
+    fetchFeaturedProjects,
+    isInitialLoad,
+    featuredProjects.length,
+  ]);
 
-  const filteredProjects = filterProjects(projects, { category: 'all' });
-  const hasMore = filteredProjects.length > HOME_PREVIEW_COUNT;
-  const visibleProjects = filteredProjects.slice(0, HOME_PREVIEW_COUNT);
+  const hasMore = featuredProjects.length > previewCount;
+  const visibleProjects = featuredProjects.slice(0, previewCount);
 
   return (
     <section className="portfolio-section" id="portfolio" ref={ref}>
@@ -63,7 +73,7 @@ const PortfolioSection = () => {
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          {loadingProjects && isInitialLoad ? (
+          {loadingFeaturedProjects && isInitialLoad ? (
             <div className="loading-projects">
               <FiLoader className="spinner" size={32} />
               <p>{portfolio.loadingMessage}</p>

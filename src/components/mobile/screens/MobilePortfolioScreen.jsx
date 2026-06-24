@@ -15,14 +15,14 @@ import '../flutter/MobileUIKit.css';
 
 const MobilePortfolioScreen = () => {
   const [filter, setFilter] = useState('all');
-  const { projects, loadingProjects, fetchProjects } = useApp();
+  const { featuredProjects, loadingFeaturedProjects, fetchFeaturedProjects } = useApp();
   const { hero, cta, empty, loadingMessage } = PORTFOLIO_CONTENT;
 
   useEffect(() => {
-    fetchProjects();
-  }, [fetchProjects]);
+    fetchFeaturedProjects();
+  }, [fetchFeaturedProjects]);
 
-  const filtered = filterProjects(projects, { category: filter });
+  const filtered = filterProjects(featuredProjects, { category: filter });
 
   return (
     <M3Screen className="m3-portfolio">
@@ -42,7 +42,7 @@ const MobilePortfolioScreen = () => {
       </div>
 
       <div style={{ padding: '0 16px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {loadingProjects ? (
+        {loadingFeaturedProjects ? (
           <M3Loading message={loadingMessage} />
         ) : filtered.length > 0 ? (
           filtered.map((project) => {
