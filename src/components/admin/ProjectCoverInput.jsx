@@ -27,7 +27,10 @@ const ProjectCoverInput = ({ register, setValue, watch }) => {
       setValue('coverImageUrl', url, { shouldDirty: true, shouldValidate: true });
       toast.success('Cover image uploaded');
     } catch (error) {
-      const message = error.response?.data?.message || error.message || 'Failed to upload image';
+      const message =
+        error.response?.status === 413
+          ? 'Image is too large for the server. Try a smaller file (under 10 MB) or ask your host to raise the nginx upload limit.'
+          : error.response?.data?.message || error.message || 'Failed to upload image';
       toast.error(message);
     } finally {
       setUploading(false);
