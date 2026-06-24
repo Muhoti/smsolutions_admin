@@ -7,7 +7,7 @@ import AppMenuSheet from './AppMenuSheet';
 import './AppHeader.css';
 
 /** Pages with full-bleed cinematic hero — title lives in the page, not the app bar */
-const CINEMATIC_ROUTES = ['/', '/about'];
+const CINEMATIC_ROUTES = ['/'];
 
 const AppHeader = () => {
   const { pathname } = useLocation();

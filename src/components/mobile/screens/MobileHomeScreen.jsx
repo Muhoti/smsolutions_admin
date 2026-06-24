@@ -181,7 +181,9 @@ const MobileHomeScreen = () => {
       </section>
 
       <section
-        className="m3-home-panel m3-home-clients"
+        className={`m3-home-panel m3-home-clients m3-home-panel--auto${
+          !loadingTestimonials && testimonials.length === 0 ? ' m3-home-clients--empty' : ''
+        }`}
         aria-label={testimonialsCopy.title}
       >
         <div className="m3-home-panel-inner m3-home-panel-inner--fill">

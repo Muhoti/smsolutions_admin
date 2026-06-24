@@ -10,6 +10,7 @@
   .m3-cinematic-bg {
     position: absolute;
     inset: -4%;
+    z-index: 0;
     background-color: #060f1e;
   }
 
@@ -23,6 +24,14 @@
     animation: m3-ken-burns 28s ease-in-out infinite alternate;
     will-change: transform;
     transform: translateZ(0);
+  }
+
+  .m3-cinematic-hero--img-right .m3-cinematic-bg-img {
+    object-position: 72% center;
+  }
+
+  .m3-cinematic-hero--img-center .m3-cinematic-bg-img {
+    object-position: center center;
   }
 
   .m3-cinematic-bg-pattern {
@@ -40,12 +49,12 @@
     position: absolute;
     inset: 0;
     z-index: 2;
+    pointer-events: none;
     background: linear-gradient(
       180deg,
-      rgba(6, 15, 30, 0.25) 0%,
-      rgba(6, 15, 30, 0.55) 40%,
-      rgba(6, 15, 30, 0.92) 78%,
-      rgba(6, 15, 30, 0.97) 100%
+      rgba(6, 15, 30, 0.2) 0%,
+      rgba(6, 15, 30, 0.38) 45%,
+      rgba(6, 15, 30, 0.62) 100%
     );
   }
 
@@ -113,7 +122,8 @@
 
   .m3-cinematic-content {
     position: relative;
-    z-index: 1;
+    z-index: 3;
+    isolation: isolate;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -123,7 +133,8 @@
 
   .m3-cinematic-content--overlay {
     position: relative;
-    z-index: 1;
+    z-index: 3;
+    isolation: isolate;
     display: flex;
     flex-direction: column;
     min-height: var(--m3-panel-height, calc(100dvh - 72px));
@@ -151,6 +162,8 @@
   }
 
   .m3-cinematic-copy {
+    position: relative;
+    z-index: 1;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -177,6 +190,8 @@
   }
 
   .m3-cinematic-footer {
+    position: relative;
+    z-index: 2;
     flex-shrink: 0;
     width: 100%;
     max-width: 22rem;
@@ -256,6 +271,7 @@
     letter-spacing: -0.03em;
     color: #ffffff;
     max-width: 20ch;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
   }
 
   .m3-cinematic-title-accent {
@@ -266,8 +282,9 @@
     margin: 0 0 22px;
     font-size: 0.92rem;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.86);
+    color: #ffffff;
     max-width: 22rem;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
   }
 
   .m3-cinematic-actions {
@@ -285,8 +302,15 @@
 
   .m3-cinematic-actions .m3-button--outlined {
     color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.45);
-    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.55);
+    background: rgba(6, 15, 30, 0.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  }
+
+  .m3-cinematic-actions .m3-button--filled {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
   }
 
   @keyframes m3-ken-burns {

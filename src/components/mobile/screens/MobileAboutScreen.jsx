@@ -1,9 +1,9 @@
 import React from 'react';
 import { PROCESS_STEPS } from '../../../data/processSteps';
 import { COMPANY_VALUES } from '../../../data/company';
+import { ASSETS } from '../../../constants/assets';
 import { ABOUT_CONTENT } from '../../../data/pageContent';
 import { ABOUT_CAPABILITIES, ABOUT_HIGHLIGHTS } from '../../../data/aboutPage';
-import MobileCinematicHero from '../flutter/MobileCinematicHero';
 import {
   M3Screen,
   M3Section,
@@ -16,23 +16,34 @@ import '../flutter/MobileUIKit.css';
 import './MobileAboutScreen.css';
 
 const MobileAboutScreen = () => {
-  const { story, capabilities, howWeWork, values } = ABOUT_CONTENT;
+  const { hero, story, capabilities, howWeWork, values } = ABOUT_CONTENT;
 
   return (
     <M3Screen className="m3-about">
-      <MobileCinematicHero
-        className="m3-about-hero m3-about-hero--story"
-        layout="split"
-        title={story.title}
-        showLogo
-        copyChildren={
+      <header className="m3-page-intro m3-about-page-intro" aria-labelledby="about-page-title">
+        <h1 id="about-page-title">{hero.title}</h1>
+        <p>{hero.subtitle}</p>
+      </header>
+
+      <section className="m3-about-story-hero" aria-label="Our story">
+        <div className="m3-cinematic-bg" aria-hidden="true">
+          <img
+            className="m3-cinematic-bg-img"
+            src={ASSETS.aboutIllustration}
+            alt=""
+          />
+          <div className="m3-cinematic-bg-pattern" />
+          <div className="m3-cinematic-scrim m3-about-story-scrim" />
+        </div>
+
+        <div className="m3-about-story-content">
           <div className="m3-about-hero-story">
             {story.paragraphs.map((paragraph) => (
               <p key={paragraph.slice(0, 32)}>{paragraph}</p>
             ))}
           </div>
-        }
-      />
+        </div>
+      </section>
 
       <M3Section title={capabilities.title} subtitle={capabilities.subtitle}>
         <div className="m3-about-skills">

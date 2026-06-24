@@ -12,6 +12,12 @@ body {
   -webkit-tap-highlight-color: rgba(0, 136, 255, 0.15);
 }
 
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 0;
+  }
+}
+
 /* Touch-friendly interactive elements */
 @media (hover: none) and (pointer: coarse) {
   .btn,

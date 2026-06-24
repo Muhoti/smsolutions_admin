@@ -2,7 +2,7 @@
 
 @media (max-width: 768px) {
   :root {
-    --m3-panel-height: calc(100dvh - 72px - env(safe-area-inset-bottom, 0));
+    --m3-panel-height: calc(100dvh - 64px - env(safe-area-inset-bottom, 0));
   }
 
   .site-main:has(.m3-home) {
@@ -12,6 +12,32 @@
   .m3-home {
     gap: 0;
     padding-bottom: 0;
+  }
+
+  /* Home hero — image in back, copy + CTAs clearly in front */
+  .m3-home-hero.m3-cinematic-hero .m3-cinematic-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(6, 15, 30, 0.15) 0%,
+      rgba(6, 15, 30, 0.32) 42%,
+      rgba(6, 15, 30, 0.55) 100%
+    );
+  }
+
+  .m3-home-hero .m3-cinematic-lead {
+    color: #ffffff;
+    opacity: 1;
+  }
+
+  .m3-home-hero .m3-cinematic-copy,
+  .m3-home-hero .m3-cinematic-footer {
+    position: relative;
+    z-index: 2;
+  }
+
+  .m3-home-hero .m3-cinematic-actions {
+    position: relative;
+    z-index: 2;
   }
 
   .m3-home-panel {
@@ -303,6 +329,21 @@
 
   .m3-home-clients {
     background: var(--m3-surface);
+    min-height: auto;
+  }
+
+  .m3-home-clients .m3-home-panel-inner {
+    justify-content: flex-start;
+    flex: 0 1 auto;
+  }
+
+  .m3-home-clients--empty {
+    max-height: 50dvh;
+  }
+
+  .m3-home-clients--empty .m3-home-panel-inner {
+    justify-content: flex-start;
+    padding-bottom: 16px;
   }
 
   .m3-home-quote {
@@ -310,16 +351,20 @@
     border-radius: 20px;
     background: var(--m3-surface-container);
     box-shadow: var(--m3-elevation-1);
-    min-height: 180px;
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .m3-home-testimonials-swiper {
-    flex: 1;
-    min-height: 0;
+    width: 100%;
+    height: auto;
     padding-bottom: 28px;
+  }
+
+  .m3-home-testimonials-swiper .swiper-slide {
+    height: auto;
   }
 
   .m3-home-testimonials-swiper .swiper-pagination {

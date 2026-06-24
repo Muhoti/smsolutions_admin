@@ -58,7 +58,7 @@
 
   .site-main {
     padding-top: 0 !important;
-    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0));
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0));
     background: var(--m3-surface);
   }
 
@@ -72,18 +72,14 @@
 
   /* App chrome — see AppHeader.css */
 
-  /* M3 NavigationBar */
+  /* M3 NavigationBar — layout in BottomNav.css; token overrides here */
   .app-dock-inner {
-    background: var(--m3-surface-container);
-    border-color: var(--m3-outline-variant);
-    border-radius: 28px;
     min-height: 64px;
-    box-shadow: var(--m3-elevation-2);
   }
 
   .app-dock-tab {
     color: var(--m3-on-surface-variant);
-    border-radius: 20px;
+    border-radius: 16px;
   }
 
   .app-dock-tab.active {

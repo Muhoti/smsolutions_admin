@@ -15,8 +15,12 @@ const MobileCinematicHero = ({
   layout = 'default',
   copyChildren,
   variant = 'default',
+  imagePosition = 'center',
 }) => {
   const Tag = panel ? 'section' : 'div';
+
+  const imagePositionClass =
+    imagePosition === 'right' ? 'm3-cinematic-hero--img-right' : 'm3-cinematic-hero--img-center';
 
   if (variant === 'background') {
     return (
@@ -51,6 +55,7 @@ const MobileCinematicHero = ({
     panel ? 'm3-home-panel' : '',
     layout === 'split' ? 'm3-cinematic-hero--split' : '',
     centered && layout !== 'split' ? 'm3-cinematic-hero--center' : '',
+    imagePositionClass,
     className,
   ]
     .filter(Boolean)
