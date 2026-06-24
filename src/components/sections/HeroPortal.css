@@ -1,4 +1,4 @@
-/* Hero portal visual — logo core opens into full-card AI showcase */
+/* Hero visual — cinematic veil lifts to reveal full-card AI showcase */
 .hero-portal-card {
   position: relative;
   background: var(--bg-elevated);
@@ -9,18 +9,15 @@
   text-align: center;
   overflow: hidden;
   transition:
-    border-color 0.7s ease,
-    box-shadow 0.7s ease,
-    padding 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    border-color 0.65s ease,
+    box-shadow 0.65s ease,
+    padding 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero-portal-card--open {
   padding: 0;
-  border-color: rgba(0, 174, 239, 0.42);
-  box-shadow:
-    0 0 0 1px rgba(0, 174, 239, 0.1),
-    0 24px 56px rgba(0, 32, 64, 0.2),
-    0 0 60px rgba(0, 174, 239, 0.12);
+  border-color: rgba(0, 174, 239, 0.32);
+  box-shadow: 0 18px 44px rgba(0, 32, 64, 0.16);
 }
 
 .dark-theme .hero-portal-card {
@@ -36,18 +33,6 @@
   cursor: pointer;
 }
 
-.hero-portal-ambient {
-  position: absolute;
-  inset: -20%;
-  background: radial-gradient(
-    circle at 50% 45%,
-    rgba(0, 174, 239, 0.14) 0%,
-    transparent 55%
-  );
-  pointer-events: none;
-  z-index: 0;
-}
-
 .hero-portal-viewport {
   position: relative;
   z-index: 1;
@@ -55,24 +40,19 @@
   max-width: 440px;
   margin: 0 auto;
   aspect-ratio: 4 / 3.15;
-  perspective: 1200px;
-  transform-style: preserve-3d;
+  border-radius: calc(var(--radius-xl) - 6px);
+  overflow: hidden;
 }
 
 .hero-portal-card--open .hero-portal-viewport {
   max-width: none;
+  border-radius: var(--radius-xl);
 }
 
 .hero-portal-backdrop {
   position: absolute;
   inset: 0;
-  border-radius: calc(var(--radius-xl) - 4px);
-  overflow: hidden;
   z-index: 0;
-}
-
-.hero-portal-card--open .hero-portal-backdrop {
-  border-radius: var(--radius-xl);
 }
 
 .hero-portal-backdrop-img {
@@ -87,97 +67,103 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    165deg,
-    rgba(0, 24, 48, 0.15) 0%,
-    transparent 40%,
-    transparent 60%,
-    rgba(0, 16, 32, 0.35) 100%
+    180deg,
+    rgba(0, 20, 40, 0.2) 0%,
+    transparent 38%,
+    transparent 62%,
+    rgba(0, 16, 32, 0.3) 100%
   );
   pointer-events: none;
 }
 
-.hero-portal-shine {
+/* Silk veil overlay */
+.hero-veil {
   position: absolute;
   inset: 0;
-  width: 50%;
-  background: linear-gradient(
-    100deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.06) 42%,
-    rgba(0, 174, 239, 0.2) 50%,
-    rgba(255, 255, 255, 0.06) 58%,
-    transparent 100%
-  );
-  transform: skewX(-14deg);
-  pointer-events: none;
-}
-
-.hero-portal-watermark {
-  position: absolute;
-  left: var(--spacing-4);
-  bottom: var(--spacing-4);
-  width: 52px;
-  height: auto;
-  opacity: 0;
-  z-index: 4;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
-  pointer-events: none;
-}
-
-.hero-portal-ring-wrap {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 2;
   pointer-events: none;
 }
 
-.hero-portal-ring {
-  width: min(78%, 320px);
-  height: auto;
-  overflow: visible;
-}
-
-.hero-portal-ring-track {
-  fill: none;
-  stroke: rgba(0, 174, 239, 0.22);
-  stroke-width: 1.5;
-}
-
-.hero-portal-ring-glow {
-  fill: none;
-  stroke: url(#heroPortalRingGradient);
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  filter: drop-shadow(0 0 6px rgba(0, 174, 239, 0.55));
-}
-
-.hero-portal-ring-dash {
-  fill: none;
-  stroke: rgba(0, 174, 239, 0.45);
-  stroke-width: 1;
-  stroke-dasharray: 6 14;
-  stroke-linecap: round;
-  transform-origin: center;
-  animation: hero-portal-spin 18s linear infinite;
-}
-
-@keyframes hero-portal-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.hero-portal-logo-layer {
+.hero-veil-silk {
   position: absolute;
   inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 250, 252, 0.97) 0%,
+    rgba(240, 245, 250, 0.94) 45%,
+    rgba(235, 242, 248, 0.96) 100%
+  );
+}
+
+.dark-theme .hero-veil-silk {
+  background: linear-gradient(
+    135deg,
+    rgba(14, 28, 52, 0.96) 0%,
+    rgba(18, 36, 64, 0.94) 50%,
+    rgba(12, 24, 48, 0.97) 100%
+  );
+}
+
+.hero-veil-edge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 174, 239, 0.35) 50%,
+    transparent 100%
+  );
+  filter: blur(1px);
+}
+
+/* Cinematic light sweep */
+.hero-veil-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 42%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 35%,
+    rgba(255, 255, 255, 0.22) 48%,
+    rgba(0, 174, 239, 0.14) 52%,
+    rgba(255, 255, 255, 0.08) 58%,
+    transparent 100%
+  );
+  transform: skewX(-10deg);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.dark-theme .hero-veil-shine {
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 35%,
+    rgba(200, 230, 255, 0.18) 50%,
+    rgba(0, 174, 239, 0.12) 55%,
+    transparent 100%
+  );
+}
+
+/* Logo on top of veil */
+.hero-veil-logo {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 3;
-  transform-style: preserve-3d;
+  padding: var(--spacing-4);
+  pointer-events: none;
+}
+
+.hero-veil-logo--static {
+  z-index: 5;
 }
 
 .hero-logo--portal {
@@ -185,7 +171,18 @@
   width: 88%;
   display: block;
   border-radius: var(--radius-md);
-  filter: drop-shadow(0 8px 24px rgba(0, 40, 80, 0.12));
+  filter: drop-shadow(0 8px 28px rgba(0, 40, 80, 0.14));
+}
+
+.hero-portal-watermark {
+  position: absolute;
+  left: var(--spacing-4);
+  bottom: var(--spacing-4);
+  width: 54px;
+  height: auto;
+  z-index: 5;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
+  pointer-events: none;
 }
 
 .hero-portal-text {
@@ -195,6 +192,7 @@
   font-size: var(--font-size-base);
   color: var(--text-secondary);
   line-height: 1.6;
+  overflow: hidden;
 }
 
 .hero-portal-hint {
@@ -220,10 +218,6 @@
 }
 
 @media (max-width: 640px) {
-  .hero-portal-card--interactive {
-    cursor: pointer;
-  }
-
   .hero-portal-hint {
     display: block;
   }
@@ -234,7 +228,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-portal-ring-dash {
-    animation: none;
+  .hero-veil,
+  .hero-veil-shine {
+    display: none;
   }
 }
