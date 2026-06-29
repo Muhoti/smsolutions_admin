@@ -49,7 +49,7 @@ export const FAQ_ITEMS = [
   {
     question: 'How long does a typical project take?',
     answer:
-      'Timelines vary by scope. A business website may take 4–8 weeks, while a full web or mobile system can take 2–6 months. We provide a detailed timeline during our discovery phase.',
+      'Timelines vary by scope. A business website may take 1–3 weeks, while a full web or mobile system can take 1–2 months. We provide a detailed timeline during our discovery phase.',
   },
   {
     question: 'What is included in your process?',
