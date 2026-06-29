@@ -27,7 +27,7 @@ const Footer = () => {
     <footer className="footer ai-surface">
       <div className="container">
         <div className="footer-content">
-          <div className="footer-section">
+          <div className="footer-section footer-section--brand">
             <div className="footer-logo">
               <img 
                 src={ASSETS.logoNavbar} 
@@ -51,7 +51,8 @@ const Footer = () => {
               </div>
               <div className="contact-item">
                 <FiMapPin size={16} />
-                <span>{CONTACT.location}</span>              </div>
+                <span>{CONTACT.location}</span>
+              </div>
             </div>
           </div>
 
@@ -91,7 +92,8 @@ const Footer = () => {
             <Button to="/contact" variant="primary" style={{ marginTop: '1rem' }}>
               Contact Us
               <FiArrowRight size={16} />
-            </Button>            <div className="social-links">
+            </Button>
+            <div className="social-links">
               {socialLinks.map((social) => (
                 <a 
                   key={social.name}
@@ -116,26 +118,9 @@ const Footer = () => {
             <div className="footer-bottom-links">
               <Link to="/contact" className="footer-bottom-link">Contact</Link>
               <Link to="/about" className="footer-bottom-link">About Us</Link>
+              <Link to="/services" className="footer-bottom-link">Services</Link>
             </div>
           </div>
-        </div>
-
-        <div className="footer-mobile">
-          <div className="footer-logo">
-            <img
-              src={ASSETS.logoNavbar}
-              alt="Strong's Digital Labs"
-              className="footer-logo-img"
-            />
-          </div>
-          <div className="footer-mobile-links">
-            <Link to="/contact">Contact</Link>
-            <Link to="/about">About Us</Link>
-            <Link to="/services">Services</Link>
-          </div>
-          <p className="copyright">
-            © {currentYear} Strong&apos;s Digital Labs. All rights reserved.
-          </p>
         </div>
       </div>
     </footer>

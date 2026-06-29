@@ -49,9 +49,7 @@
   pointer-events: none;
 }
 
-.ai-surface > .container,
-.ai-surface > .footer-content,
-.ai-surface > .footer-bottom {
+.ai-surface > .container {
   position: relative;
   z-index: 2;
 }

@@ -66,8 +66,6 @@ body {
     flex: 1;
   }
 
-  /* Compact mobile footer styled in mobile-ui.css */
-
   .site-main:has(.adm-app),
   .site-main:has(.admin-loading),
   .site-main:has(.adm-login-page),
@@ -375,12 +373,6 @@ body {
 
   .portfolio-grid {
     grid-template-columns: 1fr;
-  }
-
-  .footer-bottom-content {
-    flex-direction: column;
-    gap: var(--spacing-3);
-    text-align: center;
   }
 }
 
